@@ -7,7 +7,7 @@ public class Bateau {
 	private Point pos;
 	
 	
-	public Bateau(int longueur, Point pos, String orientation){
+	public Bateau(int longueur, Point pos){
 		this.longueur = longueur;
 		this.pos = pos;
 	}
