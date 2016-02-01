@@ -13,4 +13,8 @@ public class ActionsBateau {
 	public void ajouterBateau(Joueur j, Bateau b){
 		j.getListeBateaux().add(b);
 	}
+	
+	public void supprimerBateau(Joueur j, Bateau b){
+		j.getListeBateaux().remove(b);
+	}
 }
