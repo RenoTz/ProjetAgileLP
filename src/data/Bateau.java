@@ -14,10 +14,16 @@ public class Bateau {
 	private Point posFront;
 	private Point posBack;
 	private ArrayList<Point> listePoints;
+	private boolean touche;
+	private boolean coule;
 	
 	//--------------------------
 	// Constructeur de la classe
 	//--------------------------
+	
+	public Bateau(EnumTypeBateau typeBateau) {
+		this.typeBateau = typeBateau;
+	}
 	
 	public Bateau(EnumTypeBateau typeBateau, Point posFront, Point posBack){
 		this.typeBateau = typeBateau;
@@ -48,5 +54,21 @@ public class Bateau {
 	
 	public ArrayList<Point> getListePoints(){
 		return this.listePoints;
+	}
+
+	public boolean isTouche() {
+		return touche;
+	}
+
+	public void setTouche(boolean touche) {
+		this.touche = touche;
+	}
+
+	public boolean isCoule() {
+		return coule;
+	}
+
+	public void setCoule(boolean coule) {
+		this.coule = coule;
 	}
 }
