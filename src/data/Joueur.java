@@ -1,5 +1,8 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Joueur {
 	
 	//-----------------------
@@ -8,8 +11,7 @@ public class Joueur {
 
 	private String nom;
 	
-	// TODO RT : à décommenter quand la classe Bateau sera prête
-	//	private List<Bateau> listeBateaux = new ArrayList<>();
+	private List<Bateau> listeBateaux = new ArrayList<Bateau>();
 	
 	private boolean premier;
 	
@@ -41,5 +43,13 @@ public class Joueur {
 
 	public void setaGagne(boolean gagne) {
 		this.gagne = gagne;
+	}
+
+	public List<Bateau> getListeBateaux() {
+		return listeBateaux;
+	}
+
+	public void setListeBateaux(List<Bateau> listeBateaux) {
+		this.listeBateaux = listeBateaux;
 	}
 }
