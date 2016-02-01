@@ -1,5 +1,6 @@
 package data;
 import java.awt.Point;
+import java.util.ArrayList;
 
 import enumeration.EnumTypeBateau;
 
@@ -12,6 +13,7 @@ public class Bateau {
 	private EnumTypeBateau typeBateau;
 	private Point posFront;
 	private Point posBack;
+	private ArrayList<Point> listePoints;
 	
 	//--------------------------
 	// Constructeur de la classe
@@ -21,6 +23,11 @@ public class Bateau {
 		this.typeBateau = typeBateau;
 		this.posFront = posFront;
 		this.posBack = posBack;
+		
+		
+		this.listePoints.add(posFront);
+		this.listePoints.add(posBack);
+		
 	}
 	
 	//-----------------------------
@@ -37,5 +44,9 @@ public class Bateau {
 
 	public Point getPosBack(){
 		return this.posBack;
+	}
+	
+	public ArrayList<Point> getListePoints(){
+		return this.listePoints;
 	}
 }
