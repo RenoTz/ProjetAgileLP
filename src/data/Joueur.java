@@ -1,4 +1,4 @@
-package data.src.data;
+package data;
 
 public class Joueur {
 	
