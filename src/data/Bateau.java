@@ -1,5 +1,7 @@
 package data;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 import enumeration.EnumTypeBateau;
 
@@ -12,6 +14,7 @@ public class Bateau {
 	private EnumTypeBateau typeBateau;
 	private Point posFront;
 	private Point posBack;
+	private List<Points> listePoints;
 	private boolean touche;
 	private boolean coule;
 	
@@ -21,20 +24,13 @@ public class Bateau {
 	
 	public Bateau(EnumTypeBateau typeBateau) {
 		this.typeBateau = typeBateau;
-	}
-	
-	public Bateau(EnumTypeBateau typeBateau, Point posFront, Point posBack){
-		this.typeBateau = typeBateau;
-		this.posFront = posFront;
-		this.posBack = posBack;
+		setListePoints(new ArrayList<Points>());
 	}
 	
 	//-----------------------------
 	// Getters/Setters de la classe
 	//-----------------------------
 	
-	
-
 	public Point getPosFront(){
 		return this.posFront;
 	}
@@ -61,5 +57,13 @@ public class Bateau {
 
 	public void setCoule(boolean coule) {
 		this.coule = coule;
+	}
+
+	public List<Points> getListePoints() {
+		return listePoints;
+	}
+
+	public void setListePoints(List<Points> listePoints) {
+		this.listePoints = listePoints;
 	}
 }
