@@ -29,11 +29,7 @@ public class Bateau {
 		this.typeBateau = typeBateau;
 		this.posFront = posFront;
 		this.posBack = posBack;
-		
-		
-		this.listePoints.add(posFront);
-		this.listePoints.add(posBack);
-		
+				
 	}
 	
 	//-----------------------------
