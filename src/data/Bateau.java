@@ -8,15 +8,17 @@ public class Bateau {
 	 */
 	
 	private int longueur;
-	private Point pos;
+	private Point posFront;
+	private Point posBack;
 	
 	/*
 	 Constructeur de la classe
 	 */
 	
-	public Bateau(int longueur, Point pos){
+	public Bateau(int longueur, Point posFront, Point posBack){
 		this.longueur = longueur;
-		this.pos = pos;
+		this.posFront = posFront;
+		this.posBack = posBack;
 	}
 	
 	/*
@@ -27,8 +29,11 @@ public class Bateau {
 		return this.longueur;
 	}
 	
-	public Point getPos(){
-		return this.pos;
+	public Point getPosFront(){
+		return this.posFront;
 	}
 	
+	public Point getPosBack(){
+		return this.posBack;
+	}
 }
