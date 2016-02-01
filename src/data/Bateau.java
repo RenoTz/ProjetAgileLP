@@ -10,27 +10,32 @@ public class Bateau {
 	//-----------------------
 	
 	private EnumTypeBateau typeBateau;
-	private Point pos;
+	private Point posFront;
+	private Point posBack;
 	
 	//--------------------------
 	// Constructeur de la classe
 	//--------------------------
 	
-	public Bateau(EnumTypeBateau typeBateau, Point pos){
+	public Bateau(EnumTypeBateau typeBateau, Point posFront, Point posBack){
 		this.typeBateau = typeBateau;
-		this.pos = pos;
+		this.posFront = posFront;
+		this.posBack = posBack;
 	}
 	
 	//-----------------------------
 	// Getters/Setters de la classe
 	//-----------------------------
 	
-	public Point getPos(){
-		return this.pos;
+	public Point getPosFront(){
+		return this.posFront;
 	}
 
 	public EnumTypeBateau getTypeBateau() {
 		return typeBateau;
 	}
 
+	public Point getPosBack(){
+		return this.posBack;
+	}
 }
