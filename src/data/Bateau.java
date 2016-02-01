@@ -7,7 +7,7 @@ public class Bateau {
 	 Attributs de la classe
 	 */
 	
-	private int longueur;
+	private String type;
 	private Point posFront;
 	private Point posBack;
 	
@@ -15,8 +15,8 @@ public class Bateau {
 	 Constructeur de la classe
 	 */
 	
-	public Bateau(int longueur, Point posFront, Point posBack){
-		this.longueur = longueur;
+	public Bateau(String type, Point posFront, Point posBack){
+		this.type = type;
 		this.posFront = posFront;
 		this.posBack = posBack;
 	}
@@ -25,8 +25,8 @@ public class Bateau {
 	 Getters/Setters de la classe
 	 */
 	
-	public int getLongueur(){
-		return this.longueur;
+	public String getType(){
+		return this.type;
 	}
 	
 	public Point getPosFront(){
