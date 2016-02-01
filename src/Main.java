@@ -2,12 +2,7 @@
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("coucou");
-		System.out.println("coucou Mathilde");
-		System.out.println("coucou valentin");
-		System.out.println("coucou Jérémy2");
-		
+	
 	}
 
 }
