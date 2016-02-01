@@ -1,2 +1,2 @@
 # ProjetAgileLP
-Projet agile LP
+Jeu - Bataille navale
