@@ -1,0 +1,24 @@
+Pré-requis :
+
+- Le bon fichier "pom.xml" dans le projet (la bonne copie se trouve dans le package "src")
+- PC SOUS WINDOWS
+- Maven (binaires à placer dans un dossier à la racine du disque C de préférence)
+	Download : http://apache.websitebeheerjd.nl/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip
+- JDK 1.8
+- Variables d'environnement : JAVA_HOME créée et PATH configurée pour Maven
+	Pour JAVA_HOME : Renseigner "C:\Programmes\Java\jdk1.8.0_60" (attention, la version peut différer)
+	Pour PATH (déjà existante): ajouter l'emplacement du dossier bin où le dossier Maven est extrait, idéalement "C:\Maven\bin"
+	
+	Le paramétrage de ces variables va permettre l'utilisation de Maven dans le terminal Windows.
+
+On passe à la suite :
+
+Pour compiler un fichier .jar du projet, lancer un terminal, et se rendre à la racine du dossier du projet.
+Exécuter la commande "mvn compile jar:jar"
+
+S'il est affiché "BUILD SUCCESSFUL", tout est OK !
+L'archive .jar se trouve dans le dossier /target/ du projet.
+
+Pour l'exécuter, saisir "java -jar NOMDUFICHIER.jar"
+
+Et voilà.
