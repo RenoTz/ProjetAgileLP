@@ -13,7 +13,7 @@ public class Joueur {
 
 	private String nom;
 	
-	private List<Bateau> listeBateaux = new ArrayList<Bateau>();
+	private List<Bateau> listeBateaux;
 	
 	private boolean premier;
 	
