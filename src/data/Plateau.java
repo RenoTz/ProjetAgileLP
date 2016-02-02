@@ -18,20 +18,15 @@ public class Plateau {
 	//  METHODES DE LA CLASSE
 	//------------------------
 	public void initPlateau(){
-		int cpt = 1;
-		System.out.println("   A  B  C  D  E  F  G  H  I  J");
+		char lettre = 'A';
+		System.out.println("  1  2  3  4  5  6  7  8  9  10");
 		for( int i = 0; i < lePlateau.length; i++ ){
-			if(cpt < 10){
-				System.out.print(cpt+" ");
-			}else{
-				System.out.print(cpt);
+			System.out.print(lettre);
+			for( int j = 0; j < lePlateau[0].length; j++ ) {
+				System.out.print("|_|");
 			}
-			
-		  for( int j = 0; j < lePlateau[0].length; j++ ) {
-			  System.out.print("|_|");
-		  }
 		  System.out.println(); // retour chariot (changement de ligne du plateau)
-		  cpt++;
+		  lettre++;
 		}
 	}
 }
