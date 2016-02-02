@@ -10,10 +10,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+		
 		// Création de l'interface graphique
 		Interface interfaceJeu = new Interface();
+		
 		// TODO RT : à supprimer quand la méthode de création d'une partie sera prête ////
 		ActionsBateau action = new ActionsBateau();
+		
 		// Creation du joueur
 		Joueur j = new Joueur();
 		
@@ -30,7 +33,7 @@ public class Main {
 		
 		// TODO RT : à supprimer quand la méthode de création d'une partie sera prête ////
 	
-		Plateau P = new Plateau(10,10);
+		
 		
 		
 		
