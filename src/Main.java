@@ -1,9 +1,8 @@
 import services.ActionsBateau;
 import data.Joueur;
 import data.Points;
-
 import data.Plateau;
-import data.bateau.Bateau;
+import data.interfaceJeu.Interface;
 import enumeration.EnumTypeBateau;
 
 
@@ -11,6 +10,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+		// Création de l'interface graphique
+		Interface interfaceJeu = new Interface();
 		// TODO RT : à supprimer quand la méthode de création d'une partie sera prête ////
 		ActionsBateau action = new ActionsBateau();
 		// Creation du joueur
@@ -27,9 +28,11 @@ public class Main {
 	
 		Plateau P = new Plateau(10,10);
 		
-		P.initPlateau();
 		
-		System.out.print("test ");
+		
+		
+		
+		
 		
 	}
 

@@ -16,6 +16,7 @@ public class Points {
 	public Points(char xPos, Integer yPos){
 		this.setxPos(xPos); 
 		this.setyPos(yPos);
+		this.caseTouche = false;
 	}
 	
 	//-----------------------------
