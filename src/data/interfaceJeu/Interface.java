@@ -66,7 +66,7 @@ public class Interface {
 				button.setBounds(40+  j*40, 40+ i*40, 40, 40);
 				button.setBackground(Color.BLACK);
 				listeBouton.add(button);
-				
+				 
 			  }
 		}
 		return listeBouton;
