@@ -2,7 +2,11 @@ package data;
 
 public class Plateau {
 
-	private int[][] lePlateau = new int[10][10];
+	private int[][] lePlateau;
+	
+	public Plateau(int largeur, int longeur){
+		lePlateau = new int[largeur][longeur];
+	}
 	
 	public void initPlateau(){
 		int x = 1;
