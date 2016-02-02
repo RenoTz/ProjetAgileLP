@@ -1,6 +1,7 @@
-import data.Plateau;
+import services.ActionsBateau;
+import data.Joueur;
+import data.Points;
 import data.bateau.Bateau;
-import data.bateau.SousMarin;
 import enumeration.EnumTypeBateau;
 
 
@@ -8,7 +9,19 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		Bateau sousMarin = new SousMarin(EnumTypeBateau.SOUS_MARIN);
+		// TODO RT : à supprimer quand la méthode de création d'une partie sera prête ////
+		ActionsBateau action = new ActionsBateau();
+		// Creation du joueur
+		Joueur j = new Joueur();
+		
+		// Intialisation de la liste des bateaux
+		action.initialiserListeBateaux(j);
+		
+		// Placement des bateaux
+		action.placerBateau(j, EnumTypeBateau.PORTE_AVION, new Points('A', 1), new Points('A', 5));
+		action.placerBateau(j, EnumTypeBateau.CROISEUR, new Points('B', 1), new Points('E', 1));
+		
+		// TODO RT : à supprimer quand la méthode de création d'une partie sera prête ////
 	
 	}
 

@@ -1,11 +1,9 @@
 package data.bateau;
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
 
+import data.Points;
 import enumeration.EnumTypeBateau;
 
-public class Bateau {
+public abstract class Bateau {
 
 	//-----------------------
 	// Attributs de la classe
@@ -25,12 +23,10 @@ public class Bateau {
 	//-----------------------------
 	// Getters/Setters de la classe
 	//-----------------------------
-	
 
 	public EnumTypeBateau getTypeBateau() {
 		return typeBateau;
 	}
-
 
 	public boolean isCoule() {
 		return coule;
@@ -39,5 +35,7 @@ public class Bateau {
 	public void setCoule(boolean coule) {
 		this.coule = coule;
 	}
+	
+	public abstract Points[] getTabPoints();
 
 }

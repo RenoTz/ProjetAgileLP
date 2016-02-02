@@ -1,35 +1,21 @@
 package data;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Points {
 	
 	//-----------------------
 	// Attributs de la classe
 	//-----------------------
-	private int longueur;
-	private String xAvant;
-	private Integer yAvant;
-	private String xArriere;
-	private Integer yArriere;
+	private char xPos;
+	private Integer yPos;
 	private boolean caseTouche;
-	private Map<String, Integer> listePoints;
 	
 	//--------------------------
 	// Constructeur de la classe
 	//--------------------------
 	
-	public Points(int longueur){
-		this.longueur = longueur;
-	}
-	
-	public Points(String xAvant, Integer yAvant, String xArriere, Integer yArriere){
-		this.xAvant = xAvant; 
-		this.yAvant = yAvant;
-		this.xArriere = xArriere; 
-		this.yArriere = yArriere;
-		listePoints.put(xAvant, yAvant);
+	public Points(char xPos, Integer yPos){
+		this.setxPos(xPos); 
+		this.setyPos(yPos);
 	}
 	
 	//-----------------------------
@@ -43,6 +29,22 @@ public class Points {
 
 	public void setCaseTouche(boolean caseTouche) {
 		this.caseTouche = caseTouche;
+	}
+
+	public char getxPos() {
+		return xPos;
+	}
+
+	public void setxPos(char xPos) {
+		this.xPos = xPos;
+	}
+
+	public Integer getyPos() {
+		return yPos;
+	}
+
+	public void setyPos(Integer yPos) {
+		this.yPos = yPos;
 	}
 
 }
