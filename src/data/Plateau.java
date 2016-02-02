@@ -21,6 +21,7 @@ public class Plateau {
 	//------------------------
 	//  METHODES DE LA CLASSE
 	//------------------------
+
 	private static void initPlateau(){
 		for( int i = 0; i < lePlateau.length; i++ ){
 			for( int j = 0; j < lePlateau.length; j++ ) {
