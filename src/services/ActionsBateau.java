@@ -1,5 +1,8 @@
 package services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import data.Joueur;
 import data.Points;
 import data.bateau.Bateau;
@@ -12,19 +15,22 @@ import enumeration.EnumTypeBateau;
 
 public class ActionsBateau {
 	
-	public void initialiserListeBateaux(Joueur j){
-		if(j.getListeBateaux() != null){
-			Bateau porteAvion = new PorteAvion(EnumTypeBateau.PORTE_AVION);
-			Bateau contreTorpilleur = new ContreTorpilleur(EnumTypeBateau.CONTRE_TORPILLEUR);
-			Bateau croiseur = new Croiseur(EnumTypeBateau.CROISEUR);
-			Bateau sousMarin = new SousMarin(EnumTypeBateau.SOUS_MARIN);
-			Bateau torpilleur = new Torpilleur(EnumTypeBateau.TORPILLEUR);
-			j.getListeBateaux().add(porteAvion);
-			j.getListeBateaux().add(contreTorpilleur);
-			j.getListeBateaux().add(croiseur);
-			j.getListeBateaux().add(sousMarin);
-			j.getListeBateaux().add(torpilleur);
-		}
+	public List<Bateau> initialiserListeBateaux(){
+		
+		List<Bateau> listeBateaux = new ArrayList<Bateau>();
+		
+		Bateau porteAvion = new PorteAvion(EnumTypeBateau.PORTE_AVION);
+		Bateau contreTorpilleur = new ContreTorpilleur(EnumTypeBateau.CONTRE_TORPILLEUR);
+		Bateau croiseur = new Croiseur(EnumTypeBateau.CROISEUR);
+		Bateau sousMarin = new SousMarin(EnumTypeBateau.SOUS_MARIN);
+		Bateau torpilleur = new Torpilleur(EnumTypeBateau.TORPILLEUR);
+		listeBateaux.add(porteAvion);
+		listeBateaux.add(contreTorpilleur);
+		listeBateaux.add(croiseur);
+		listeBateaux.add(sousMarin);
+		listeBateaux.add(torpilleur);
+		
+		return listeBateaux;
 	}
 	
 	public void placerBateau(Joueur j, EnumTypeBateau typeBateau,Points coordonneesAvant, Points coordonneesArriere){
