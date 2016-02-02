@@ -50,15 +50,55 @@ public class Tests {
 		return false;
 	}
 	
-	//VE
+	//--------------------
+	// Tests isCoule
+	//--------------------
+	
+	//Bateau au sens large
 	@Test
-	public void testIsCoule(){
+	public void testIsCouleOnInit(){
 		List<Bateau> listeRetour = action.initialiserListeBateaux();
 		
 		for(Bateau bateau : listeRetour){
 			assertEquals(false, bateau.isCoule());
 		}
 	}
+	
+	//Pour chaque bateau
+	
+	@Test
+	public void testCroiseurIsCoule(){
+		croiseur = new Croiseur(EnumTypeBateau.CROISEUR);
+		assertEquals(false, croiseur.isCoule());
+	}
+	
+	@Test
+	public void testTorpilleurIsCoule(){
+		torpilleur = new Torpilleur(EnumTypeBateau.TORPILLEUR);
+		assertEquals(false, torpilleur.isCoule());
+	}
+	
+	@Test
+	public void testContreTorpilleurIsCoule(){
+		contreTorpilleur = new ContreTorpilleur(EnumTypeBateau.CONTRE_TORPILLEUR);
+		assertEquals(false, contreTorpilleur.isCoule());
+	}
+	
+	@Test
+	public void testPorteAvionIsCoule(){
+		porteAvion = new PorteAvion(EnumTypeBateau.PORTE_AVION);
+		assertEquals(false, porteAvion.isCoule());
+	}
+	
+	@Test
+	public void testSousMarinIsCoule(){
+		sousMarin = new SousMarin(EnumTypeBateau.SOUS_MARIN);
+		assertEquals(false, sousMarin.isCoule());
+	}
+	
+	//--------------------
+	// Tests isTouche
+	//--------------------
 	
 	@Test
 	public void testCroiseurIsTouche(){
@@ -89,5 +129,6 @@ public class Tests {
 		sousMarin = new SousMarin(EnumTypeBateau.SOUS_MARIN);
 		assertEquals(false, sousMarin.isTouche());
 	}
+	
 
 }
