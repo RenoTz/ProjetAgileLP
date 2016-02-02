@@ -1,6 +1,9 @@
 package data.interfaceJeu;
 
 import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.JButton;
 
 import data.Points;
 
@@ -13,6 +16,7 @@ public class Case {
 	private Points point;
 	private Color couleur;
 	private boolean caseTouche;
+	private JButton bouton;
 	
 	//---------------
 	//	CONSTRUCTEUR
@@ -22,12 +26,20 @@ public class Case {
 		this.setPoint(point);
 		this.couleur = Color.BLUE;
 		this.caseTouche = false;
+		this.bouton = creerBouton();
 	}
 
 	//-----------------
 	//	GETTERS/SETTERS
 	//-----------------
 	
+	private JButton creerBouton() {
+		JButton bouton = new JButton();
+		bouton.setBackground(couleur);
+		bouton.setPreferredSize(new Dimension(40, 40));
+		return bouton;
+	}
+
 	public Points getPoint() {
 		return point;
 	}
@@ -50,6 +62,14 @@ public class Case {
 
 	public void setCaseTouche(boolean caseTouche) {
 		this.caseTouche = caseTouche;
+	}
+
+	public JButton getBouton() {
+		return bouton;
+	}
+
+	public void setBouton(JButton bouton) {
+		this.bouton = bouton;
 	}
 	
 	

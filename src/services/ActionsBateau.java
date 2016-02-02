@@ -67,10 +67,10 @@ public class ActionsBateau {
 				for( int i = 0; i < plateau.getLePlateau().length; i++ ){
 					for( int j = 0; j < plateau.getLePlateau().length; j++ ) {
 						 if(caseBateauCorrespondCasePlateau(plateau, bateau, caseBateau, i, j)){
-							 plateau.getLePlateau()[i][j].setCouleur(Color.DARK_GRAY);
+							 plateau.getLePlateau()[i][j].getBouton().setBackground(Color.DARK_GRAY);
 							 // TODO : temporaire, affichage test console en attendant l'interface graphique
-							 plateau.getLePlateau()[i][j].getPoint().setxPos('X');
-							 plateau.getLePlateau()[i][j].getPoint().setyPos((int) 'X');
+//							 plateau.getLePlateau()[i][j].getPoint().setxPos('X');
+//							 plateau.getLePlateau()[i][j].getPoint().setyPos((int) 'X');
 							 caseColoree = true;
 							 break;
 						 }

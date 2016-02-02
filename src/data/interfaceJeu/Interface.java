@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import data.Plateau;
 import data.bateau.Bateau;
 
-public class Interface {
+public class Interface extends JFrame{
 	
 	static List<JButton> listeBouton;
 	private Plateau plateau;
@@ -42,28 +42,27 @@ public class Interface {
 	
 	public static void createWindow() {  
 		JFrame frame = new JFrame("Bataille navale");
-
-		BorderLayout layout = new BorderLayout();
-        frame.setLayout(layout);
-
+		
+		JPanel panel = new JPanel();
+//		BorderLayout layout = new BorderLayout();
+//        frame.setLayout(layout);
+        panel.setLayout(new GridLayout(10,10));
+        
         JButton nouvellePartieBouton = new JButton("Nouvelle Partie");
         frame.add(nouvellePartieBouton, BorderLayout.SOUTH);
-        nouvellePartieBouton.setBackground(Color.black); //marche
-        nouvellePartieBouton.setForeground(Color.white); //marche        
+        nouvellePartieBouton.setBackground(Color.black); 
+        nouvellePartieBouton.setForeground(Color.white);        
        
-		JPanel panel = new JPanel();
-		panel.setBounds(101, 650, 900, 50);
+//		panel.setBounds(101, 650, 900, 50);
 		panel.setBackground(Color.GRAY); //background fenètre du jeu
 		
 		// Create button
-		JButton button = new JButton();
-		
 		for (JButton bouton : listeBouton) {
 			panel.add(bouton);
 		}  
-
+		panel.setSize(600,600);
 		frame.add(panel);
-		frame.setSize(800, 600);
+		frame.setSize(600, 600);
 		frame.setTitle("Bataille Navale - Groupe 1");
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,12 +74,7 @@ public class Interface {
 		for( int i = 0; i < plateau.getLePlateau().length; i++ ){
 			for( int j = 0; j < plateau.getLePlateau().length; j++ ) {
 				  //creer bouton + couleurs + clik dessus modifié
-				JButton button = new JButton();
-				//button.setBounds(20+  j*20, 10+ i*20, 40, 40);
-				button.setBackground(Color.blue);
-				button.setPreferredSize(new Dimension(40, 40));//setSize(50, 50); //marche pas
-				listeBouton.add(button);
-				 
+				listeBouton.add(plateau.getLePlateau()[i][j].getBouton());
 			  }
 		}
 		return listeBouton;
