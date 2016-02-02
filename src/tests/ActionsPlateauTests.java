@@ -19,7 +19,7 @@ import data.bateau.SousMarin;
 import data.bateau.Torpilleur;
 import services.ActionsBateau;
 
-public class Tests {
+public class ActionsPlateauTests {
 
 	private ActionsBateau action = new ActionsBateau();
 	private Croiseur croiseur;
@@ -78,7 +78,10 @@ public class Tests {
 		assertTrue(verifierBateauSupprime(j));
 	}
 
-	
+	//--------------------------------
+	//  METHODES UTILITAIRES : PRIVEES
+	//--------------------------------
+
 	private boolean verifierCasePlateauModifie(List<Bateau> listeBateau,EnumTypeBateau type,Plateau plateau,char x, int y) {
 		
 		for(Bateau bateau : listeBateau){
@@ -115,86 +118,5 @@ public class Tests {
 		}
 		return true;
 	}
-
-	//--------------------
-	// Tests isCoule
-	//--------------------
 	
-	//Bateau au sens large
-	@Test
-	public void testIsCouleOnInit(){
-		List<Bateau> listeRetour = action.initialiserListeBateaux();
-		
-		for(Bateau bateau : listeRetour){
-			assertEquals(false, bateau.isCoule());
-		}
-	}
-	
-	//Pour chaque bateau
-	
-	@Test
-	public void testCroiseurIsCoule(){
-		croiseur = new Croiseur(EnumTypeBateau.CROISEUR);
-		assertEquals(false, croiseur.isCoule());
-	}
-	
-	@Test
-	public void testTorpilleurIsCoule(){
-		torpilleur = new Torpilleur(EnumTypeBateau.TORPILLEUR);
-		assertEquals(false, torpilleur.isCoule());
-	}
-	
-	@Test
-	public void testContreTorpilleurIsCoule(){
-		contreTorpilleur = new ContreTorpilleur(EnumTypeBateau.CONTRE_TORPILLEUR);
-		assertEquals(false, contreTorpilleur.isCoule());
-	}
-	
-	@Test
-	public void testPorteAvionIsCoule(){
-		porteAvion = new PorteAvion(EnumTypeBateau.PORTE_AVION);
-		assertEquals(false, porteAvion.isCoule());
-	}
-	
-	@Test
-	public void testSousMarinIsCoule(){
-		sousMarin = new SousMarin(EnumTypeBateau.SOUS_MARIN);
-		assertEquals(false, sousMarin.isCoule());
-	}
-	
-	//--------------------
-	// Tests isTouche
-	//--------------------
-	
-	@Test
-	public void testCroiseurIsTouche(){
-		croiseur = new Croiseur(EnumTypeBateau.CROISEUR);
-		assertEquals(false, croiseur.isTouche());
-	}
-	
-	@Test
-	public void testTorpilleurIsTouche(){
-		torpilleur = new Torpilleur(EnumTypeBateau.TORPILLEUR);
-		assertEquals(false, torpilleur.isTouche());
-	}
-	
-	@Test
-	public void testContreTorpilleurIsTouche(){
-		contreTorpilleur = new ContreTorpilleur(EnumTypeBateau.CONTRE_TORPILLEUR);
-		assertEquals(false, contreTorpilleur.isTouche());
-	}
-	
-	@Test
-	public void testPorteAvionIsTouche(){
-		porteAvion = new PorteAvion(EnumTypeBateau.PORTE_AVION);
-		assertEquals(false, porteAvion.isTouche());
-	}
-	
-	@Test
-	public void testSousMarinIsTouche(){
-		sousMarin = new SousMarin(EnumTypeBateau.SOUS_MARIN);
-		assertEquals(false, sousMarin.isTouche());
-	}
-	
-
 }
