@@ -59,7 +59,7 @@ public class Interface {
 		
 		for (JButton bouton : listeBouton) {
 			panel.add(bouton);
-		}
+		}  
 
 		frame.add(panel);
 		frame.setSize(800, 600);
