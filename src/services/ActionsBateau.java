@@ -36,6 +36,7 @@ public class ActionsBateau {
 	public void placerBateau(Joueur j, EnumTypeBateau typeBateau,Points coordonneesAvant, Points coordonneesArriere){
 		
 		// TODO : check coordonnées A FAIRE!!
+			
 		for(Bateau bateau : j.getListeBateaux()){
 			if(bateau.getTypeBateau().equals(typeBateau)){
 				// Placement des coordonnées pour la premiere et la derniere case
@@ -46,11 +47,10 @@ public class ActionsBateau {
 				while(indice < bateau.getTabPoints().length-1){
 					if(coordonneesArriere.getxPos() == coordonneesAvant.getxPos()){
 						bateau.getTabPoints()[indice] = new Points((char) (coordonneesAvant.getxPos()), coordonneesAvant.getyPos()+indice);
-						indice++;
 					}else{
 						bateau.getTabPoints()[indice] = new Points((char) (coordonneesAvant.getxPos()+indice), coordonneesAvant.getyPos());
-						indice++;
 					}
+					indice++;
 				}
 			}
 		}
