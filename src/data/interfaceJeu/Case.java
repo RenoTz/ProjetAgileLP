@@ -12,6 +12,7 @@ public class Case {
 	
 	private Points point;
 	private Color couleur;
+	private boolean caseTouche;
 	
 	//---------------
 	//	CONSTRUCTEUR
@@ -20,8 +21,13 @@ public class Case {
 	public Case(Points point){
 		this.setPoint(point);
 		this.couleur = Color.BLUE;
+		this.caseTouche = false;
 	}
 
+	//-----------------
+	//	GETTERS/SETTERS
+	//-----------------
+	
 	public Points getPoint() {
 		return point;
 	}
@@ -37,10 +43,16 @@ public class Case {
 	public void setCouleur(Color couleur) {
 		this.couleur = couleur;
 	}
+
+	public boolean isCaseTouche() {
+		return caseTouche;
+	}
+
+	public void setCaseTouche(boolean caseTouche) {
+		this.caseTouche = caseTouche;
+	}
 	
-	//-----------------
-	//	GETTERS/SETTERS
-	//-----------------
+	
 
 
 }

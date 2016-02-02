@@ -28,7 +28,6 @@ public class Interface {
 		// Create button
 		JButton button = new JButton();
 		button.setText("Nouvelle partie");
-
 		panel.add(button);
 
 		frame.add(panel);
