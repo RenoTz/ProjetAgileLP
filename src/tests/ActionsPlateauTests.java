@@ -22,11 +22,6 @@ import services.ActionsBateau;
 public class ActionsPlateauTests {
 
 	private ActionsBateau action = new ActionsBateau();
-	private Croiseur croiseur;
-	private Torpilleur torpilleur;
-	private ContreTorpilleur contreTorpilleur;
-	private PorteAvion porteAvion;
-	private SousMarin sousMarin;
 
 	
 	@Test
