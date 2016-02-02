@@ -9,13 +9,21 @@ public class Plateau {
 	}
 	
 	public void initPlateau(){
-		int x = 1;
-		for(int i = 0; i < lePlateau.length; i++){
-		   for(int j = 0; j < lePlateau[0].length; j++){
-			   lePlateau[i][j] = x;
-		       x++;
+		int cpt = 1;
+		System.out.println("   A  B  C  D  E  F  G  H  I  J");
+		for( int i = 0; i < lePlateau.length; i++ ){
+			if(cpt != 10){
+				System.out.print(cpt+" ");
+			}else{
+				System.out.print(cpt);
+			}
+			
+		   for( int j = 0; j < lePlateau[0].length; j++ ) {
+		       System.out.print("|_|");
 		   }
+		   System.out.println(); // changement de ligne
+		   cpt++;
 		}
 	}
-	
 }
+
