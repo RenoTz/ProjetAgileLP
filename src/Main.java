@@ -1,6 +1,8 @@
 import services.ActionsBateau;
 import data.Joueur;
 import data.Points;
+
+import data.Plateau;
 import data.bateau.Bateau;
 import enumeration.EnumTypeBateau;
 
@@ -23,6 +25,10 @@ public class Main {
 		
 		// TODO RT : à supprimer quand la méthode de création d'une partie sera prête ////
 	
+		Plateau P = new Plateau(10,10);
+		
+		P.initPlateau();
+		
 	}
 
 }
