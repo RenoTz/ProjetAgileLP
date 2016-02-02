@@ -1,8 +1,9 @@
 package services;
 
 import java.awt.Point;
-import data.Bateau;
+
 import data.Joueur;
+import data.bateau.Bateau;
 import enumeration.EnumTypeBateau;
 
 public class ActionsBateau {

@@ -1,8 +1,9 @@
-package data;
+package data.bateau;
 
+import data.Points;
 import enumeration.EnumTypeBateau;
 
-public class PorteAvion extends Bateau{
+public class ContreTorpilleur extends Bateau{
 	
 	//------------------------
 	//  ATTRIBUTS DE LA CLASSE
@@ -10,14 +11,14 @@ public class PorteAvion extends Bateau{
 	
 	private Points[] tabPoints;
 	private boolean touche;
-	
+
 	//---------------
 	//	CONSTRUCTEUR
 	//---------------
-
-	public PorteAvion(EnumTypeBateau typeBateau) {
+	
+	public ContreTorpilleur(EnumTypeBateau typeBateau) {
 		super(typeBateau);
-		this.setTabPoints(new Points[5]);
+		this.setTabPoints(new Points[3]);
 	}
 	
 	//-----------------

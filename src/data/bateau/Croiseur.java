@@ -1,5 +1,6 @@
-package data;
+package data.bateau;
 
+import data.Points;
 import enumeration.EnumTypeBateau;
 
 public class Croiseur extends Bateau{

@@ -1,6 +1,6 @@
-import data.Bateau;
 import data.Plateau;
-import data.SousMarin;
+import data.bateau.Bateau;
+import data.bateau.SousMarin;
 import enumeration.EnumTypeBateau;
 
 

@@ -1,4 +1,4 @@
-package data;
+package data.bateau;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
