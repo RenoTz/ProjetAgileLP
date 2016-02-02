@@ -2,25 +2,18 @@ package data.interfaceJeu;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
+import java.awt.ComponentOrientation;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.AbstractButton;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import data.Plateau;
-import data.bateau.Bateau;
-
 public class Interface extends JFrame{
-	
+
+	private static final long serialVersionUID = 1L;
 	static List<JButton> listeBouton;
 	private Plateau plateau;
 	
@@ -41,20 +34,24 @@ public class Interface extends JFrame{
 	//------------------------
 	
 	public static void createWindow() {  
+		
 		JFrame frame = new JFrame("Bataille navale");
 		
+		// Grille de jeu du joueur
 		JPanel panel = new JPanel();
-//		BorderLayout layout = new BorderLayout();
-//        frame.setLayout(layout);
-        panel.setLayout(new GridLayout(10,10));
+		panel.setLayout(new GridLayout(10,10));
+		panel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		// Grille de jeu de l'adversaire
+		JPanel panelAdversaire = new JPanel();
+		panelAdversaire.setLayout(new GridLayout(10,10));
         
+		// Bouton 'Nouvelle partie'
         JButton nouvellePartieBouton = new JButton("Nouvelle Partie");
         frame.add(nouvellePartieBouton, BorderLayout.SOUTH);
         nouvellePartieBouton.setBackground(Color.black); 
         nouvellePartieBouton.setForeground(Color.white);        
        
-//		panel.setBounds(101, 650, 900, 50);
-		panel.setBackground(Color.GRAY); //background fenètre du jeu
+		frame.setBackground(Color.GRAY);
 		
 		// Create button
 		for (JButton bouton : listeBouton) {
@@ -62,6 +59,7 @@ public class Interface extends JFrame{
 		}  
 		panel.setSize(600,600);
 		frame.add(panel);
+		frame.add(panelAdversaire);
 		frame.setSize(600, 600);
 		frame.setTitle("Bataille Navale - Groupe 1");
 		frame.setLocationRelativeTo(null);
@@ -73,7 +71,7 @@ public class Interface extends JFrame{
 		List<JButton> listeBouton = new ArrayList<JButton>();
 		for( int i = 0; i < plateau.getLePlateau().length; i++ ){
 			for( int j = 0; j < plateau.getLePlateau().length; j++ ) {
-				  //creer bouton + couleurs + clik dessus modifié
+				  //creer bouton + couleurs + clik dessus modifiï¿½
 				listeBouton.add(plateau.getLePlateau()[i][j].getBouton());
 			  }
 		}

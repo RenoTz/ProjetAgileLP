@@ -1,4 +1,4 @@
-package data;
+package data.composants;
 
 public class Points {
 	

@@ -1,8 +1,7 @@
 import services.ActionsBateau;
-import data.Joueur;
-import data.Points;
-import data.Plateau;
+import data.composants.Points;
 import data.interfaceJeu.Interface;
+import data.joueur.Joueur;
 import enumeration.EnumTypeBateau;
 
 
@@ -11,10 +10,10 @@ public class Main {
 	public static void main(String[] args) {
 		
 		
-		// Création de l'interface graphique
+		// Crï¿½ation de l'interface graphique
 		Interface interfaceJeu = new Interface();
 		
-		// TODO RT : à supprimer quand la méthode de création d'une partie sera prête ////
+		// TODO RT : ï¿½ supprimer quand la mï¿½thode de crï¿½ation d'une partie sera prï¿½te ////
 		ActionsBateau action = new ActionsBateau();
 		
 		// Creation du joueur
@@ -23,7 +22,7 @@ public class Main {
 		// Intialisation de la liste des bateaux
 		j.setListeBateaux(action.initialiserListeBateaux());
 		
-		// TODO RT : Création d'une nouvelle partie (fixe temporairement, aléatoire A VENIR !!!)
+		// TODO RT : Crï¿½ation d'une nouvelle partie (fixe temporairement, alï¿½atoire A VENIR !!!)
 		// Placement des bateaux
 		action.assignerCoordonneesBateaux(j, EnumTypeBateau.PORTE_AVION, new Points('A', 1), new Points('A', 5));
 		action.assignerCoordonneesBateaux(j, EnumTypeBateau.CROISEUR, new Points('B', 1), new Points('E', 1));
@@ -34,7 +33,7 @@ public class Main {
 		// Placement des bateaux sur le plateau
 		action.placerLesBateauxSurLePlateau(j.getListeBateaux(),interfaceJeu.getPlateau());
 		
-		// TODO RT : à supprimer quand la méthode de création d'une partie sera prête ////
+		// TODO RT : ï¿½ supprimer quand la mï¿½thode de crï¿½ation d'une partie sera prï¿½te ////
 	
 		
 		

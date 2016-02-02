@@ -4,15 +4,15 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.Joueur;
-import data.Plateau;
-import data.Points;
 import data.bateau.Bateau;
 import data.bateau.ContreTorpilleur;
 import data.bateau.Croiseur;
 import data.bateau.PorteAvion;
 import data.bateau.SousMarin;
 import data.bateau.Torpilleur;
+import data.composants.Points;
+import data.interfaceJeu.Plateau;
+import data.joueur.Joueur;
 import enumeration.EnumTypeBateau;
 
 public class ActionsBateau {
@@ -37,10 +37,10 @@ public class ActionsBateau {
 	
 	public void assignerCoordonneesBateaux(Joueur j, EnumTypeBateau typeBateau,Points coordonneesAvant, Points coordonneesArriere){
 		
-		// TODO : check coordonnées A FAIRE!!
+		// TODO : check coordonnï¿½es A FAIRE!!
 		for(Bateau bateau : j.getListeBateaux()){
 			if(bateau.getTypeBateau().equals(typeBateau)){
-				// Placement des coordonnées pour la premiere et la derniere case
+				// Placement des coordonnï¿½es pour la premiere et la derniere case
 				bateau.getTabPoints()[0] = coordonneesAvant;
 				bateau.getTabPoints()[bateau.getTabPoints().length-1] = coordonneesArriere;
 				remplissageDesCasesIntermediaires(coordonneesAvant,	coordonneesArriere, bateau);
@@ -81,7 +81,7 @@ public class ActionsBateau {
 				}
 			}
 		}
-		// TODO : à enlever si inutile
+		// TODO : ï¿½ enlever si inutile
 		plateau.log();
 	}
 	
@@ -90,7 +90,7 @@ public class ActionsBateau {
 	//--------------------------------
 	
 	private void remplissageDesCasesIntermediaires(Points coordonneesAvant,	Points coordonneesArriere, Bateau bateau) {
-		// On remplie les cases intermédiaires
+		// On remplie les cases intermï¿½diaires
 		int indice = 1;
 		while(indice < bateau.getTabPoints().length-1){
 			if(coordonneesArriere.getxPos() == coordonneesAvant.getxPos()){

@@ -1,11 +1,9 @@
-package data.interfaceJeu;
+package data.composants;
 
 import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JButton;
-
-import data.Points;
 
 public class Case {
 	

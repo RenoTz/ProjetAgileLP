@@ -2,21 +2,12 @@ package tests;
 
 import static org.junit.Assert.*;
 import enumeration.EnumTypeBateau;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.Test;
-
-import data.Joueur;
-import data.Plateau;
-import data.Points;
 import data.bateau.Bateau;
-import data.bateau.ContreTorpilleur;
-import data.bateau.Croiseur;
-import data.bateau.PorteAvion;
-import data.bateau.SousMarin;
-import data.bateau.Torpilleur;
+import data.composants.Points;
+import data.interfaceJeu.Plateau;
+import data.joueur.Joueur;
 import services.ActionsBateau;
 
 public class ActionsPlateauTests {

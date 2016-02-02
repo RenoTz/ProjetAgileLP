@@ -1,6 +1,7 @@
-package data;
+package data.interfaceJeu;
 
-import data.interfaceJeu.Case;
+import data.composants.Case;
+import data.composants.Points;
 
 public class Plateau {
 

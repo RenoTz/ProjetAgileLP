@@ -1,4 +1,4 @@
-package data;
+package data.joueur;
 
 import java.util.List;
 import data.bateau.Bateau;
@@ -15,7 +15,7 @@ public class Joueur {
 	private boolean gagne;
 	
 	//------------------------------
-	// Getters / Setters spécifiques
+	// Getters / Setters spï¿½cifiques
 	//------------------------------
 	
 	public String getNom() {
