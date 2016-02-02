@@ -1,8 +1,6 @@
 package data;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import data.bateau.Bateau;
 
 public class Joueur {
@@ -12,11 +10,8 @@ public class Joueur {
 	//-----------------------
 
 	private String nom;
-	
 	private List<Bateau> listeBateaux;
-	
 	private boolean premier;
-	
 	private boolean gagne;
 	
 	//------------------------------

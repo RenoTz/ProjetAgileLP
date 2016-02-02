@@ -7,7 +7,6 @@ public class Points {
 	//-----------------------
 	private char xPos;
 	private Integer yPos;
-	private boolean caseTouche;
 	
 	//--------------------------
 	// Constructeur de la classe
@@ -21,15 +20,6 @@ public class Points {
 	//-----------------------------
 	// Getters/Setters de la classe
 	//-----------------------------
-	
-
-	public boolean isCaseTouche() {
-		return caseTouche;
-	}
-
-	public void setCaseTouche(boolean caseTouche) {
-		this.caseTouche = caseTouche;
-	}
 
 	public char getxPos() {
 		return xPos;
