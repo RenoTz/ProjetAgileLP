@@ -1,6 +1,7 @@
 package tests;
 
 import static org.junit.Assert.*;
+import enumeration.EnumTypeBateau;
 
 import java.util.List;
 import org.junit.Test;
@@ -13,11 +14,6 @@ public class Tests {
 
 	private ActionsBateau action = new ActionsBateau();
 	
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
-
 	@Test
 	public void testActionsBateauInitialiserListe() {
 		//Arrange
