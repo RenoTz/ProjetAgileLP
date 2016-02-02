@@ -17,7 +17,7 @@ public class Main {
 		Joueur j = new Joueur();
 		
 		// Intialisation de la liste des bateaux
-		action.initialiserListeBateaux(j);
+		j.setListeBateaux(action.initialiserListeBateaux());
 		
 		// Placement des bateaux
 		action.placerBateau(j, EnumTypeBateau.PORTE_AVION, new Points('A', 1), new Points('A', 5));
