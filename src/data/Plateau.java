@@ -24,9 +24,16 @@ public class Plateau {
 	private static void initPlateau(){
 		for( int i = 0; i < lePlateau.length; i++ ){
 			for( int j = 0; j < lePlateau.length; j++ ) {
-				  Case casePlateau = new Case(new Points((char) ('A' + j), i + 1));
+				  Case casePlateau = new Case(new Points((char) ('A' + i), j + 1));
 				  lePlateau[i][j] = casePlateau;
 			  }
+		}
+		
+		for( int i = 0; i < lePlateau.length; i++ ){
+			for( int j = 0; j < lePlateau.length; j++ ) {
+				  System.out.print("["+lePlateau[i][j].getPoint().getxPos()+lePlateau[i][j].getPoint().getyPos()+"]");
+			}	
+			System.out.println("\n");
 		}
 	}
 	

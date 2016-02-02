@@ -41,20 +41,23 @@ public class ActionsBateau {
 				// Placement des coordonnées pour la premiere et la derniere case
 				bateau.getTabPoints()[0] = coordonneesAvant;
 				bateau.getTabPoints()[bateau.getTabPoints().length-1] = coordonneesArriere;
-				// On remplie les cases intermédiaires
-				int indice = 1;
-				while(indice < bateau.getTabPoints().length-1){
-					if(coordonneesArriere.getxPos() == coordonneesAvant.getxPos()){
-						bateau.getTabPoints()[indice] = new Points((char) (coordonneesAvant.getxPos()), coordonneesAvant.getyPos()+indice);
-						indice++;
-					}else{
-						bateau.getTabPoints()[indice] = new Points((char) (coordonneesAvant.getxPos()+indice), coordonneesAvant.getyPos());
-						indice++;
-					}
-				}
+				remplissageDesCasesIntermediaires(coordonneesAvant,	coordonneesArriere, bateau);
 			}
 		}
-		
+	}
+
+	private void remplissageDesCasesIntermediaires(Points coordonneesAvant,	Points coordonneesArriere, Bateau bateau) {
+		// On remplie les cases intermédiaires
+		int indice = 1;
+		while(indice < bateau.getTabPoints().length-1){
+			if(coordonneesArriere.getxPos() == coordonneesAvant.getxPos()){
+				bateau.getTabPoints()[indice] = new Points((char) (coordonneesAvant.getxPos()), coordonneesAvant.getyPos()+indice);
+				indice++;
+			}else{
+				bateau.getTabPoints()[indice] = new Points((char) (coordonneesAvant.getxPos()+indice), coordonneesAvant.getyPos());
+				indice++;
+			}
+		}
 	}
 	
 	public void supprimerBateau(Joueur j, EnumTypeBateau typeBateau){
