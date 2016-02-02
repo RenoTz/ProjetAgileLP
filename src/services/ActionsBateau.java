@@ -46,6 +46,18 @@ public class ActionsBateau {
 		}
 	}
 
+	public void supprimerBateau(Joueur j, EnumTypeBateau typeBateau){
+		for(Bateau bateau : j.getListeBateaux()){
+			if(bateau.getTypeBateau().equals(typeBateau)){
+				j.getListeBateaux().remove(bateau);
+			}
+		}
+	}
+	
+	//--------------------------------
+	//  METHODES SPECIFIQUES : PRIVEES
+	//--------------------------------
+	
 	private void remplissageDesCasesIntermediaires(Points coordonneesAvant,	Points coordonneesArriere, Bateau bateau) {
 		// On remplie les cases intermédiaires
 		int indice = 1;
@@ -56,14 +68,6 @@ public class ActionsBateau {
 			}else{
 				bateau.getTabPoints()[indice] = new Points((char) (coordonneesAvant.getxPos()+indice), coordonneesAvant.getyPos());
 				indice++;
-			}
-		}
-	}
-	
-	public void supprimerBateau(Joueur j, EnumTypeBateau typeBateau){
-		for(Bateau bateau : j.getListeBateaux()){
-			if(bateau.getTypeBateau().equals(typeBateau)){
-				j.getListeBateaux().remove(bateau);
 			}
 		}
 	}

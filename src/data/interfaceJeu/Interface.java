@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import data.Plateau;
 import data.Points;
+import data.bateau.Bateau;
 
 public class Interface {
 	
@@ -70,6 +71,10 @@ public class Interface {
 			  }
 		}
 		return listeBouton;
+	}
+	
+	public void placerLesBateauxSurLePlateau(List<Bateau> listeBateaux){
+		
 	}
 
 }
