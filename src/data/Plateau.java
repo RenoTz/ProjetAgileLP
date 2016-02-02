@@ -4,8 +4,8 @@ public class Plateau {
 
 	private int[][] lePlateau;
 	
-	public Plateau(int largeur, int longeur){
-		lePlateau = new int[largeur][longeur];
+	public Plateau(int largeur, int longueur){
+		this.lePlateau = new int[largeur][longueur];
 	}
 	
 	public void initPlateau(){
