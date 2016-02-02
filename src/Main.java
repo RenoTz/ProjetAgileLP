@@ -23,9 +23,16 @@ public class Main {
 		// Intialisation de la liste des bateaux
 		j.setListeBateaux(action.initialiserListeBateaux());
 		
+		// TODO RT : Création d'une nouvelle partie (fixe temporairement, aléatoire A VENIR !!!)
 		// Placement des bateaux
-		action.placerBateau(j, EnumTypeBateau.PORTE_AVION, new Points('A', 1), new Points('A', 5));
-		action.placerBateau(j, EnumTypeBateau.CROISEUR, new Points('B', 1), new Points('E', 1));
+		action.assignerCoordonneesBateaux(j, EnumTypeBateau.PORTE_AVION, new Points('A', 1), new Points('A', 5));
+		action.assignerCoordonneesBateaux(j, EnumTypeBateau.CROISEUR, new Points('B', 1), new Points('E', 1));
+		action.assignerCoordonneesBateaux(j, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('E', 3), new Points('E', 5));
+		action.assignerCoordonneesBateaux(j, EnumTypeBateau.SOUS_MARIN, new Points('G', 5), new Points('I', 5));
+		action.assignerCoordonneesBateaux(j, EnumTypeBateau.TORPILLEUR, new Points('J', 8), new Points('J', 9));
+		
+		// Placement des bateaux sur le plateau
+		action.placerLesBateauxSurLePlateau(j.getListeBateaux(),interfaceJeu.getPlateau());
 		
 		// TODO RT : à supprimer quand la méthode de création d'une partie sera prête ////
 	

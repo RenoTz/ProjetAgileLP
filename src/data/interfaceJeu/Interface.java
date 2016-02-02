@@ -1,6 +1,5 @@
 package data.interfaceJeu;
 
-import java.awt.Button;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -18,20 +17,22 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import data.Plateau;
-import data.Points;
+import data.bateau.Bateau;
 
 public class Interface {
 	
 	static List<JButton> listeBouton;
+	private Plateau plateau;
 	
 	//---------------
 	//	CONSTRUCTEUR
 	//---------------
 	
+	@SuppressWarnings("static-access")
 	public Interface(){
 		
-		Plateau plateau = new Plateau(10,10);
-		this.listeBouton = creerCasesGraphiques(plateau);
+		this.plateau = new Plateau(10,10);
+		this.listeBouton = creerCasesGraphiques(this.plateau);
 		createWindow();
 	}
 	
@@ -83,6 +84,10 @@ public class Interface {
 			  }
 		}
 		return listeBouton;
+	}
+
+	public Plateau getPlateau() {
+		return plateau;
 	}
 
 }
