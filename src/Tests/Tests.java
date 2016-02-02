@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package data;
 package enumeration;
 package services;
@@ -16,5 +15,4 @@ public class LesTests {
     }
 	
 }
-=======
->>>>>>> branch 'master' of https://github.com/Team1LP/ProjetAgileLP.git
+
