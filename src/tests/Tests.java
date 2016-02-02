@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import enumeration.EnumTypeBateau;
 
 import java.util.List;
-
 import org.junit.Test;
 
 import data.bateau.Bateau;
@@ -12,15 +11,18 @@ import enumeration.EnumTypeBateau;
 import services.ActionsBateau;
 
 public class Tests {
-	private ActionsBateau action = new ActionsBateau();
 
+	private ActionsBateau action = new ActionsBateau();
+	
 	@Test
 	public void testActionsBateauInitialiserListe() {
 		//Arrange
+		
 		//Act
 		List<Bateau> listeRetour = action.initialiserListeBateaux();
 		//Assert
 		assertNotNull(listeRetour);
+		assertEquals(listeRetour.size(), 5);
 		assertEquals(true, verifierPresenceTypeBateau(listeRetour, EnumTypeBateau.CONTRE_TORPILLEUR));
 		assertEquals(true, verifierPresenceTypeBateau(listeRetour, EnumTypeBateau.CROISEUR));
 		assertEquals(true, verifierPresenceTypeBateau(listeRetour, EnumTypeBateau.PORTE_AVION));

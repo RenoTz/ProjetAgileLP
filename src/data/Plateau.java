@@ -1,38 +1,54 @@
 package data;
 
+import data.interfaceJeu.Case;
+
 public class Plateau {
 
 	//------------------------
 	//  ATTRIBUTS DE LA CLASSE
 	//------------------------
-	private int[][] lePlateau;
+	
+	private static Case[][] lePlateau;
 	
 	//------------------------
 	//  CONSTRUCTEUR
 	//------------------------
 	public Plateau(int largeur, int longueur){
-		this.lePlateau = new int[largeur][longueur];
+		this.setLePlateau(new Case[largeur][longueur]);
+		initPlateau();
 	}
 	
 	//------------------------
 	//  METHODES DE LA CLASSE
 	//------------------------
-	public void initPlateau(){
-		int cpt = 1;
-		System.out.println("   A  B  C  D  E  F  G  H  I  J");
+
+	private static void initPlateau(){
 		for( int i = 0; i < lePlateau.length; i++ ){
-			if(cpt < 10){
-				System.out.print(cpt+" ");
-			}else{
-				System.out.print(cpt);
-			}
-			
-		  for( int j = 0; j < lePlateau[0].length; j++ ) {
-			  System.out.print("|_|");
-		  }
-		  System.out.println(); // retour chariot (changement de ligne du plateau)
-		  cpt++;
+			for( int j = 0; j < lePlateau.length; j++ ) {
+				  Case casePlateau = new Case(new Points((char) ('A' + i), j + 1));
+				  lePlateau[i][j] = casePlateau;
+			  }
 		}
+		
+		// TODO : affichage plateau dans console -> TEMPORAIRE
+		for( int i = 0; i < lePlateau.length; i++ ){
+			for( int j = 0; j < lePlateau.length; j++ ) {
+				  System.out.print("["+lePlateau[i][j].getPoint().getxPos()+lePlateau[i][j].getPoint().getyPos()+"]");
+			}	
+			System.out.println("\n");
+		}
+	}
+	
+	//-----------------
+	//	GETTERS/SETTERS
+	//-----------------
+
+	public Case[][] getLePlateau() {
+		return lePlateau;
+	}
+
+	public void setLePlateau(Case[][] lePlateau) {
+		Plateau.lePlateau = lePlateau;
 	}
 }
 
