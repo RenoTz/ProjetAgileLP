@@ -29,6 +29,8 @@ public class Main {
 		
 		P.initPlateau();
 		
+		System.out.print("test ");
+		
 	}
 
 }
