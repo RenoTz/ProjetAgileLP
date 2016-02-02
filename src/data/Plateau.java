@@ -2,12 +2,21 @@ package data;
 
 public class Plateau {
 
+	//------------------------
+	//  ATTRIBUTS DE LA CLASSE
+	//------------------------
 	private int[][] lePlateau;
 	
+	//------------------------
+	//  CONSTRUCTEUR
+	//------------------------
 	public Plateau(int largeur, int longueur){
 		this.lePlateau = new int[largeur][longueur];
 	}
 	
+	//------------------------
+	//  METHODES DE LA CLASSE
+	//------------------------
 	public void initPlateau(){
 		int cpt = 1;
 		System.out.println("   A  B  C  D  E  F  G  H  I  J");
