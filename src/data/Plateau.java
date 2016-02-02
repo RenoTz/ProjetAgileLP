@@ -30,15 +30,9 @@ public class Plateau {
 			  }
 		}
 		
-		// TODO : affichage plateau dans console -> TEMPORAIRE
-		for( int i = 0; i < lePlateau.length; i++ ){
-			for( int j = 0; j < lePlateau.length; j++ ) {
-				  System.out.print("["+lePlateau[i][j].getPoint().getxPos()+lePlateau[i][j].getPoint().getyPos()+"]");
-			}	
-			System.out.println("\n");
-		}
+		log();
 	}
-	
+
 	//-----------------
 	//	GETTERS/SETTERS
 	//-----------------
@@ -49,6 +43,16 @@ public class Plateau {
 
 	public void setLePlateau(Case[][] lePlateau) {
 		Plateau.lePlateau = lePlateau;
+	}
+	
+	public static void log() {
+		// TODO : affichage plateau dans console -> TEMPORAIRE
+		for( int i = 0; i < lePlateau.length; i++ ){
+			for( int j = 0; j < lePlateau.length; j++ ) {
+				  System.out.print("["+lePlateau[i][j].getPoint().getxPos()+lePlateau[i][j].getPoint().getyPos()+"]");
+			}	
+			System.out.println("\n");
+		}
 	}
 }
 

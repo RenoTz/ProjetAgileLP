@@ -12,6 +12,8 @@ public class Points {
 	// Constructeur de la classe
 	//--------------------------
 	
+	public Points(){}
+	
 	public Points(char xPos, Integer yPos){
 		this.setxPos(xPos); 
 		this.setyPos(yPos);

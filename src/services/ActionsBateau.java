@@ -1,9 +1,11 @@
 package services;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
 import data.Joueur;
+import data.Plateau;
 import data.Points;
 import data.bateau.Bateau;
 import data.bateau.ContreTorpilleur;
@@ -33,7 +35,7 @@ public class ActionsBateau {
 		return listeBateaux;
 	}
 	
-	public void placerBateau(Joueur j, EnumTypeBateau typeBateau,Points coordonneesAvant, Points coordonneesArriere){
+	public void assignerCoordonneesBateaux(Joueur j, EnumTypeBateau typeBateau,Points coordonneesAvant, Points coordonneesArriere){
 		
 		// TODO : check coordonnées A FAIRE!!
 		for(Bateau bateau : j.getListeBateaux()){
@@ -50,8 +52,37 @@ public class ActionsBateau {
 		for(Bateau bateau : j.getListeBateaux()){
 			if(bateau.getTypeBateau().equals(typeBateau)){
 				j.getListeBateaux().remove(bateau);
+				break;
 			}
 		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public void placerLesBateauxSurLePlateau(List<Bateau> listeBateaux, Plateau plateau){
+		
+		boolean caseColoree;
+		for(Bateau bateau : listeBateaux){
+			for(int caseBateau = 0; caseBateau< bateau.getTabPoints().length;caseBateau++){
+				caseColoree = false;
+				for( int i = 0; i < plateau.getLePlateau().length; i++ ){
+					for( int j = 0; j < plateau.getLePlateau().length; j++ ) {
+						 if(caseBateauCorrespondCasePlateau(plateau, bateau, caseBateau, i, j)){
+							 plateau.getLePlateau()[i][j].setCouleur(Color.DARK_GRAY);
+							 // TODO : temporaire, affichage test console en attendant l'interface graphique
+							 plateau.getLePlateau()[i][j].getPoint().setxPos('X');
+							 plateau.getLePlateau()[i][j].getPoint().setyPos((int) 'X');
+							 caseColoree = true;
+							 break;
+						 }
+					  }
+					if(caseColoree){
+						break;
+					}
+				}
+			}
+		}
+		// TODO : à enlever si inutile
+		plateau.log();
 	}
 	
 	//--------------------------------
@@ -70,5 +101,10 @@ public class ActionsBateau {
 				indice++;
 			}
 		}
+	}
+	
+	private boolean caseBateauCorrespondCasePlateau(Plateau plateau, Bateau bateau, int caseBateau, int i, int j) {
+		return (bateau.getTabPoints()[caseBateau].getxPos() == plateau.getLePlateau()[i][j].getPoint().getxPos()) &&
+				 (bateau.getTabPoints()[caseBateau].getyPos() == plateau.getLePlateau()[i][j].getPoint().getyPos());
 	}
 }
