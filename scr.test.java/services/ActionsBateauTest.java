@@ -118,7 +118,7 @@ public class ActionsBateauTest {
 		
 		int xPos = FactoryUtils.convertirCharToInt(x);
 		
-		if(laCaseAChangeDeCouleur(plateau, xPos-1,y-1)){
+		if(estUneCaseBateau(plateau, xPos,y-1)){
 			return true;
 		}
 		return false;
@@ -127,7 +127,7 @@ public class ActionsBateauTest {
 	private boolean toutesLesCasesDuPlateauSontBleues(Plateau plateau) {
 		for(int i = 0; i < plateau.getLePlateau().length; i++){
 			for(int j = 0; i < plateau.getLePlateau().length; i++){
-				if(laCaseAChangeDeCouleur(plateau, i, j)){
+				if(estUneCaseBateau(plateau, i, j)){
 					return false;
 				}
 			}
@@ -135,8 +135,8 @@ public class ActionsBateauTest {
 		return true;
 	}
 	
-	private boolean laCaseAChangeDeCouleur(Plateau plateau, int i, int j) {
-		return plateau.getLePlateau()[i][j].getCouleur() != Color.BLUE;
+	private boolean estUneCaseBateau(Plateau plateau, int i, int j) {
+		return plateau.getLePlateau()[i][j].getCouleur() == Color.DARK_GRAY;
 	}
 
 	private boolean verifierPresenceTypeBateau(List<Bateau> listeRetour, EnumTypeBateau type) {
