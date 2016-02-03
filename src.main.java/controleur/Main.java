@@ -39,17 +39,22 @@ public class Main {
 		
 		int randomOrientation = new Random().nextInt(2) + 1; //1 Horizontal 2 Vertical
 
+		int xPADebut, xPAFin, yPADebut, yPAFin;
+		
 		if(randomOrientation == 1){
 			//Porte Avion
-			int xPA = new Random().nextInt(5) + 1;
-			int yPA = new Random().nextInt(10) + 1;
-			actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.PORTE_AVION, new Points(FactoryUtils.convertirIntToChar(xPA), yPA), new Points(FactoryUtils.convertirIntToChar(xPA + 4), yPA));
+			xPADebut = new Random().nextInt(5) + 1;
+			xPAFin = xPADebut + 4;
+			yPADebut = new Random().nextInt(10) + 1;
+			yPAFin = yPADebut;
+			actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.PORTE_AVION, new Points(FactoryUtils.convertirIntToChar(xPADebut), yPADebut), new Points(FactoryUtils.convertirIntToChar(xPAFin), yPAFin));			
 		}else if(randomOrientation == 2){
-			int xPA = new Random().nextInt(10) + 1;
-			int yPA = new Random().nextInt(5) + 1;
-			actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.PORTE_AVION, new Points(FactoryUtils.convertirIntToChar(xPA), yPA), new Points(FactoryUtils.convertirIntToChar(xPA), yPA + 4));
+			xPADebut = new Random().nextInt(10) + 1;
+			xPAFin = xPADebut;
+			yPADebut = new Random().nextInt(5) + 1;
+			yPAFin = yPADebut + 4;
+			actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.PORTE_AVION, new Points(FactoryUtils.convertirIntToChar(xPADebut), yPADebut), new Points(FactoryUtils.convertirIntToChar(xPAFin), yPAFin));	
 		}
-		
 		
 		//actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CROISEUR, new Points('E', 1), new Points('H', 1));
 		//actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('E', 3), new Points('E', 5));
