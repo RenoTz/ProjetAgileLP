@@ -9,6 +9,7 @@ import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -16,7 +17,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.apache.commons.lang.StringUtils;
+
+import controleur.Main;
+import data.bateau.Bateau;
 import data.composants.Case;
+import data.composants.Points;
+import data.joueur.Joueur;
+import enumeration.EnumTypeBateau;
+import services.ActionsBateau;
 import utils.FactoryUtils;
 
 public class Interface extends JFrame {
@@ -26,7 +35,8 @@ public class Interface extends JFrame {
 	static List<JButton> listeBoutonAdversaire;
 	private Plateau plateauJoueur;
 	private Plateau plateauAdversaire;
-	
+	private static Joueur joueur;
+	private static Joueur adversaire;
 	//---------------
 	//	CONSTRUCTEUR
 	//---------------
@@ -46,7 +56,7 @@ public class Interface extends JFrame {
 	
 	public static void createWindow() {  
 		
-		JFrame frame = new JFrame("Bataille navale");
+		final JFrame frame = new JFrame("Bataille navale");
 		frame.setTitle("Bataille Navale - Groupe 1");
 		// Panneau principal
 		JPanel panelPrincipal = new JPanel();
@@ -86,12 +96,55 @@ public class Interface extends JFrame {
 		//panelJoueur.setSize(1000,600);
 		//panelAdversaire.setSize(600, 600);
 		frame.add(panelPrincipal);
-		frame.setSize(1200, 600);
+		frame.setSize(1230, 600);
 	
 		
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+
+		
+		nouvellePartieBouton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				frame.dispose();
+				initialiserPartie();				
+			}
+		});
+	}
+	
+	public static void initialiserPartie() {
+		Interface interfaceJeu = new Interface();
+		
+		ActionsBateau actions = new ActionsBateau();
+		
+		// Creation du joueur
+		joueur = new Joueur();
+		adversaire = new Joueur();
+		
+		// Intialisation de la liste des bateaux des joueurs
+		joueur.setListeBateaux(actions.initialiserListeBateaux());
+		adversaire.setListeBateaux(actions.initialiserListeBateaux());
+		
+		// TODO RT : Creation d'une nouvelle partie (fixe temporairement, aleatoire A VENIR !!!)
+		// Placement des bateaux du joueur
+		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.PORTE_AVION, new Points('A', 1), new Points('A', 5));
+		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.CROISEUR, new Points('C', 1), new Points('F', 1));
+		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('E', 3), new Points('E', 5));
+		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.SOUS_MARIN, new Points('G', 5), new Points('I', 5));
+		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.TORPILLEUR, new Points('J', 8), new Points('J', 9));
+		
+		// Placement des bateaux de l'adversaire	
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.PORTE_AVION, new Points('A', 3), new Points('A', 7));
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CROISEUR, new Points('E', 1), new Points('H', 1));
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('E', 3), new Points('E', 5));
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.SOUS_MARIN, new Points('G', 5), new Points('I', 5));
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.TORPILLEUR, new Points('J', 8), new Points('J', 9));
+		
+		// Placement des bateaux sur le plateau
+		actions.placerLesBateauxSurLePlateau(joueur.getListeBateaux(),interfaceJeu.getPlateauJoueur());
+		actions.placerLesBateauxSurLePlateau(adversaire.getListeBateaux(),interfaceJeu.getPlateauAdversaire());
 	}
 
 	private static void ajouterLaListeBoutonsAuPanel(JPanel panel, List<JButton> listeBouton)  {
@@ -110,7 +163,7 @@ public class Interface extends JFrame {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						tirer(plateau.getLePlateau(), FactoryUtils.convertirCharToInt(getXPos(plateau, x, y)), getYPos(plateau, x, y)-1);
+						tirer(plateau, FactoryUtils.convertirCharToInt(getXPos(plateau, x, y)), getYPos(plateau, x, y)-1);
 					}
 
 					private Integer getYPos(Plateau plateau, final int i,
@@ -129,14 +182,67 @@ public class Interface extends JFrame {
 		return listeBouton;
 	}
 	
-	public void tirer(Case[][] cases, int x , int y) {
-		if(cases[x][y].getCouleur().equals(Color.DARK_GRAY) || cases[x][y].isCaseTouche()){
-			cases[x][y].setCaseTouche(true);
-			cases[x][y].setCouleur(Color.RED);
-			cases[x][y].getBouton().setBackground(Color.RED);
+	public void tirer(Plateau plateau, int x , int y) {
+		if(plateau.getLePlateau()[x][y].getCouleur().equals(Color.DARK_GRAY) || plateau.getLePlateau()[x][y].isCaseTouche()){
+			plateau.getLePlateau()[x][y].setCaseTouche(true);
+			plateau.getLePlateau()[x][y].setCouleur(Color.RED);
+			plateau.getLePlateau()[x][y].getBouton().setBackground(Color.RED);
+			EnumTypeBateau bateauTouche = recupererLeTypeBateauTouche(plateau.getLePlateau()[x][y]);
+			if(verifierQueToutesLesCasesBateauxSontTouchees(plateau, bateauTouche)){
+				
+			}
 		}else{
-			cases[x][y].getBouton().setBackground(Color.WHITE);
+			plateau.getLePlateau()[x][y].getBouton().setBackground(Color.WHITE);
 		}
+	}
+
+	private boolean verifierQueToutesLesCasesBateauxSontTouchees(Plateau plateau, EnumTypeBateau bateauTouche) {
+		if(StringUtils.isNotBlank(bateauTouche.toString())){
+			for(Bateau bateau : getJoueur().getListeBateaux()){
+				if(bateau.getTypeBateau().equals(bateauTouche)){
+					int nombreCasesTouches = 0;
+					for(int i = 0; i < bateau.getTabPoints().length; i++){
+						if(plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getCouleur().equals(Color.RED)){
+							nombreCasesTouches++;
+							if(nombreCasesTouches == bateau.getTabPoints().length){
+								coulerLeBateau(bateau, plateau);
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	private void coulerLeBateau(Bateau bateau, Plateau plateau){
+		for(int i = 0; i < bateau.getTabPoints().length; i++){
+			if(plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getCouleur().equals(Color.RED)){
+				plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().setBackground(Color.GREEN);
+			}
+		}
+	}
+
+	private Integer yCaseBateau(Bateau bateau, int i) {
+		return bateau.getTabPoints()[i].getyPos();
+	}
+
+	private int xCaseBateau(Bateau bateau, int i) {
+		return FactoryUtils.convertirCharToInt(bateau.getTabPoints()[i].getxPos());
+	}
+	
+	private EnumTypeBateau recupererLeTypeBateauTouche(Case caseBateau) {
+		EnumTypeBateau typeBateauTouche = null;
+		for(Bateau bateau : getJoueur().getListeBateaux()){
+			for(Points point : Arrays.asList(bateau.getTabPoints())){
+				if((point.getxPos()==caseBateau.getPoint().getxPos() && point.getyPos() == caseBateau.getPoint().getyPos())){
+					typeBateauTouche = bateau.getTypeBateau();
+					break;
+				}
+			}
+		}
+		return typeBateauTouche;
 	}
 	
 	public Plateau getPlateauJoueur() {
@@ -149,6 +255,22 @@ public class Interface extends JFrame {
 
 	public void setPlateauAdversaire(Plateau plateauAdversaire) {
 		this.plateauAdversaire = plateauAdversaire;
+	}
+
+	public Joueur getJoueur() {
+		return joueur;
+	}
+
+	public void setJoueur(Joueur joueur) {
+		this.joueur = joueur;
+	}
+
+	public Joueur getAdversaire() {
+		return adversaire;
+	}
+
+	public void setAdversaire(Joueur adversaire) {
+		this.adversaire = adversaire;
 	}
 
 }
