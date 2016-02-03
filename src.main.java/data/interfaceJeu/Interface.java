@@ -13,6 +13,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import data.composants.Case;
+import data.composants.Points;
+import data.joueur.Joueur;
+import enumeration.EnumTypeBateau;
+import services.ActionsBateau;
 import utils.FactoryUtils;
 
 public class Interface extends JFrame {
@@ -80,6 +84,43 @@ public class Interface extends JFrame {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
+		if (nouvellePartieBouton.isSelected() == true) {
+			initialiserPartie();
+		}
+	}
+	
+	public static void initialiserPartie() {
+		Interface interfaceJeu = new Interface();
+		
+		ActionsBateau actions = new ActionsBateau();
+		
+		// Creation du joueur
+		Joueur joueur = new Joueur();
+		Joueur adversaire = new Joueur();
+		
+		// Intialisation de la liste des bateaux des joueurs
+		joueur.setListeBateaux(actions.initialiserListeBateaux());
+		adversaire.setListeBateaux(actions.initialiserListeBateaux());
+		
+		// TODO RT : Creation d'une nouvelle partie (fixe temporairement, aleatoire A VENIR !!!)
+		// Placement des bateaux du joueur
+		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.PORTE_AVION, new Points('A', 1), new Points('A', 5));
+		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.CROISEUR, new Points('C', 1), new Points('F', 1));
+		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('E', 3), new Points('E', 5));
+		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.SOUS_MARIN, new Points('G', 5), new Points('I', 5));
+		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.TORPILLEUR, new Points('J', 8), new Points('J', 9));
+		
+		// Placement des bateaux de l'adversaire	
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.PORTE_AVION, new Points('A', 3), new Points('A', 7));
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CROISEUR, new Points('E', 1), new Points('H', 1));
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('E', 3), new Points('E', 5));
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.SOUS_MARIN, new Points('G', 5), new Points('I', 5));
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.TORPILLEUR, new Points('J', 8), new Points('J', 9));
+		
+		// Placement des bateaux sur le plateau
+		actions.placerLesBateauxSurLePlateau(joueur.getListeBateaux(),interfaceJeu.getPlateauJoueur());
+		actions.placerLesBateauxSurLePlateau(adversaire.getListeBateaux(),interfaceJeu.getPlateauAdversaire());
 	}
 
 	private static void ajouterLaListeBoutonsAuPanel(JPanel panel, List<JButton> listeBouton)  {
