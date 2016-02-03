@@ -19,7 +19,7 @@ public class PorteAvion extends Bateau {
 
 	public PorteAvion() {
 		this.tabPoints = new Points[5];
-		this.typeBateau = EnumTypeBateau.SOUS_MARIN;
+		this.typeBateau = EnumTypeBateau.PORTE_AVION;
 	}
 	
 	//-----------------
