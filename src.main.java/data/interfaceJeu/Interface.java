@@ -96,7 +96,7 @@ public class Interface extends JFrame{
 	public Plateau getPlateau() {
 		return plateauJoueur;
 	}
-
+	
 	public Plateau getPlateauAdversaire() {
 		return plateauAdversaire;
 	}
