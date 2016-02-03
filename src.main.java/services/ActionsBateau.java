@@ -139,28 +139,30 @@ public class ActionsBateau {
 	
 	private boolean checkCoherenceCoordonneesEtLongueurBateau(Joueur j,EnumTypeBateau typeBateau, Points coordonneesAvant, Points coordonneesArriere ){
 		boolean coherent = false;
-		for(Bateau bateau : j.getListeBateaux()){
-			if(typeBateau.equals(bateau.getTypeBateau())){
-				if(bateauEnPositionVerticale(coordonneesAvant, coordonneesArriere)){
-					if(coordonneesArriere.getyPos()-coordonneesAvant.getyPos()> 0 
-							&& coordonneesArriere.getyPos()-coordonneesAvant.getyPos() == bateau.getTabPoints().length-1){
-						coherent = true;
-						break;
-					}else if(coordonneesAvant.getyPos()-coordonneesArriere.getyPos()> 0 
-							&& coordonneesAvant.getyPos()-coordonneesArriere.getyPos() == bateau.getTabPoints().length-1){
-						coherent = true;
-						break;
+		if(CollectionUtils.isNotEmpty(j.getListeBateaux())){
+			for(Bateau bateau : j.getListeBateaux()){
+				if(typeBateau.equals(bateau.getTypeBateau())){
+					if(bateauEnPositionVerticale(coordonneesAvant, coordonneesArriere)){
+						if(coordonneesArriere.getyPos()-coordonneesAvant.getyPos()> 0 
+								&& coordonneesArriere.getyPos()-coordonneesAvant.getyPos() == bateau.getTabPoints().length-1){
+							coherent = true;
+							break;
+						}else if(coordonneesAvant.getyPos()-coordonneesArriere.getyPos()> 0 
+								&& coordonneesAvant.getyPos()-coordonneesArriere.getyPos() == bateau.getTabPoints().length-1){
+							coherent = true;
+							break;
+						}
 					}
-				}
-				if(bateauEnPositionHorizontale(coordonneesAvant, coordonneesArriere)){
-					if(coordonneesAvant.getxPos()-coordonneesArriere.getyPos()> 0 
-							&& coordonneesAvant.getxPos()-coordonneesArriere.getxPos() == bateau.getTabPoints().length-1){
-						coherent = true;
-						break;
-					}else if(coordonneesArriere.getxPos()-coordonneesAvant.getxPos()> 0 
-							&& coordonneesArriere.getxPos()-coordonneesAvant.getxPos() == bateau.getTabPoints().length-1){
-						coherent = true;
-						break;
+					if(bateauEnPositionHorizontale(coordonneesAvant, coordonneesArriere)){
+						if(coordonneesAvant.getxPos()-coordonneesArriere.getyPos()> 0 
+								&& coordonneesAvant.getxPos()-coordonneesArriere.getxPos() == bateau.getTabPoints().length-1){
+							coherent = true;
+							break;
+						}else if(coordonneesArriere.getxPos()-coordonneesAvant.getxPos()> 0 
+								&& coordonneesArriere.getxPos()-coordonneesAvant.getxPos() == bateau.getTabPoints().length-1){
+							coherent = true;
+							break;
+						}
 					}
 				}
 			}
@@ -168,11 +170,4 @@ public class ActionsBateau {
 		return coherent;
 	}
 
-	public void tirer(Plateau plateau, int x , int y) {
-		if(plateau.getLePlateau()[x][y].getCouleur().equals(Color.DARK_GRAY)){
-			plateau.getLePlateau()[x][y].setCaseTouche(true);
-			plateau.getLePlateau()[x][y].setCouleur(Color.RED);
-			plateau.getLePlateau()[x][y].getBouton().setBackground(Color.RED);
-		}
-	}
 }

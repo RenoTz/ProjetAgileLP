@@ -3,6 +3,8 @@ package data.interfaceJeu;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +12,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Interface extends JFrame{
+import data.composants.Case;
+import utils.FactoryUtils;
+
+public class Interface extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	static List<JButton> listeBoutonJoueur;
@@ -56,16 +61,16 @@ public class Interface extends JFrame{
         panelPrincipal.add(panelAdversaire);
         
 		// Bouton 'Nouvelle partie'
-        JButton nouvellePartieBouton = new JButton("Nouvelle Partie");
+        final JButton nouvellePartieBouton = new JButton("Nouvelle Partie");
         frame.add(nouvellePartieBouton, BorderLayout.SOUTH);
         nouvellePartieBouton.setBackground(Color.black); 
         nouvellePartieBouton.setForeground(Color.white);   
-       
 		frame.setBackground(Color.GRAY);
 		
 		// Create button
 		ajouterLaListeBoutonsAuPanel(panelJoueur, listeBoutonJoueur);
 		ajouterLaListeBoutonsAuPanel(panelAdversaire, listeBoutonAdversaire);
+		
 
 		panelJoueur.setSize(600,600);
 //		panelAdversaire.setSize(600, 600);
@@ -83,16 +88,45 @@ public class Interface extends JFrame{
 		}
 	}
 	
-	public List<JButton> creerCasesGraphiques(Plateau plateau) {  
+	public List<JButton> creerCasesGraphiques(final Plateau plateau) {  
 		List<JButton> listeBouton = new ArrayList<JButton>();
 		for( int i = 0; i < plateau.getLePlateau().length; i++ ){
 			for( int j = 0; j < plateau.getLePlateau().length; j++ ) {
+				final int x = i;
+				final int y = j;
+				plateau.getLePlateau()[i][j].getBouton().addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						tirer(plateau.getLePlateau(), FactoryUtils.convertirCharToInt(getXPos(plateau, x, y)), getYPos(plateau, x, y)-1);
+						System.out.println("test");
+						
+					}
+
+					private Integer getYPos(Plateau plateau, final int i,
+							final int j) {
+						return plateau.getLePlateau()[i][j].getPoint().getyPos();
+					}
+
+					private char getXPos(Plateau plateau, final int i,
+							final int j) {
+						return plateau.getLePlateau()[i][j].getPoint().getxPos();
+					}
+				});
 				listeBouton.add(plateau.getLePlateau()[i][j].getBouton());
 			}
 		}
 		return listeBouton;
 	}
-
+	
+	public void tirer(Case[][] cases, int x , int y) {
+		if(cases[x][y].getCouleur().equals(Color.DARK_GRAY)){
+			cases[x][y].setCaseTouche(true);
+			cases[x][y].setCouleur(Color.RED);
+			cases[x][y].getBouton().setBackground(Color.RED);
+		}
+	}
+	
 	public Plateau getPlateau() {
 		return plateauJoueur;
 	}
