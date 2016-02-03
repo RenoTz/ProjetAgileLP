@@ -30,8 +30,6 @@ public class Plateau {
 				  lePlateau[i][j] = casePlateau;
 			  }
 		}
-		// TODO : temporaire, à enlever quand inutile
-		log(lePlateau);
 	}
 
 	//-----------------

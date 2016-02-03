@@ -159,7 +159,7 @@ public class Interface extends JFrame {
 	}
 	
 	public void tirer(Case[][] cases, int x , int y) {
-		if(cases[x][y].getCouleur().equals(Color.DARK_GRAY)){
+		if(cases[x][y].getCouleur().equals(Color.DARK_GRAY) || cases[x][y].isCaseTouche()){
 			cases[x][y].setCaseTouche(true);
 			cases[x][y].setCouleur(Color.RED);
 			cases[x][y].getBouton().setBackground(Color.RED);
