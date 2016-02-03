@@ -2,7 +2,6 @@ package data.interfaceJeu;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,9 +87,8 @@ public class Interface extends JFrame{
 		List<JButton> listeBouton = new ArrayList<JButton>();
 		for( int i = 0; i < plateau.getLePlateau().length; i++ ){
 			for( int j = 0; j < plateau.getLePlateau().length; j++ ) {
-				  //creer bouton + couleurs + clik dessus modifi�
 				listeBouton.add(plateau.getLePlateau()[i][j].getBouton());
-			  }
+			}
 		}
 		return listeBouton;
 	}

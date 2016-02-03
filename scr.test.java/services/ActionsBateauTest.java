@@ -42,6 +42,7 @@ public class ActionsBateauTest {
 		
 		//Act
 		List<Bateau> listeRetour = this.action.initialiserListeBateaux();
+		
 		//Assert
 		assertNotNull(listeRetour);
 		assertEquals(listeRetour.size(), 5);
@@ -59,10 +60,11 @@ public class ActionsBateauTest {
 		Plateau plateau = new Plateau(10, 10);
 		j.setListeBateaux(this.action.initialiserListeBateaux());
 		this.action.assignerCoordonneesBateaux(j, EnumTypeBateau.PORTE_AVION, new Points('A', 1), new Points('A', 5));
-		this.action.assignerCoordonneesBateaux(j, EnumTypeBateau.CROISEUR, new Points('B', 1), new Points('E', 1));
-		this.action.assignerCoordonneesBateaux(j, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('E', 3), new Points('E', 5));
+		this.action.assignerCoordonneesBateaux(j, EnumTypeBateau.CROISEUR, new Points('E', 1), new Points('B', 1));
+		this.action.assignerCoordonneesBateaux(j, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('E', 5), new Points('E', 3));
 		this.action.assignerCoordonneesBateaux(j, EnumTypeBateau.SOUS_MARIN, new Points('G', 5), new Points('I', 5));
 		this.action.assignerCoordonneesBateaux(j, EnumTypeBateau.TORPILLEUR, new Points('J', 8), new Points('J', 9));
+		
 		// Act
 		this.action.placerLesBateauxSurLePlateau(j.getListeBateaux(), plateau);
 		
@@ -94,8 +96,10 @@ public class ActionsBateauTest {
 		// Arrange
 		Joueur j = new Joueur();
 		j.setListeBateaux(this.action.initialiserListeBateaux());
+		
 		// Act 
 		this.action.supprimerBateau(j, EnumTypeBateau.CONTRE_TORPILLEUR);
+		
 		// Assert
 		assertTrue(verifierBateauSupprime(j));
 	}
@@ -108,7 +112,7 @@ public class ActionsBateauTest {
 		
 		int xPos = FactoryUtils.convertirCharToInt(x);
 		
-		if(plateau.getLePlateau()[xPos-1][y-1].getCouleur() != Color.BLUE){
+		if(laCaseAChangeDeCouleur(plateau, xPos-1,y-1)){
 			return true;
 		}
 		return false;
@@ -117,7 +121,7 @@ public class ActionsBateauTest {
 	private boolean toutesLesCasesDuPlateauSontBleues(Plateau plateau) {
 		for(int i = 0; i < plateau.getLePlateau().length; i++){
 			for(int j = 0; i < plateau.getLePlateau().length; i++){
-				if(plateau.getLePlateau()[i][j].getCouleur() != Color.BLUE){
+				if(laCaseAChangeDeCouleur(plateau, i, j)){
 					return false;
 				}
 			}
