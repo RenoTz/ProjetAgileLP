@@ -165,8 +165,11 @@ public class ActionsBateau {
 		return coherent;
 	}
 
-	public void tirer() {
-		// TODO Auto-generated method stub
-		
+	public void tirer(Plateau plateau, int x , int y) {
+		if(plateau.getLePlateau()[x][y].getCouleur().equals(Color.DARK_GRAY)){
+			plateau.getLePlateau()[x][y].setCaseTouche(true);
+			plateau.getLePlateau()[x][y].setCouleur(Color.RED);
+			plateau.getLePlateau()[x][y].getBouton().setBackground(Color.RED);
+		}
 	}
 }
