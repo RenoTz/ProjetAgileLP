@@ -20,7 +20,9 @@ import controleur.Main;
 import data.bateau.Bateau;
 import data.composants.Case;
 import data.composants.Points;
+import data.joueur.Joueur;
 import enumeration.EnumTypeBateau;
+import services.ActionsBateau;
 import utils.FactoryUtils;
 
 public class Interface extends JFrame {
@@ -30,7 +32,8 @@ public class Interface extends JFrame {
 	static List<JButton> listeBoutonAdversaire;
 	private Plateau plateauJoueur;
 	private Plateau plateauAdversaire;
-	
+	private static Joueur joueur;
+	private static Joueur adversaire;
 	//---------------
 	//	CONSTRUCTEUR
 	//---------------
@@ -105,8 +108,8 @@ public class Interface extends JFrame {
 		ActionsBateau actions = new ActionsBateau();
 		
 		// Creation du joueur
-		Joueur joueur = new Joueur();
-		Joueur adversaire = new Joueur();
+		joueur = new Joueur();
+		adversaire = new Joueur();
 		
 		// Intialisation de la liste des bateaux des joueurs
 		joueur.setListeBateaux(actions.initialiserListeBateaux());
@@ -183,7 +186,7 @@ public class Interface extends JFrame {
 
 	private boolean verifierQueToutesLesCasesBateauxSontTouchees(Plateau plateau, EnumTypeBateau bateauTouche) {
 		if(StringUtils.isNotBlank(bateauTouche.toString())){
-			for(Bateau bateau : Main.getJoueur().getListeBateaux()){
+			for(Bateau bateau : getJoueur().getListeBateaux()){
 				if(bateau.getTypeBateau().equals(bateauTouche)){
 					int nombreCasesTouches = 0;
 					for(int i = 0; i < bateau.getTabPoints().length; i++){
@@ -219,7 +222,7 @@ public class Interface extends JFrame {
 	
 	private EnumTypeBateau recupererLeTypeBateauTouche(Case caseBateau) {
 		EnumTypeBateau typeBateauTouche = null;
-		for(Bateau bateau : Main.getJoueur().getListeBateaux()){
+		for(Bateau bateau : getJoueur().getListeBateaux()){
 			for(Points point : Arrays.asList(bateau.getTabPoints())){
 				if((point.getxPos()==caseBateau.getPoint().getxPos() && point.getyPos() == caseBateau.getPoint().getyPos())){
 					typeBateauTouche = bateau.getTypeBateau();
@@ -240,6 +243,22 @@ public class Interface extends JFrame {
 
 	public void setPlateauAdversaire(Plateau plateauAdversaire) {
 		this.plateauAdversaire = plateauAdversaire;
+	}
+
+	public Joueur getJoueur() {
+		return joueur;
+	}
+
+	public void setJoueur(Joueur joueur) {
+		this.joueur = joueur;
+	}
+
+	public Joueur getAdversaire() {
+		return adversaire;
+	}
+
+	public void setAdversaire(Joueur adversaire) {
+		this.adversaire = adversaire;
 	}
 
 }
