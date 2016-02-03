@@ -165,4 +165,9 @@ public class ActionsBateau {
 		}
 		return coherent;
 	}
+
+	public void tirer() {
+		// TODO Auto-generated method stub
+		
+	}
 }

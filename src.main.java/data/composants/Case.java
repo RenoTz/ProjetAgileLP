@@ -55,6 +55,9 @@ public class Case {
 	}
 
 	public boolean isCaseTouche() {
+		if(getCouleur().equals(Color.DARK_GRAY)){ 
+			caseTouche = true;
+		}
 		return caseTouche;
 	}
 
