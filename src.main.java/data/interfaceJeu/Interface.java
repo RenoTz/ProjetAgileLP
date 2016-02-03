@@ -99,8 +99,6 @@ public class Interface extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						tirer(plateau.getLePlateau(), FactoryUtils.convertirCharToInt(getXPos(plateau, x, y)), getYPos(plateau, x, y)-1);
-						System.out.println("test");
-						
 					}
 
 					private Integer getYPos(Plateau plateau, final int i,
@@ -124,6 +122,8 @@ public class Interface extends JFrame {
 			cases[x][y].setCaseTouche(true);
 			cases[x][y].setCouleur(Color.RED);
 			cases[x][y].getBouton().setBackground(Color.RED);
+		}else{
+			cases[x][y].getBouton().setBackground(Color.WHITE);
 		}
 	}
 	
