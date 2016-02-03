@@ -62,7 +62,7 @@ public class InterfaceTest {
 		action.placerLesBateauxSurLePlateau(j.getListeBateaux(),interfaceJeu.getPlateauJoueur());
 		
 		//Act
-		interfaceJeu.tirer(interfaceJeu.getPlateauJoueur().getLePlateau(), FactoryUtils.convertirCharToInt(xPos), yPos);
+		interfaceJeu.tirer(interfaceJeu.getPlateauJoueur(), FactoryUtils.convertirCharToInt(xPos), yPos);
 		
 		// Assert
 		assertTrue(interfaceJeu.getPlateauJoueur().getLePlateau()[FactoryUtils.convertirCharToInt(xPos)][yPos].isCaseTouche());

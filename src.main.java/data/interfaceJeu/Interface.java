@@ -6,13 +6,20 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.apache.commons.lang.StringUtils;
+
+import controleur.Main;
+import data.bateau.Bateau;
 import data.composants.Case;
+import data.composants.Points;
+import enumeration.EnumTypeBateau;
 import utils.FactoryUtils;
 
 public class Interface extends JFrame {
@@ -98,7 +105,7 @@ public class Interface extends JFrame {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						tirer(plateau.getLePlateau(), FactoryUtils.convertirCharToInt(getXPos(plateau, x, y)), getYPos(plateau, x, y)-1);
+						tirer(plateau, FactoryUtils.convertirCharToInt(getXPos(plateau, x, y)), getYPos(plateau, x, y)-1);
 					}
 
 					private Integer getYPos(Plateau plateau, final int i,
@@ -117,16 +124,69 @@ public class Interface extends JFrame {
 		return listeBouton;
 	}
 	
-	public void tirer(Case[][] cases, int x , int y) {
-		if(cases[x][y].getCouleur().equals(Color.DARK_GRAY) || cases[x][y].isCaseTouche()){
-			cases[x][y].setCaseTouche(true);
-			cases[x][y].setCouleur(Color.RED);
-			cases[x][y].getBouton().setBackground(Color.RED);
+	public void tirer(Plateau plateau, int x , int y) {
+		if(plateau.getLePlateau()[x][y].getCouleur().equals(Color.DARK_GRAY) || plateau.getLePlateau()[x][y].isCaseTouche()){
+			plateau.getLePlateau()[x][y].setCaseTouche(true);
+			plateau.getLePlateau()[x][y].setCouleur(Color.RED);
+			plateau.getLePlateau()[x][y].getBouton().setBackground(Color.RED);
+			EnumTypeBateau bateauTouche = recupererLeTypeBateauTouche(plateau.getLePlateau()[x][y]);
+			if(verifierQueToutesLesCasesBateauxSontTouchees(plateau, bateauTouche)){
+				
+			}
 		}else{
-			cases[x][y].getBouton().setBackground(Color.WHITE);
+			plateau.getLePlateau()[x][y].getBouton().setBackground(Color.WHITE);
 		}
 	}
+
+	private boolean verifierQueToutesLesCasesBateauxSontTouchees(Plateau plateau, EnumTypeBateau bateauTouche) {
+		if(StringUtils.isNotBlank(bateauTouche.toString())){
+			for(Bateau bateau : Main.getJoueur().getListeBateaux()){
+				if(bateau.getTypeBateau().equals(bateauTouche)){
+					int nombreCasesTouches = 0;
+					for(int i = 0; i < bateau.getTabPoints().length; i++){
+						if(plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getCouleur().equals(Color.RED)){
+							nombreCasesTouches++;
+							if(nombreCasesTouches == bateau.getTabPoints().length){
+								coulerLeBateau(bateau, plateau);
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
 	
+	private void coulerLeBateau(Bateau bateau, Plateau plateau){
+		for(int i = 0; i < bateau.getTabPoints().length; i++){
+			if(plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getCouleur().equals(Color.RED)){
+				plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().setBackground(Color.GREEN);
+			}
+		}
+	}
+
+	private Integer yCaseBateau(Bateau bateau, int i) {
+		return bateau.getTabPoints()[i].getyPos();
+	}
+
+	private int xCaseBateau(Bateau bateau, int i) {
+		return FactoryUtils.convertirCharToInt(bateau.getTabPoints()[i].getxPos());
+	}
+	
+	private EnumTypeBateau recupererLeTypeBateauTouche(Case caseBateau) {
+		EnumTypeBateau typeBateauTouche = null;
+		for(Bateau bateau : Main.getJoueur().getListeBateaux()){
+			for(Points point : Arrays.asList(bateau.getTabPoints())){
+				if((point.getxPos()==caseBateau.getPoint().getxPos() && point.getyPos() == caseBateau.getPoint().getyPos())){
+					typeBateauTouche = bateau.getTypeBateau();
+					break;
+				}
+			}
+		}
+		return typeBateauTouche;
+	}
+
 	public Plateau getPlateauJoueur() {
 		return plateauJoueur;
 	}

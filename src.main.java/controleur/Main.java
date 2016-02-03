@@ -1,7 +1,9 @@
 package controleur;
+import java.awt.Color;
 import java.util.Random;
 
 import services.ActionsBateau;
+import data.bateau.Bateau;
 import data.composants.Points;
 import data.interfaceJeu.Interface;
 import data.joueur.Joueur;
@@ -9,6 +11,12 @@ import enumeration.EnumTypeBateau;
 
 
 public class Main {
+	
+	private static Joueur joueur;
+
+	public static Joueur getJoueur() {
+		return joueur;
+	}
 
 	public static void main(String[] args) {
 		
@@ -19,7 +27,7 @@ public class Main {
 		ActionsBateau actions = new ActionsBateau();
 		
 		// Creation du joueur
-		Joueur joueur = new Joueur();
+		joueur = new Joueur();
 		Joueur adversaire = new Joueur();
 		
 		// Intialisation de la liste des bateaux des joueurs
@@ -44,7 +52,22 @@ public class Main {
 		// Placement des bateaux sur le plateau
 		actions.placerLesBateauxSurLePlateau(joueur.getListeBateaux(),interfaceJeu.getPlateauJoueur());
 		actions.placerLesBateauxSurLePlateau(adversaire.getListeBateaux(),interfaceJeu.getPlateauAdversaire());
-	
+		
+			
+	}
+
+	public static void verifierSiToutesLesCasesDuBateauSontTouches( Interface interfaceJeu, Joueur joueur) {
+		for(Bateau bateau : joueur.getListeBateaux()){
+			for(int i = 0; i < interfaceJeu.getPlateauJoueur().getLePlateau().length; i++){
+				for(int j = 0; j < interfaceJeu.getPlateauJoueur().getLePlateau().length; j++){
+					if((bateau.getTabPoints()[i].getxPos() == interfaceJeu.getPlateauJoueur().getLePlateau()[i][j].getPoint().getxPos()) 
+							&& interfaceJeu.getPlateauJoueur().getLePlateau()[i][j].getCouleur().equals(Color.RED)){
+						System.out.println("test");
+						
+					}
+				}
+			}
+		}
 	}
 
 }
