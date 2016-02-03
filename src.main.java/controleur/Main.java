@@ -7,8 +7,7 @@ public class Main {
 	public static void main(String[] args) {		
 		
 		// Creation de l'interface graphique
-		Interface jouer = new Interface();
-		jouer.initialiserPartie();
+		Interface.initialiserPartie();
 	
 	}
 
