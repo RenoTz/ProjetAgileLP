@@ -65,7 +65,7 @@ public class Interface extends JFrame{
 		
 		// Create button
 		ajouterLaListeBoutonsAuPanel(panelJoueur, listeBoutonJoueur);
-//		ajouterLaListeBoutonsAuPanel(panelAdversaire, listeBoutonAdversaire);
+		ajouterLaListeBoutonsAuPanel(panelAdversaire, listeBoutonAdversaire);
 
 		panelJoueur.setSize(600,600);
 //		panelAdversaire.setSize(600, 600);
