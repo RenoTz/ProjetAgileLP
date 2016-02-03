@@ -127,7 +127,7 @@ public class Interface extends JFrame {
 		}
 	}
 	
-	public Plateau getPlateau() {
+	public Plateau getPlateauJoueur() {
 		return plateauJoueur;
 	}
 	
