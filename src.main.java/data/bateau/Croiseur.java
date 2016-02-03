@@ -11,14 +11,15 @@ public class Croiseur extends Bateau{
 	
 	private Points[] tabPoints;
 	private boolean touche;
+	private EnumTypeBateau typeBateau;
 	
 	//---------------
 	//	CONSTRUCTEUR
 	//---------------
 
-	public Croiseur(EnumTypeBateau typeBateau) {
-		super(typeBateau);
-		this.setTabPoints(new Points[4]);
+	public Croiseur() {
+		this.tabPoints = new Points[4];
+		this.typeBateau = EnumTypeBateau.CROISEUR;
 	}
 	
 	//-----------------
@@ -29,16 +30,16 @@ public class Croiseur extends Bateau{
 		return tabPoints;
 	}
 
-	public void setTabPoints(Points[] tabPoints) {
-		this.tabPoints = tabPoints;
-	}
-
 	public boolean isTouche() {
 		return touche;
 	}
 
 	public void setTouche(boolean touche) {
 		this.touche = touche;
+	}
+
+	public EnumTypeBateau getTypeBateau() {
+		return typeBateau;
 	}
 
 }

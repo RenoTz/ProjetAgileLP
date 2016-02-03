@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.mockito.internal.listeners.CollectCreatedMocks;
-
 import com.google.common.base.Preconditions;
 
 import data.bateau.Bateau;
@@ -26,11 +24,11 @@ public class ActionsBateau {
 		
 		List<Bateau> listeBateaux = new ArrayList<Bateau>();
 		
-		Bateau porteAvion = new PorteAvion(EnumTypeBateau.PORTE_AVION);
-		Bateau contreTorpilleur = new ContreTorpilleur(EnumTypeBateau.CONTRE_TORPILLEUR);
-		Bateau croiseur = new Croiseur(EnumTypeBateau.CROISEUR);
-		Bateau sousMarin = new SousMarin(EnumTypeBateau.SOUS_MARIN);
-		Bateau torpilleur = new Torpilleur(EnumTypeBateau.TORPILLEUR);
+		Bateau porteAvion = new PorteAvion();
+		Bateau contreTorpilleur = new ContreTorpilleur();
+		Bateau croiseur = new Croiseur();
+		Bateau sousMarin = new SousMarin();
+		Bateau torpilleur = new Torpilleur();
 		listeBateaux.add(porteAvion);
 		listeBateaux.add(contreTorpilleur);
 		listeBateaux.add(croiseur);
