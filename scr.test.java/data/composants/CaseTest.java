@@ -49,21 +49,4 @@ public class CaseTest {
 			
 		}
 		
-		@Test
-		public void testTirer() {
-			
-			//Arrange
-			Interface interfaceJeu = new Interface();
-			Joueur j = new Joueur();
-			j.setListeBateaux(actions.initialiserListeBateaux());
-			actions.assignerCoordonneesBateaux(j, EnumTypeBateau.PORTE_AVION, new Points('A', 1), new Points('A', 5));
-			actions.placerLesBateauxSurLePlateau(j.getListeBateaux(),interfaceJeu.getPlateau());
-			//Act
-			actions.tirer(interfaceJeu.getPlateau(), FactoryUtils.convertirCharToInt('A'), 3);
-			
-			// Assert
-//			assertTrue(casePlateau.isCaseTouche());
-			
-		}
-		
 }

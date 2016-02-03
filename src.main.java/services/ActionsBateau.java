@@ -2,9 +2,11 @@ package services;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+
 import com.google.common.base.Preconditions;
 
 import data.bateau.Bateau;
@@ -73,19 +75,21 @@ public class ActionsBateau {
 		boolean caseColoree;
 		if(CollectionUtils.isNotEmpty(listeBateaux)){
 			for(Bateau bateau : listeBateaux){
-				for(int caseBateau = 0; caseBateau < bateau.getTabPoints().length; caseBateau++){
-					caseColoree = false;
-					for( int i = 0; i < plateau.getLePlateau().length; i++ ){
-						for( int j = 0; j < plateau.getLePlateau().length; j++ ) {
-							 if(caseBateauCorrespondCasePlateau(plateau, bateau, caseBateau, i, j)){
-								 plateau.getLePlateau()[i][j].setCouleur(Color.DARK_GRAY);
-								 plateau.getLePlateau()[i][j].getBouton().setBackground(Color.DARK_GRAY);
-								 caseColoree = true;
-								 break;
-							 }
-						  }
-						if(caseColoree){
-							break;
+				if(bateau.getTabPoints()[0] != null){
+					for(int caseBateau = 0; caseBateau < bateau.getTabPoints().length; caseBateau++){
+						caseColoree = false;
+						for( int i = 0; i < plateau.getLePlateau().length; i++ ){
+							for( int j = 0; j < plateau.getLePlateau().length; j++ ) {
+								 if(caseBateauCorrespondCasePlateau(plateau, bateau, caseBateau, i, j)){
+									 plateau.getLePlateau()[i][j].setCouleur(Color.DARK_GRAY);
+									 plateau.getLePlateau()[i][j].getBouton().setBackground(Color.DARK_GRAY);
+									 caseColoree = true;
+									 break;
+								 }
+							  }
+							if(caseColoree){
+								break;
+							}
 						}
 					}
 				}
