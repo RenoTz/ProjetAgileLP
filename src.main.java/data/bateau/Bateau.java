@@ -2,6 +2,7 @@ package data.bateau;
 
 import data.composants.Points;
 import enumeration.EnumTypeBateau;
+import data.composants.*;
 
 public abstract class Bateau {
 
@@ -29,6 +30,11 @@ public abstract class Bateau {
 	}
 
 	public boolean isCoule() {
+		Points p = new Points();
+		Case caseBateau = new Case(p);
+		if (caseBateau.isCaseTouche() == true) {
+			coule = true;
+		}
 		return coule;
 	}
 

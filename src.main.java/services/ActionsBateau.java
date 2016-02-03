@@ -69,6 +69,7 @@ public class ActionsBateau {
 		}
 	}
 	
+	
 	@SuppressWarnings("static-access")
 	public void placerLesBateauxSurLePlateau(List<Bateau> listeBateaux, Plateau plateau){
 		
