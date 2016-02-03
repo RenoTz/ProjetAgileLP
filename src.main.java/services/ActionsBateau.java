@@ -80,6 +80,8 @@ public class ActionsBateau {
 							 if(caseBateauCorrespondCasePlateau(plateau, bateau, caseBateau, i, j)){
 								 plateau.getLePlateau()[i][j].setCouleur(Color.DARK_GRAY);
 								 plateau.getLePlateau()[i][j].getBouton().setBackground(Color.DARK_GRAY);
+								 plateau.getLePlateau()[i][j].setCaseUtilisee(true);
+								 plateau.getLePlateau()[i][j].getBouton().setForeground(Color.RED);
 								 caseColoree = true;
 								 break;
 							 }

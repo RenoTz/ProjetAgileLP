@@ -14,6 +14,7 @@ public class Case {
 	private Points point;
 	private Color couleur;
 	private boolean caseTouche;
+	private boolean caseUtilisee;
 	private JButton bouton;
 	
 	//---------------
@@ -24,6 +25,7 @@ public class Case {
 		this.setPoint(point);
 		this.couleur = Color.BLUE;
 		this.caseTouche = false;
+		this.caseUtilisee = false;
 		this.bouton = creerBouton();
 	}
 
@@ -66,6 +68,14 @@ public class Case {
 
 	public void setCaseTouche(boolean caseTouche) {
 		this.caseTouche = caseTouche;
+	}
+	
+	public boolean getCaseUtilisee(){
+		return this.caseUtilisee;
+	}
+	
+	public void setCaseUtilisee(boolean caseUtilisee){
+		this.caseUtilisee = caseUtilisee;
 	}
 
 	public JButton getBouton() {
