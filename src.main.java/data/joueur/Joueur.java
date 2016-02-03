@@ -11,7 +11,7 @@ public class Joueur {
 
 	private String nom;
 	private List<Bateau> listeBateaux;
-	private boolean premier;
+	private boolean enTrainDeJouer;
 	private boolean gagne;
 	
 	//------------------------------
@@ -26,12 +26,12 @@ public class Joueur {
 		this.nom = nom;
 	}
 	
-	public boolean isPremier() {
-		return premier;
+	public boolean isEnTrainDeJouer() {
+		return enTrainDeJouer;
 	}
 
-	public void setPremier(boolean premier) {
-		this.premier = premier;
+	public void setEnTrainDeJouer(boolean enTrainDeJouer) {
+		this.enTrainDeJouer = enTrainDeJouer;
 	}
 
 	public boolean isGagne() {
