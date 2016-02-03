@@ -19,6 +19,7 @@ import com.google.common.collect.Lists;
 import data.bateau.Bateau;
 import data.bateau.Croiseur;
 import data.composants.Points;
+import data.interfaceJeu.Interface;
 import data.interfaceJeu.Plateau;
 import data.joueur.Joueur;
 import enumeration.EnumTypeBateau;
@@ -166,5 +167,26 @@ public class ActionsBateauTest {
 		// Assert
 		
 	}
+	
+	@Test
+	public void testTirer() {
+		
+		//Arrange
+		char xPos = 'A';
+		int yPos = 3;
+		Interface interfaceJeu = new Interface();
+		Joueur j = new Joueur();
+		j.setListeBateaux(action.initialiserListeBateaux());
+		action.assignerCoordonneesBateaux(j, EnumTypeBateau.PORTE_AVION, new Points(xPos, 1), new Points(xPos, 5));
+		action.placerLesBateauxSurLePlateau(j.getListeBateaux(),interfaceJeu.getPlateau());
+		
+		//Act
+		action.tirer(interfaceJeu.getPlateau(), FactoryUtils.convertirCharToInt(xPos) - 1, yPos);
+		
+		// Assert
+		assertTrue(interfaceJeu.getPlateau().getLePlateau()[FactoryUtils.convertirCharToInt(xPos) - 1][yPos].isCaseTouche());
+		
+	}
+
 	
 }
