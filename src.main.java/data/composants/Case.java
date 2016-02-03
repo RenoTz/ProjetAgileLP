@@ -39,6 +39,7 @@ public class Case {
 		bouton.setForeground(Color.WHITE);
 		return bouton;
 	}
+	
 
 	public Points getPoint() {
 		return point;
