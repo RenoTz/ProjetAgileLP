@@ -5,34 +5,34 @@ public class FactoryUtils {
 	public static int convertirCharToInt(char lettre){
 		int indice = 0;
 		if(lettre == 'A'){
-			indice = 1;
+			indice = 0;
 		}
 		if(lettre == 'B'){
-			indice = 2;
+			indice = 1;
 		}
 		if(lettre == 'C'){
-			indice = 3;
+			indice = 2;
 		}
 		if(lettre == 'D'){
-			indice = 4;
+			indice = 3;
 		}
 		if(lettre == 'E'){
-			indice = 5;
+			indice = 4;
 		}
 		if(lettre == 'F'){
-			indice = 6;
+			indice = 5;
 		}
 		if(lettre == 'G'){
-			indice = 7;
+			indice = 6;
 		}
 		if(lettre == 'H'){
-			indice = 8;
+			indice = 7;
 		}
 		if(lettre == 'I'){
-			indice = 9;
+			indice = 8;
 		}
 		if(lettre == 'J'){
-			indice = 10;
+			indice = 9;
 		}
 		return indice;
 	}
