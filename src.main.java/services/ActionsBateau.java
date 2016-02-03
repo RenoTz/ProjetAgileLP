@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.mockito.internal.listeners.CollectCreatedMocks;
-
 import com.google.common.base.Preconditions;
 
 import data.bateau.Bateau;
