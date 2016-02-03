@@ -59,13 +59,13 @@ public class InterfaceTest {
 		Joueur j = new Joueur();
 		j.setListeBateaux(action.initialiserListeBateaux());
 		action.assignerCoordonneesBateaux(j, EnumTypeBateau.PORTE_AVION, new Points(xPos, 1), new Points(xPos, 5));
-		action.placerLesBateauxSurLePlateau(j.getListeBateaux(),interfaceJeu.getPlateau());
+		action.placerLesBateauxSurLePlateau(j.getListeBateaux(),interfaceJeu.getPlateauJoueur());
 		
 		//Act
-		interfaceJeu.tirer(interfaceJeu.getPlateau().getLePlateau(), FactoryUtils.convertirCharToInt(xPos), yPos);
+		interfaceJeu.tirer(interfaceJeu.getPlateauJoueur().getLePlateau(), FactoryUtils.convertirCharToInt(xPos), yPos);
 		
 		// Assert
-		assertTrue(interfaceJeu.getPlateau().getLePlateau()[FactoryUtils.convertirCharToInt(xPos)][yPos].isCaseTouche());
+		assertTrue(interfaceJeu.getPlateauJoueur().getLePlateau()[FactoryUtils.convertirCharToInt(xPos)][yPos].isCaseTouche());
 		
 	}
 

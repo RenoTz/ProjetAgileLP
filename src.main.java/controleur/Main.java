@@ -2,7 +2,6 @@ package controleur;
 import java.util.Random;
 
 import services.ActionsBateau;
-import utils.FactoryUtils;
 import data.composants.Points;
 import data.interfaceJeu.Interface;
 import data.joueur.Joueur;
@@ -35,30 +34,17 @@ public class Main {
 		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.SOUS_MARIN, new Points('G', 5), new Points('I', 5));
 		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.TORPILLEUR, new Points('J', 8), new Points('J', 9));
 		
-		// Placement des bateaux de l'adversaire
-		
-		int randomOrientation = new Random().nextInt(2) + 1; //1 Horizontal 2 Vertical
-
-		if(randomOrientation == 1){
-			//Porte Avion
-			int xPA = new Random().nextInt(5) + 1;
-			int yPA = new Random().nextInt(10) + 1;
-			actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.PORTE_AVION, new Points(FactoryUtils.convertirIntToChar(xPA), yPA), new Points(FactoryUtils.convertirIntToChar(xPA + 4), yPA));
-		}else if(randomOrientation == 2){
-			int xPA = new Random().nextInt(10) + 1;
-			int yPA = new Random().nextInt(5) + 1;
-			actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.PORTE_AVION, new Points(FactoryUtils.convertirIntToChar(xPA), yPA), new Points(FactoryUtils.convertirIntToChar(xPA), yPA + 4));
-		}
-		
-		
-		//actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CROISEUR, new Points('E', 1), new Points('H', 1));
-		//actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('E', 3), new Points('E', 5));
-		//actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.SOUS_MARIN, new Points('G', 5), new Points('I', 5));
-		//actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.TORPILLEUR, new Points('J', 8), new Points('J', 9));
+		// Placement des bateaux de l'adversaire	
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.PORTE_AVION, new Points('A', 3), new Points('A', 7));
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CROISEUR, new Points('E', 1), new Points('H', 1));
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('E', 3), new Points('E', 5));
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.SOUS_MARIN, new Points('G', 5), new Points('I', 5));
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.TORPILLEUR, new Points('J', 8), new Points('J', 9));
 		
 		// Placement des bateaux sur le plateau
-		actions.placerLesBateauxSurLePlateau(joueur.getListeBateaux(),interfaceJeu.getPlateau());
+		actions.placerLesBateauxSurLePlateau(joueur.getListeBateaux(),interfaceJeu.getPlateauJoueur());
 		actions.placerLesBateauxSurLePlateau(adversaire.getListeBateaux(),interfaceJeu.getPlateauAdversaire());
+	
 	}
 
 }
