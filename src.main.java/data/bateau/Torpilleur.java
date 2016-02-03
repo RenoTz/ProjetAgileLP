@@ -11,14 +11,15 @@ public class Torpilleur extends Bateau{
 	
 	private Points[] tabPoints;
 	private boolean touche;
+	private EnumTypeBateau typeBateau;
 	
 	//---------------
 	//	CONSTRUCTEUR
 	//---------------
 	
-	public Torpilleur(EnumTypeBateau typeBateau){
-		super(typeBateau);
-		this.setTabPoints(new Points[2]);
+	public Torpilleur(){
+		this.tabPoints = new Points[2];
+		this.typeBateau = EnumTypeBateau.TORPILLEUR;
 	}
 
 	//-----------------
@@ -29,16 +30,16 @@ public class Torpilleur extends Bateau{
 		return tabPoints;
 	}
 
-	public void setTabPoints(Points[] tabPoints) {
-		this.tabPoints = tabPoints;
-	}
-
 	public boolean isTouche() {
 		return touche;
 	}
 
 	public void setTouche(boolean touche) {
 		this.touche = touche;
+	}
+
+	public EnumTypeBateau getTypeBateau() {
+		return typeBateau;
 	}
 
 }

@@ -24,11 +24,11 @@ public class ActionsBateau {
 		
 		List<Bateau> listeBateaux = new ArrayList<Bateau>();
 		
-		Bateau porteAvion = new PorteAvion(EnumTypeBateau.PORTE_AVION);
-		Bateau contreTorpilleur = new ContreTorpilleur(EnumTypeBateau.CONTRE_TORPILLEUR);
-		Bateau croiseur = new Croiseur(EnumTypeBateau.CROISEUR);
-		Bateau sousMarin = new SousMarin(EnumTypeBateau.SOUS_MARIN);
-		Bateau torpilleur = new Torpilleur(EnumTypeBateau.TORPILLEUR);
+		Bateau porteAvion = new PorteAvion();
+		Bateau contreTorpilleur = new ContreTorpilleur();
+		Bateau croiseur = new Croiseur();
+		Bateau sousMarin = new SousMarin();
+		Bateau torpilleur = new Torpilleur();
 		listeBateaux.add(porteAvion);
 		listeBateaux.add(contreTorpilleur);
 		listeBateaux.add(croiseur);
@@ -43,7 +43,7 @@ public class ActionsBateau {
 		// Check cohérence des coordonnées pour le placement des bateaux
 		checkCoherenceDesCoordonnesPourLePlacementDesBateaux(j, typeBateau, coordonneesAvant, coordonneesArriere);
 		
-		// On assigne les coordonnées saisies choisies par l'utilisateur aux cases qui définissent le bateau sur le plateau
+		// TODO : check coordonn�es A FAIRE!!
 		if(CollectionUtils.isNotEmpty(j.getListeBateaux())){
 			for(Bateau bateau : j.getListeBateaux()){
 				if(bateau.getTypeBateau().equals(typeBateau)){
@@ -51,7 +51,6 @@ public class ActionsBateau {
 					bateau.getTabPoints()[0] = coordonneesAvant;
 					bateau.getTabPoints()[bateau.getTabPoints().length-1] = coordonneesArriere;
 					remplissageDesCasesIntermediaires(coordonneesAvant,	coordonneesArriere, bateau);
-					break;
 				}
 			}
 		}

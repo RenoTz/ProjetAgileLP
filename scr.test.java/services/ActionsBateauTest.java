@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import utils.FactoryUtils;
@@ -16,6 +17,7 @@ import utils.FactoryUtils;
 import com.google.common.collect.Lists;
 
 import data.bateau.Bateau;
+import data.bateau.Croiseur;
 import data.composants.Points;
 import data.interfaceJeu.Plateau;
 import data.joueur.Joueur;
@@ -25,6 +27,9 @@ import enumeration.EnumTypeBateau;
 @RunWith(MockitoJUnitRunner.class)
 public class ActionsBateauTest {
 
+	@Mock
+	private Bateau bateau;
+	
 	//-------------------------------
 	// Classe à tester (@InjectMocks)
 	//-------------------------------
@@ -96,7 +101,7 @@ public class ActionsBateauTest {
 		// Arrange
 		Joueur j = new Joueur();
 		j.setListeBateaux(this.action.initialiserListeBateaux());
-		
+		bateau = new Croiseur();
 		// Act 
 		this.action.supprimerBateau(j, EnumTypeBateau.CONTRE_TORPILLEUR);
 		
@@ -149,6 +154,17 @@ public class ActionsBateauTest {
 			}
 		}
 		return true;
+	}
+
+	@Test
+	public void testAssignerCoordonneesBateauxListeVide() throws Exception {
+		
+		// Arrange
+		Joueur j = new Joueur();
+		// Act
+		action.assignerCoordonneesBateaux(j, EnumTypeBateau.CROISEUR, new Points('A', 1), new Points('A', 4));
+		// Assert
+		
 	}
 	
 }

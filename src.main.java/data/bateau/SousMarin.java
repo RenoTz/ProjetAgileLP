@@ -11,14 +11,15 @@ public class SousMarin extends Bateau{
 	
 	private Points[] tabPoints;
 	private boolean touche;
+	private EnumTypeBateau typeBateau;
 	
 	//---------------
 	//	CONSTRUCTEUR
 	//---------------
 	
-	public SousMarin(EnumTypeBateau typeBateau) {
-		super(typeBateau);
-		this.setTabPoints(new Points[3]);
+	public SousMarin() {
+		this.tabPoints = new Points[3];
+		this.typeBateau = EnumTypeBateau.SOUS_MARIN;
 	}
 	
 	//-----------------
@@ -29,10 +30,6 @@ public class SousMarin extends Bateau{
 		return tabPoints;
 	}
 
-	public void setTabPoints(Points[] tabPoints) {
-		this.tabPoints = tabPoints;
-	}
-
 	public boolean isTouche() {
 		return touche;
 	}
@@ -41,6 +38,8 @@ public class SousMarin extends Bateau{
 		this.touche = touche;
 	}
 
-	
+	public EnumTypeBateau getTypeBateau() {
+		return typeBateau;
+	}
 
 }

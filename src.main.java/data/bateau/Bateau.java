@@ -2,6 +2,7 @@ package data.bateau;
 
 import data.composants.Points;
 import enumeration.EnumTypeBateau;
+import data.composants.*;
 
 public abstract class Bateau {
 
@@ -9,24 +10,18 @@ public abstract class Bateau {
 	// Attributs de la classe
 	//-----------------------
 	
-	protected EnumTypeBateau typeBateau;
 	private boolean coule;
 	
 	//--------------------------
 	// Constructeur de la classe
 	//--------------------------
 	
-	public Bateau(EnumTypeBateau typeBateau) {
-		this.typeBateau = typeBateau;
+	public Bateau() {
 	}
 	
 	//-----------------------------
 	// Getters/Setters de la classe
 	//-----------------------------
-
-	public EnumTypeBateau getTypeBateau() {
-		return typeBateau;
-	}
 
 	public boolean isCoule() {
 		return coule;
@@ -37,5 +32,7 @@ public abstract class Bateau {
 	}
 	
 	public abstract Points[] getTabPoints();
+	
+	public abstract EnumTypeBateau getTypeBateau();
 
 }
