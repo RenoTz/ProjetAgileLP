@@ -80,7 +80,7 @@ public class Interface extends JFrame {
 		panelJoueur.setSize(600,600);
 //		panelAdversaire.setSize(600, 600);
 		frame.add(panelPrincipal);
-		frame.setSize(1200, 600);
+		frame.setSize(1230, 600);
 		
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
