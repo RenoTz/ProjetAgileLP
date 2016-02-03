@@ -168,25 +168,4 @@ public class ActionsBateauTest {
 		
 	}
 	
-	@Test
-	public void testTirer() {
-		
-		//Arrange
-		char xPos = 'A';
-		int yPos = 3;
-		Interface interfaceJeu = new Interface();
-		Joueur j = new Joueur();
-		j.setListeBateaux(action.initialiserListeBateaux());
-		action.assignerCoordonneesBateaux(j, EnumTypeBateau.PORTE_AVION, new Points(xPos, 1), new Points(xPos, 5));
-		action.placerLesBateauxSurLePlateau(j.getListeBateaux(),interfaceJeu.getPlateau());
-		
-		//Act
-		action.tirer(interfaceJeu.getPlateau(), FactoryUtils.convertirCharToInt(xPos) - 1, yPos);
-		
-		// Assert
-		assertTrue(interfaceJeu.getPlateau().getLePlateau()[FactoryUtils.convertirCharToInt(xPos) - 1][yPos].isCaseTouche());
-		
-	}
-
-	
 }

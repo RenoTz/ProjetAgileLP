@@ -1,14 +1,21 @@
 package data.interfaceJeu;
 
 import java.util.List;
+
 import javax.swing.JButton;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import services.ActionsBateau;
+import utils.FactoryUtils;
+import data.composants.Points;
+import data.joueur.Joueur;
+import enumeration.EnumTypeBateau;
 import static org.junit.Assert.*;
 
 
@@ -21,6 +28,8 @@ public class InterfaceTest {
 
 	@InjectMocks 
 	private Interface interfaceJeu;
+	
+	private ActionsBateau action;
 	
 	//-------------------------
 	// METHODES de test (@Test)
@@ -37,6 +46,27 @@ public class InterfaceTest {
 		List<JButton> listeRetour = interfaceJeu.creerCasesGraphiques(plateau);
 		// Assert
 		assertTrue(CollectionUtils.isNotEmpty(listeRetour));
+	}
+	
+	@Test
+	public void testTirer() {
+		
+		//Arrange
+		action = new ActionsBateau();
+		char xPos = 'A';
+		int yPos = 3;
+		Interface interfaceJeu = new Interface();
+		Joueur j = new Joueur();
+		j.setListeBateaux(action.initialiserListeBateaux());
+		action.assignerCoordonneesBateaux(j, EnumTypeBateau.PORTE_AVION, new Points(xPos, 1), new Points(xPos, 5));
+		action.placerLesBateauxSurLePlateau(j.getListeBateaux(),interfaceJeu.getPlateau());
+		
+		//Act
+		interfaceJeu.tirer(interfaceJeu.getPlateau().getLePlateau(), FactoryUtils.convertirCharToInt(xPos), yPos);
+		
+		// Assert
+		assertTrue(interfaceJeu.getPlateau().getLePlateau()[FactoryUtils.convertirCharToInt(xPos)][yPos].isCaseTouche());
+		
 	}
 
 }
