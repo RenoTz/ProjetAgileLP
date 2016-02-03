@@ -67,7 +67,6 @@ public class ActionsBateau {
 		}
 	}
 	
-	
 	@SuppressWarnings("static-access")
 	public void placerLesBateauxSurLePlateau(List<Bateau> listeBateaux, Plateau plateau){
 		
@@ -164,5 +163,10 @@ public class ActionsBateau {
 			}
 		}
 		return coherent;
+	}
+
+	public void tirer() {
+		// TODO Auto-generated method stub
+		
 	}
 }
