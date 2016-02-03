@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.mockito.internal.listeners.CollectCreatedMocks;
-
 import com.google.common.base.Preconditions;
 
 import data.bateau.Bateau;
@@ -45,7 +43,7 @@ public class ActionsBateau {
 		// Check cohérence des coordonnées pour le placement des bateaux
 		checkCoherenceDesCoordonnesPourLePlacementDesBateaux(j, typeBateau, coordonneesAvant, coordonneesArriere);
 		
-		// TODO : check coordonn�es A FAIRE!!
+		// On assigne les coordonnées saisies choisies par l'utilisateur aux cases qui définissent le bateau sur le plateau
 		if(CollectionUtils.isNotEmpty(j.getListeBateaux())){
 			for(Bateau bateau : j.getListeBateaux()){
 				if(bateau.getTypeBateau().equals(typeBateau)){
@@ -53,6 +51,7 @@ public class ActionsBateau {
 					bateau.getTabPoints()[0] = coordonneesAvant;
 					bateau.getTabPoints()[bateau.getTabPoints().length-1] = coordonneesArriere;
 					remplissageDesCasesIntermediaires(coordonneesAvant,	coordonneesArriere, bateau);
+					break;
 				}
 			}
 		}
