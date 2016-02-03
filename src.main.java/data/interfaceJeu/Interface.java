@@ -25,7 +25,6 @@ public class Interface extends JFrame{
 	
 	@SuppressWarnings("static-access")
 	public Interface(){
-		
 		this.plateauJoueur = new Plateau(10,10);
 		this.plateauAdversaire = new Plateau(10, 10);
 		this.listeBoutonJoueur = creerCasesGraphiques(this.plateauJoueur);
@@ -41,41 +40,37 @@ public class Interface extends JFrame{
 		
 		JFrame frame = new JFrame("Bataille navale");
 		frame.setTitle("Bataille Navale - Groupe 1");
-		frame.setResizable(true);
 		// Panneau principal
-//		JPanel panelPrincipal = new JPanel();
-//		panelPrincipal.setLayout(new GridLayout(1,2));
+		JPanel panelPrincipal = new JPanel();
+		panelPrincipal.setLayout(new GridLayout(1,2));
 		
 		// Grille de jeu du joueur
 		JPanel panelJoueur = new JPanel();
-		JPanel panelAdversaire = new JPanel();
 		panelJoueur.setLayout(new GridLayout(10,10));
-		panelAdversaire.setLayout(new GridLayout(10,10));
-		// Grille de jeu de l'adversaire
-		frame.getContentPane().setLayout(new BorderLayout());
-		frame.getContentPane().add(panelJoueur, BorderLayout.CENTER);
-		frame.getContentPane().add(panelAdversaire, BorderLayout.WEST);
 		
+		// Grille de jeu de l'adversaire
+		JPanel panelAdversaire = new JPanel();
+		panelAdversaire.setLayout(new GridLayout(10,10));
 		
 		// Ajout des paneaux au paneau principal
-//        panelPrincipal.add(panelJoueur);
-//        panelPrincipal.add(panelAdversaire);
+        panelPrincipal.add(panelJoueur);
+        panelPrincipal.add(panelAdversaire);
         
 		// Bouton 'Nouvelle partie'
-//        JButton nouvellePartieBouton = new JButton("Nouvelle Partie");
-//        frame.add(nouvellePartieBouton, BorderLayout.SOUTH);
-//        nouvellePartieBouton.setBackground(Color.black); 
-//        nouvellePartieBouton.setForeground(Color.white);   
+        JButton nouvellePartieBouton = new JButton("Nouvelle Partie");
+        frame.add(nouvellePartieBouton, BorderLayout.SOUTH);
+        nouvellePartieBouton.setBackground(Color.black); 
+        nouvellePartieBouton.setForeground(Color.white);   
        
-//		frame.setBackground(Color.GRAY);
+		frame.setBackground(Color.GRAY);
 		
 		// Create button
 		ajouterLaListeBoutonsAuPanel(panelJoueur, listeBoutonJoueur);
-		ajouterLaListeBoutonsAuPanel(panelAdversaire, listeBoutonAdversaire);
+//		ajouterLaListeBoutonsAuPanel(panelAdversaire, listeBoutonAdversaire);
 
 		panelJoueur.setSize(600,600);
-		panelAdversaire.setSize(600, 600);
-//		frame.add(panelPrincipal);
+//		panelAdversaire.setSize(600, 600);
+		frame.add(panelPrincipal);
 		frame.setSize(1200, 600);
 		
 		frame.setLocationRelativeTo(null);

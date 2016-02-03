@@ -1,16 +1,17 @@
 package services;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
+import java.awt.Color;
 import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import utils.FactoryUtils;
 
 import com.google.common.collect.Lists;
 
@@ -52,7 +53,7 @@ public class ActionsBateauTest {
 	}
 	
 	@Test
-	public void testPlacerLesBateauxSurLePlateaListeNonNull(){
+	public void testPlacerLesBateauxSurLePlateaAvecListeBateauNonNulleEtCoordonneesCorrectes(){
 		// Arrange
 		Joueur j = new Joueur();
 		Plateau plateau = new Plateau(10, 10);
@@ -66,33 +67,26 @@ public class ActionsBateauTest {
 		this.action.placerLesBateauxSurLePlateau(j.getListeBateaux(), plateau);
 		
 		// Assert
-		verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.PORTE_AVION,plateau, 'A', 5);
-		verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.CROISEUR,plateau, 'E', 1);
-		verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.CONTRE_TORPILLEUR,plateau, 'E', 3);
-		verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.SOUS_MARIN,plateau, 'G', 5);
-		verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.TORPILLEUR,plateau, 'J', 8);
+		assertTrue(verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.PORTE_AVION,plateau, 'A', 5));
+		assertTrue(verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.CROISEUR,plateau, 'E', 1));
+		assertTrue(verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.CONTRE_TORPILLEUR,plateau, 'E', 3));
+		assertTrue(verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.SOUS_MARIN,plateau, 'G', 5));
+		assertTrue(verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.TORPILLEUR,plateau, 'J', 8));
 	}
 	
 	@Test
-	public void testPlacerLesBateauxSurLePlateau(){
+	public void testPlacerLesBateauxSurLePlateauAvecListeBateauVide(){
 		// Arrange
 		Joueur j = new Joueur();
 		Plateau plateau = new Plateau(10, 10);
-		j.setListeBateaux(this.action.initialiserListeBateaux());
-		this.action.assignerCoordonneesBateaux(j, EnumTypeBateau.PORTE_AVION, new Points('A', 1), new Points('A', 5));
-		this.action.assignerCoordonneesBateaux(j, EnumTypeBateau.CROISEUR, new Points('B', 1), new Points('E', 1));
-		this.action.assignerCoordonneesBateaux(j, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('E', 3), new Points('E', 5));
-		this.action.assignerCoordonneesBateaux(j, EnumTypeBateau.SOUS_MARIN, new Points('G', 5), new Points('I', 5));
-		this.action.assignerCoordonneesBateaux(j, EnumTypeBateau.TORPILLEUR, new Points('J', 8), new Points('J', 9));
+		List<Bateau> listeVide = Lists.newArrayList();
+		j.setListeBateaux(listeVide);
+		
 		// Act
 		this.action.placerLesBateauxSurLePlateau(j.getListeBateaux(), plateau);
 		
 		// Assert
-		verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.PORTE_AVION,plateau, 'A', 5);
-		verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.CROISEUR,plateau, 'E', 1);
-		verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.CONTRE_TORPILLEUR,plateau, 'E', 3);
-		verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.SOUS_MARIN,plateau, 'G', 5);
-		verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.TORPILLEUR,plateau, 'J', 8);
+		assertTrue(toutesLesCasesDuPlateauSontBleues(plateau));
 	}
 
 	@Test
@@ -112,21 +106,27 @@ public class ActionsBateauTest {
 
 	private boolean verifierCasePlateauModifie(List<Bateau> listeBateau,EnumTypeBateau type,Plateau plateau,char x, int y) {
 		
-		for(Bateau bateau : listeBateau){
-			if(type.equals(bateau.getTypeBateau())){
-				for( int i = 0; i < plateau.getLePlateau().length; i++ ){
-					for( int j = 0; j < plateau.getLePlateau().length; j++ ) {
-						if((plateau.getLePlateau()[i][j].getPoint().getxPos() == x) && 
-								(plateau.getLePlateau()[i][j].getPoint().getyPos() == i)){
-							return true;
-						}
-					}	
+		int xPos = FactoryUtils.convertirCharToInt(x);
+		
+		if(plateau.getLePlateau()[xPos-1][y-1].getCouleur() != Color.BLUE){
+			return true;
+		}
+		return false;
+	}
+
+	private boolean toutesLesCasesDuPlateauSontBleues(Plateau plateau) {
+		for(int i = 0; i < plateau.getLePlateau().length; i++){
+			for(int j = 0; i < plateau.getLePlateau().length; i++){
+				if(plateau.getLePlateau()[i][j].getCouleur() != Color.BLUE){
+					return false;
 				}
 			}
 		}
-		
-		return false;
-		
+		return true;
+	}
+	
+	private boolean laCaseAChangeDeCouleur(Plateau plateau, int i, int j) {
+		return plateau.getLePlateau()[i][j].getCouleur() != Color.BLUE;
 	}
 
 	private boolean verifierPresenceTypeBateau(List<Bateau> listeRetour, EnumTypeBateau type) {

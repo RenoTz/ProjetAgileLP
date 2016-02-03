@@ -69,8 +69,4 @@ public class Case {
 	public void setBouton(JButton bouton) {
 		this.bouton = bouton;
 	}
-	
-	
-
-
 }

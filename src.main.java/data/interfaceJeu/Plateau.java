@@ -9,7 +9,7 @@ public class Plateau {
 	//  ATTRIBUTS DE LA CLASSE
 	//------------------------
 	
-	private static Case[][] lePlateau;
+	public Case[][] lePlateau;
 	
 	//------------------------
 	//  CONSTRUCTEUR
@@ -23,15 +23,15 @@ public class Plateau {
 	//  METHODES DE LA CLASSE
 	//------------------------
 
-	private static void initPlateau(){
+	public void initPlateau(){
 		for( int i = 0; i < lePlateau.length; i++ ){
 			for( int j = 0; j < lePlateau.length; j++ ) {
 				  Case casePlateau = new Case(new Points((char) ('A' + i), j + 1));
 				  lePlateau[i][j] = casePlateau;
 			  }
 		}
-		
-		log();
+		// TODO : temporaire, à enlever quand inutile
+		log(lePlateau);
 	}
 
 	//-----------------
@@ -43,11 +43,11 @@ public class Plateau {
 	}
 
 	public void setLePlateau(Case[][] lePlateau) {
-		Plateau.lePlateau = lePlateau;
+		this.lePlateau = lePlateau;
 	}
 	
-	public static void log() {
-		// TODO : affichage plateau dans console -> TEMPORAIRE
+	// TODO : temporaire, à enlever quand inutile
+	public static void log(Case[][] lePlateau) {
 		for( int i = 0; i < lePlateau.length; i++ ){
 			for( int j = 0; j < lePlateau.length; j++ ) {
 				  System.out.print("["+lePlateau[i][j].getPoint().getxPos()+lePlateau[i][j].getPoint().getyPos()+"]");
