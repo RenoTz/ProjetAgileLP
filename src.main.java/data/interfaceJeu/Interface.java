@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class Interface extends JFrame {
 	
 	public static void createWindow() {  
 		
-		JFrame frame = new JFrame("Bataille navale");
+		final JFrame frame = new JFrame("Bataille navale");
 		frame.setTitle("Bataille Navale - Groupe 1");
 		// Panneau principal
 		JPanel panelPrincipal = new JPanel();
@@ -85,9 +86,14 @@ public class Interface extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		
-		if (nouvellePartieBouton.isSelected() == true) {
-			initialiserPartie();
-		}
+		nouvellePartieBouton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				frame.dispose();
+				initialiserPartie();				
+			}
+		});
 	}
 	
 	public static void initialiserPartie() {
