@@ -10,8 +10,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 import static org.junit.Assert.*;
 import data.bateau.Bateau;
 import data.bateau.ContreTorpilleur;
+import data.interfaceJeu.Interface;
+import data.interfaceJeu.Plateau;
+import data.joueur.Joueur;
 import enumeration.EnumTypeBateau;
 import services.ActionsBateau;
+import utils.FactoryUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CaseTest {
@@ -49,14 +53,16 @@ public class CaseTest {
 		public void testTirer() {
 			
 			//Arrange
-			Points point = new Points('A', 5);
-			casePlateau = new Case(point);
-						
+			Interface interfaceJeu = new Interface();
+			Joueur j = new Joueur();
+			j.setListeBateaux(actions.initialiserListeBateaux());
+			actions.assignerCoordonneesBateaux(j, EnumTypeBateau.PORTE_AVION, new Points('A', 1), new Points('A', 5));
+			actions.placerLesBateauxSurLePlateau(j.getListeBateaux(),interfaceJeu.getPlateau());
 			//Act
-			actions.tirer();
+			actions.tirer(interfaceJeu.getPlateau(), FactoryUtils.convertirCharToInt('A'), 3);
 			
 			// Assert
-			assertTrue(casePlateau.isCaseTouche());
+//			assertTrue(casePlateau.isCaseTouche());
 			
 		}
 		
