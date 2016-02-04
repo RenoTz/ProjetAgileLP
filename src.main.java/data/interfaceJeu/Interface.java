@@ -229,6 +229,8 @@ public class Interface extends JFrame {
 		// Creation du joueur
 		joueur = new Joueur();
 		adversaire = new Joueur();
+		joueur.setEnTrainDeJouer(true);
+//		adversaire.setEnTrainDeJouer(true);
 		
 		// Intialisation de la liste des bateaux des joueurs
 		joueur.setListeBateaux(actions.initialiserListeBateaux());
@@ -243,11 +245,11 @@ public class Interface extends JFrame {
 		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.TORPILLEUR, new Points('J', 8), new Points('J', 9));
 		
 		// Placement des bateaux de l'adversaire	
-		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.PORTE_AVION, new Points('A', 3), new Points('A', 7));
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.PORTE_AVION, new Points('B', 4), new Points('B', 8));
 		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CROISEUR, new Points('E', 1), new Points('H', 1));
-		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('E', 3), new Points('E', 5));
-		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.SOUS_MARIN, new Points('G', 5), new Points('I', 5));
-		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.TORPILLEUR, new Points('J', 8), new Points('J', 9));
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('F', 3), new Points('F', 5));
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.SOUS_MARIN, new Points('D', 5), new Points('F', 5));
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.TORPILLEUR, new Points('J', 2), new Points('J', 3));
 		
 		// Placement des bateaux sur le plateau
 		actions.placerLesBateauxSurLePlateau(joueur.getListeBateaux(),interfaceJeu.getPlateauJoueur());
@@ -270,7 +272,11 @@ public class Interface extends JFrame {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						tirer(plateau, FactoryUtils.convertirCharToInt(getXPos(plateau, x, y)), getYPos(plateau, x, y)-1);
+						if(joueur.isEnTrainDeJouer()){
+							tirer(joueur,plateau, FactoryUtils.convertirCharToInt(getXPos(plateau, x, y)), getYPos(plateau, x, y)-1);
+						}else{
+							tirer(adversaire,plateau, FactoryUtils.convertirCharToInt(getXPos(plateau, x, y)), getYPos(plateau, x, y)-1);
+						}
 					}
 
 					private Integer getYPos(Plateau plateau, final int i,
@@ -289,13 +295,21 @@ public class Interface extends JFrame {
 		return listeBouton;
 	}
 	
-	public void tirer(Plateau plateau, int x , int y) {
-		if(plateau.getLePlateau()[x][y].getCouleur().equals(Color.DARK_GRAY) || plateau.getLePlateau()[x][y].isCaseTouche()){
+	public void tirer(Joueur joueur, Plateau plateau, int x , int y) {
+		
+		if(!plateau.getLePlateau()[x][y].isWater() || plateau.getLePlateau()[x][y].isCaseTouche()){
 			plateau.getLePlateau()[x][y].setCaseTouche(true);
-			plateau.getLePlateau()[x][y].setCouleur(Color.RED);
 			plateau.getLePlateau()[x][y].getBouton().setBackground(Color.RED);
+			
 			EnumTypeBateau bateauTouche = recupererLeTypeBateauTouche(plateau.getLePlateau()[x][y]);
+			
 			if(verifierQueToutesLesCasesBateauxSontTouchees(plateau, bateauTouche)){
+				
+				Bateau bateauCoule = recupererBateau(joueur.getListeBateaux(),bateauTouche);
+				
+				if(bateauCoule != null){
+					coulerLeBateau(bateauCoule, plateau);
+				}
 				
 			}
 		}else{
@@ -309,10 +323,9 @@ public class Interface extends JFrame {
 				if(bateau.getTypeBateau().equals(bateauTouche)){
 					int nombreCasesTouches = 0;
 					for(int i = 0; i < bateau.getTabPoints().length; i++){
-						if(plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getCouleur().equals(Color.RED)){
+						if(plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().getBackground().equals(Color.RED)){
 							nombreCasesTouches++;
 							if(nombreCasesTouches == bateau.getTabPoints().length){
-								coulerLeBateau(bateau, plateau);
 								return true;
 							}
 						}
@@ -323,9 +336,18 @@ public class Interface extends JFrame {
 		return false;
 	}
 	
+	private Bateau recupererBateau(List<Bateau> listeBateaux, EnumTypeBateau bateauTouche) {
+		for(Bateau bateau : listeBateaux){
+			if(bateau.getTypeBateau().equals(bateauTouche)){
+				return bateau;
+			}
+		}
+		return null;
+	}
+	
 	private void coulerLeBateau(Bateau bateau, Plateau plateau){
 		for(int i = 0; i < bateau.getTabPoints().length; i++){
-			if(plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getCouleur().equals(Color.RED)){
+			if(plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().getBackground().equals(Color.RED)){
 				plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().setBackground(Color.GREEN);
 			}
 		}

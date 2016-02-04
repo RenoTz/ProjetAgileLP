@@ -12,9 +12,8 @@ public class Case {
 	//------------------------
 	
 	private Points point;
-	private Color couleur;
 	private boolean caseTouche;
-	private boolean caseUtilisee;
+	private boolean water;
 	private JButton bouton;
 	
 	//---------------
@@ -23,9 +22,8 @@ public class Case {
 		
 	public Case(Points point){
 		this.setPoint(point);
-		this.couleur = Color.BLUE;
 		this.caseTouche = false;
-		this.caseUtilisee = false;
+		this.setWater(true);
 		this.bouton = creerBouton();
 	}
 	
@@ -35,7 +33,7 @@ public class Case {
 	
 	private JButton creerBouton() {
 		JButton bouton = new JButton();
-		bouton.setBackground(couleur);
+		bouton.setBackground(Color.BLUE);
 		bouton.setPreferredSize(new Dimension(40, 40));
 		bouton.setForeground(Color.WHITE);
 		return bouton;
@@ -53,16 +51,8 @@ public class Case {
 		this.point = point;
 	}
 
-	public Color getCouleur() {
-		return couleur;
-	}
-
-	public void setCouleur(Color couleur) {
-		this.couleur = couleur;
-	}
-
 	public boolean isCaseTouche() {
-		if(getCouleur().equals(Color.RED)){ 
+		if(getBouton().getBackground().equals(Color.RED)){ 
 			caseTouche = true;
 		}
 		return caseTouche;
@@ -72,19 +62,19 @@ public class Case {
 		this.caseTouche = caseTouche;
 	}
 	
-	public boolean getCaseUtilisee(){
-		return this.caseUtilisee;
-	}
-	
-	public void setCaseUtilisee(boolean caseUtilisee){
-		this.caseUtilisee = caseUtilisee;
-	}
-
 	public JButton getBouton() {
 		return bouton;
 	}
 
 	public void setBouton(JButton bouton) {
 		this.bouton = bouton;
+	}
+
+	public boolean isWater() {
+		return water;
+	}
+
+	public void setWater(boolean water) {
+		this.water = water;
 	}
 }
