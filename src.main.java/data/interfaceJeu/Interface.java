@@ -66,69 +66,83 @@ public class Interface extends JFrame {
 		final JFrame frame = new JFrame("Bataille navale");
 		frame.setTitle("Bataille Navale - Groupe 1");
 		
-		
 		// Panneau principal
 		JPanel panelPrincipal = new JPanel();
 		panelPrincipal.setLayout(new GridLayout(1,2));
+		panelPrincipal.setBackground(Color.black);
 	
 		// Grille de jeu du joueur
 		JPanel panelJoueur = new JPanel();
 		panelJoueur.setLayout(new GridLayout(10,10));
+		panelJoueur.setBackground(Color.black);
+		
+		Border margeJ = BorderFactory.createEmptyBorder(0, 15, 0, 0);
+		panelJoueur.setBorder(margeJ);
 		
 		// Grille de jeu de l'adversaire
 		JPanel panelAdversaire = new JPanel();
 		panelAdversaire.setLayout(new GridLayout(10,10));
+		panelAdversaire.setBackground(Color.black);
+		
+		Border margeA = BorderFactory.createEmptyBorder(0, 15, 0, 0);
+		panelAdversaire.setBorder(margeA);
 		
 		// Panneau des coordonnées des lettres
 		JPanel panelCoordLettres = new JPanel();
 		panelCoordLettres.setLayout(new FlowLayout());
+		panelCoordLettres.setBackground(Color.black);
+		
+		Border margeL = BorderFactory.createEmptyBorder(0, 15, 0, 0);
+		panelCoordLettres.setBorder(margeL);
 		
 		// Panneau des coordonnées des chiffres
 		JPanel panelCoordChiffres1 = new JPanel();
 		panelCoordChiffres1.setLayout(new FlowLayout());
+		panelCoordChiffres1.setBackground(Color.black);
+		
+		// Grille de jeu de l'adversaire
+		JPanel panelCoordChiffres2 = new JPanel();
+		panelCoordChiffres2.setLayout(new FlowLayout());
+		panelCoordChiffres2.setBackground(Color.black);
 		
 		// Panneau du Menu
 		JPanel panelMenu = new JPanel();
 		panelMenu.setLayout(new FlowLayout());
 		JPanel gridMenu = new JPanel();
-		gridMenu.setLayout(new GridLayout(1, 4, 100, 0));
+		gridMenu.setLayout(new GridLayout(1, 4, 240, 120));
+		gridMenu.setBackground(Color.BLACK);
 		
 	
 		// Bouton 'Nouvelle partie'
         final JButton nouvellePartieBouton = new JButton();
         nouvellePartieBouton.setText("Nouvelle Partie");
-        nouvellePartieBouton.setBackground(Color.black); 
-        nouvellePartieBouton.setPreferredSize(new Dimension(145, 55));
-        nouvellePartieBouton.setForeground(Color.white);   
+        nouvellePartieBouton.setBackground(Color.WHITE); 
+        nouvellePartieBouton.setForeground(Color.BLACK);   
 				
 		//Bouton 'Joueur'
         JButton boutonJoueur = new JButton();
-        boutonJoueur.setBackground(Color.BLACK);
+        boutonJoueur.setBackground(Color.WHITE);
         boutonJoueur.setPreferredSize(new Dimension(145, 55));
         boutonJoueur.setText("Joueur");
-        boutonJoueur.setForeground(Color.WHITE);
+        boutonJoueur.setForeground(Color.BLACK);
         boutonJoueur.setEnabled(false);
         
         //Bouton 'Score'
         JButton boutonScore = new JButton();
-        boutonScore.setBackground(Color.BLACK);
+        boutonScore.setBackground(Color.WHITE);
         boutonScore.setPreferredSize(new Dimension(145, 55));
         boutonScore.setText("Score");
-        boutonScore.setForeground(Color.WHITE);
+        boutonScore.setForeground(Color.BLACK);
         boutonScore.setEnabled(false);
 		
         //Bouton 'Adversaire'
         JButton boutonAdversaire = new JButton();
-        boutonAdversaire.setBackground(Color.BLACK);
+        boutonAdversaire.setBackground(Color.WHITE);
         boutonAdversaire.setPreferredSize(new Dimension(145, 55));
         boutonAdversaire.setText("Adversaire");
-        boutonAdversaire.setForeground(Color.WHITE);
+        boutonAdversaire.setForeground(Color.BLACK);
         boutonAdversaire.setEnabled(false);
-        
-		// Grille de jeu de l'adversaire
-		JPanel panelCoordChiffres2 = new JPanel();
-		panelCoordChiffres2.setLayout(new FlowLayout());
-		
+
 		// Ajout des paneaux au paneau principal
 		
         panelPrincipal.add(panelJoueur);   
@@ -164,19 +178,15 @@ public class Interface extends JFrame {
 		panelPrincipal.setBorder(padding);
 
 		// Panneau du Menu
-		panelMenu.setBounds(125, 0, 560, 50);
-		panelMenu.setSize(new Dimension(1100, 60));
+		panelMenu.setBounds(0, 0, 1300, 65);
 		
 		//Panneau colonne lettres
 		panelCoordLettres.setBounds(0, 120, 60, 550);
-		panelCoordLettres.setSize(new Dimension(60,550));
 		
 		//Ligne avec les chiffres du plateau du joueur
-		panelCoordChiffres1.setBounds(65, 60, 600, 60);
-		panelCoordChiffres1.setSize(new Dimension(600,60));
+		panelCoordChiffres1.setBounds(70, 60, 600, 60);
 		
-		panelCoordChiffres2.setBounds(673, 60, 600, 60);
-		panelCoordChiffres2.setSize(new Dimension(600,60));
+		panelCoordChiffres2.setBounds(680, 60, 600, 60);
 		
 		frame.add(panelMenu);
 		frame.add(panelCoordLettres);
@@ -187,7 +197,6 @@ public class Interface extends JFrame {
 		frame.add(panelPrincipal);
 		frame.setSize(1300, 680);
 	
-		frame.setBackground(Color.GRAY);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
@@ -354,7 +363,7 @@ public class Interface extends JFrame {
 	
 	public JButton generateBouton(int i, String type){
 		JButton bouton = new JButton();
-		bouton.setBackground(Color.BLACK);
+		bouton.setBackground(Color.LIGHT_GRAY);
 		
 		if(type == "c"){
 			bouton.setPreferredSize(new Dimension(55, 55));
@@ -363,7 +372,6 @@ public class Interface extends JFrame {
 			bouton.setPreferredSize(new Dimension(45, 46));
 			bouton.setText(String.valueOf(FactoryUtils.convertirIntToChar(i + 1)));
 		}
-		bouton.setForeground(Color.WHITE);
 		bouton.setEnabled(false);
 		return bouton;
 	}
