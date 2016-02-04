@@ -135,7 +135,7 @@ public class ActionsBateauTest {
 	}
 	
 	private boolean estUneCaseBateau(Plateau plateau, int i, int j) {
-		return plateau.getLePlateau()[i][j].getCouleur() == Color.DARK_GRAY;
+		return plateau.getLePlateau()[i][j].getBouton().getBackground() == Color.DARK_GRAY;
 	}
 
 	private boolean verifierPresenceTypeBateau(List<Bateau> listeRetour, EnumTypeBateau type) {
