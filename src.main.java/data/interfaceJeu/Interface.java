@@ -2,6 +2,8 @@ package data.interfaceJeu;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,10 +11,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -29,6 +33,8 @@ public class Interface extends JFrame {
 	private static final long serialVersionUID = 1L;
 	static List<JButton> listeBoutonJoueur;
 	static List<JButton> listeBoutonAdversaire;
+	static List<JButton> listeBoutonCoordsLettres;
+	static List<JButton> listeBoutonCoordsChiffres;
 	private Plateau plateauJoueur;
 	private Plateau plateauAdversaire;
 	private static Joueur joueur;
@@ -43,9 +49,11 @@ public class Interface extends JFrame {
 		this.plateauAdversaire = new Plateau(10, 10);
 		this.listeBoutonJoueur = creerCasesGraphiques(this.plateauJoueur);
 		this.listeBoutonAdversaire = creerCasesGraphiques(this.plateauAdversaire);
+		this.listeBoutonCoordsLettres = creerBoutonsCoords();
+		this.listeBoutonCoordsChiffres = creerBoutonsCoordsC();
 		createWindow();
 	}
-	
+
 	//------------------------
 	// METHODES DE LA CLASSE
 	//------------------------
@@ -67,9 +75,26 @@ public class Interface extends JFrame {
 		JPanel panelAdversaire = new JPanel();
 		panelAdversaire.setLayout(new GridLayout(10,10));
 		
+		// Grille de jeu de l'adversaire
+		JPanel panelCoordLettres = new JPanel();
+		panelCoordLettres.setLayout(new FlowLayout());
+		
+		// Grille de jeu de l'adversaire
+		JPanel panelCoordChiffres1 = new JPanel();
+		panelCoordChiffres1.setLayout(new FlowLayout());
+		
+		// Grille de jeu de l'adversaire
+		JPanel panelCoordChiffres2 = new JPanel();
+		panelCoordChiffres2.setLayout(new FlowLayout());
+		
 		// Ajout des paneaux au paneau principal
+		
         panelPrincipal.add(panelJoueur);
+        
         panelPrincipal.add(panelAdversaire);
+        frame.add(panelCoordChiffres1);
+		frame.add(panelCoordLettres);
+		panelCoordChiffres1.setBackground(Color.BLACK);
 
         // emplacement de titre
         final JLabel fenetreJoueur = new JLabel("	Joueur - Adversaire  ", JLabel.CENTER);
@@ -84,25 +109,42 @@ public class Interface extends JFrame {
 		frame.setBackground(Color.GRAY);
 		
 		// Panneau de gauche avec les Lettres
-        final JButton lettresPlateau = new JButton("Test");
+        /*final JButton lettresPlateau = new JButton("Test");
         frame.add(lettresPlateau, BorderLayout.WEST);
         lettresPlateau.setBackground(Color.black); 
-        lettresPlateau.setForeground(Color.white);   
-		frame.setBackground(Color.GRAY);
+        //lettresPlateau.setForeground(Color.white);   
+		frame.setBackground(Color.GRAY);*/
 		
 		// Create button
 		ajouterLaListeBoutonsAuPanel(panelJoueur, listeBoutonJoueur);
 		ajouterLaListeBoutonsAuPanel(panelAdversaire, listeBoutonAdversaire);
+		ajouterLaListeBoutonsAuPanel(panelCoordLettres, listeBoutonCoordsLettres);
+		ajouterLaListeBoutonsAuPanel(panelCoordChiffres1, listeBoutonCoordsChiffres);
+		//ajouterLaListeBoutonsAuPanel(panelCoordChiffres2, listeBoutonCoordsChiffres);
 		
 		
 		//panelJoueur.setSize(1000,600);
 		//panelAdversaire.setSize(600, 600);
+		
+		//Padding pour la colonne des Lettres du plateau
+		Border paddingL = BorderFactory.createEmptyBorder(60, 60, 0, 0);
+		panelPrincipal.setBorder(paddingL);
+		panelCoordLettres.setBounds(5, 70, 60, 550);
+		panelCoordLettres.setSize(new Dimension(60,550));
+		
+		
+		Border paddingC = BorderFactory.createEmptyBorder(65, 60, 0, 0);
+		panelCoordChiffres1.setBorder(paddingC);
+		panelCoordChiffres1.setBounds(65, 15, 600, 60);
+		panelCoordChiffres1.setSize(new Dimension(600,60));
+		
 		frame.add(panelPrincipal);
-		frame.setSize(1230, 600);
+		frame.setSize(1300, 680);
 	
 		
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
 		frame.setVisible(true);
 
 		
@@ -245,6 +287,42 @@ public class Interface extends JFrame {
 			}
 		}
 		return typeBateauTouche;
+	}
+	
+	public List<JButton> creerBoutonsCoords(){
+		List<JButton> listeBouton = new ArrayList<JButton>();
+		for(int i = 0; i<10; i++){
+			listeBouton.add(generateBouton(i));
+		}
+		return listeBouton;
+	}
+	
+	public List<JButton> creerBoutonsCoordsC(){
+		List<JButton> listeBouton = new ArrayList<JButton>();
+		for(int i = 0; i<10; i++){
+			listeBouton.add(generateBoutonC(i));
+		}
+		return listeBouton;
+	}
+	
+	public JButton generateBouton(int i){
+		JButton bouton = new JButton();
+		bouton.setBackground(Color.BLACK);
+		bouton.setPreferredSize(new Dimension(50, 50));
+		bouton.setText(String.valueOf(FactoryUtils.convertirIntToChar(i + 1)));
+		bouton.setForeground(Color.WHITE);
+		bouton.setEnabled(false);
+		return bouton;
+	}
+	
+	public JButton generateBoutonC(int i){
+		JButton bouton = new JButton();
+		bouton.setBackground(Color.BLACK);
+		bouton.setPreferredSize(new Dimension(55, 55));
+		bouton.setText(String.valueOf(i + 1));
+		bouton.setForeground(Color.WHITE);
+		bouton.setEnabled(false);
+		return bouton;
 	}
 	
 	public Plateau getPlateauJoueur() {
