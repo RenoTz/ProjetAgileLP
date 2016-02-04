@@ -1,5 +1,7 @@
 package data.interfaceJeu;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import javax.swing.JButton;
@@ -8,15 +10,13 @@ import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import services.ActionsBateau;
-import utils.FactoryUtils;
 import data.composants.Points;
 import data.joueur.Joueur;
 import enumeration.EnumTypeBateau;
-import static org.junit.Assert.*;
+import services.ActionsBateau;
+import utils.FactoryUtils;
 
 
 @RunWith(MockitoJUnitRunner.class)

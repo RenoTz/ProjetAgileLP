@@ -1,21 +1,14 @@
 package data.composants;
 
-import java.util.List;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import static org.junit.Assert.*;
-import data.bateau.Bateau;
-import data.bateau.ContreTorpilleur;
-import data.interfaceJeu.Interface;
-import data.interfaceJeu.Plateau;
-import data.joueur.Joueur;
-import enumeration.EnumTypeBateau;
+
 import services.ActionsBateau;
-import utils.FactoryUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CaseTest {

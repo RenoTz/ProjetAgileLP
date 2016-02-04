@@ -2,10 +2,7 @@ package data.interfaceJeu;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -19,7 +16,6 @@ import javax.swing.JPanel;
 
 import org.apache.commons.lang.StringUtils;
 
-import controleur.Main;
 import data.bateau.Bateau;
 import data.composants.Case;
 import data.composants.Points;
@@ -268,7 +264,7 @@ public class Interface extends JFrame {
 	}
 
 	public void setJoueur(Joueur joueur) {
-		this.joueur = joueur;
+		Interface.joueur = joueur;
 	}
 
 	public Joueur getAdversaire() {
@@ -276,7 +272,7 @@ public class Interface extends JFrame {
 	}
 
 	public void setAdversaire(Joueur adversaire) {
-		this.adversaire = adversaire;
+		Interface.adversaire = adversaire;
 	}
 
 }

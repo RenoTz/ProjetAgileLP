@@ -1,7 +1,8 @@
 package services;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 import java.util.List;
@@ -12,17 +13,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import utils.FactoryUtils;
-
 import com.google.common.collect.Lists;
 
 import data.bateau.Bateau;
 import data.bateau.Croiseur;
 import data.composants.Points;
-import data.interfaceJeu.Interface;
 import data.interfaceJeu.Plateau;
 import data.joueur.Joueur;
 import enumeration.EnumTypeBateau;
+import utils.FactoryUtils;
 
 
 @RunWith(MockitoJUnitRunner.class)
