@@ -103,10 +103,10 @@ public class ActionsBateauTest {
 		j.setListeBateaux(this.action.initialiserListeBateaux());
 		bateau = new Croiseur();
 		// Act 
-		this.action.supprimerBateau(j, EnumTypeBateau.CONTRE_TORPILLEUR);
+		this.action.supprimerBateau(j, bateau);
 		
 		// Assert
-		assertTrue(verifierBateauSupprime(j));
+		assertTrue(verifierBateauSupprime(j, bateau.getTypeBateau()));
 	}
 
 	//--------------------------------
@@ -135,7 +135,7 @@ public class ActionsBateauTest {
 	}
 	
 	private boolean estUneCaseBateau(Plateau plateau, int i, int j) {
-		return plateau.getLePlateau()[i][j].getBouton().getBackground() == Color.DARK_GRAY;
+		return !plateau.getLePlateau()[i][j].isWater();
 	}
 
 	private boolean verifierPresenceTypeBateau(List<Bateau> listeRetour, EnumTypeBateau type) {
@@ -147,9 +147,9 @@ public class ActionsBateauTest {
 		return false;
 	}
 	
-	private boolean verifierBateauSupprime(Joueur j) {
+	private boolean verifierBateauSupprime(Joueur j, EnumTypeBateau typeBateau) {
 		for(Bateau bateau : j.getListeBateaux()){
-			if(bateau.getTypeBateau().equals(EnumTypeBateau.CONTRE_TORPILLEUR)){
+			if(bateau.getTypeBateau().equals(typeBateau)){
 				return false;
 			}
 		}

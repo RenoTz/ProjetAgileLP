@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.text.DefaultEditorKit.BeepAction;
+
 import org.apache.commons.collections.CollectionUtils;
 
 import com.google.common.base.Preconditions;
@@ -57,10 +59,10 @@ public class ActionsBateau {
 		}
 	}
 
-	public void supprimerBateau(Joueur j, EnumTypeBateau typeBateau){
+	public void supprimerBateau(Joueur j, Bateau bateauCoule){
 		if(CollectionUtils.isNotEmpty(j.getListeBateaux())){
 			for(Bateau bateau : j.getListeBateaux()){
-				if(bateau.getTypeBateau().equals(typeBateau)){
+				if(bateau.getTypeBateau().equals(bateauCoule.getTypeBateau())){
 					j.getListeBateaux().remove(bateau);
 					break;
 				}
@@ -79,8 +81,7 @@ public class ActionsBateau {
 						for( int i = 0; i < plateau.getLePlateau().length; i++ ){
 							for( int j = 0; j < plateau.getLePlateau().length; j++ ) {
 								 if(caseBateauCorrespondCasePlateau(plateau, bateau, caseBateau, i, j)){
-//									 plateau.getLePlateau()[i][j].setCouleur(Color.DARK_GRAY);
-									 plateau.getLePlateau()[i][j].getBouton().setBackground(Color.DARK_GRAY);
+//									 plateau.getLePlateau()[i][j].getBouton().setBackground(Color.DARK_GRAY);
 									 plateau.getLePlateau()[i][j].setWater(false);
 									 caseColoree = true;
 									 break;

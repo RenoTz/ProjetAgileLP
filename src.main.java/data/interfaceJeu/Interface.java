@@ -32,6 +32,7 @@ import utils.FactoryUtils;
 public class Interface extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private static final long INTERVALLE = 300;
 	static List<JButton> listeBoutonJoueur;
 	static List<JButton> listeBoutonAdversaire;
 	static List<JButton> listeBoutonCoordsLettres;
@@ -39,8 +40,11 @@ public class Interface extends JFrame {
 	static List<JButton> listeBoutonCoordsChiffres2;
 	private Plateau plateauJoueur;
 	private Plateau plateauAdversaire;
+	private static JPanel panelJoueur;
+	private static JPanel panelAdversaire;
 	private static Joueur joueur;
 	private static Joueur adversaire;
+	private static ActionsBateau actions;
 	//---------------
 	//	CONSTRUCTEUR
 	//---------------
@@ -54,6 +58,7 @@ public class Interface extends JFrame {
 		this.listeBoutonCoordsLettres = creerListeBoutons("l");
 		this.listeBoutonCoordsChiffres = creerListeBoutons("c");
 		this.listeBoutonCoordsChiffres2 = creerListeBoutons("c");
+		actions = new ActionsBateau();
 		createWindow();
 	}
 
@@ -71,12 +76,13 @@ public class Interface extends JFrame {
 	
 		
 		// Grille de jeu du joueur
-		JPanel panelJoueur = new JPanel();
+		panelJoueur = new JPanel();
 		panelJoueur.setLayout(new GridLayout(10,10));
-		
+		panelJoueur.setVisible(false);
 		// Grille de jeu de l'adversaire
-		JPanel panelAdversaire = new JPanel();
+		panelAdversaire = new JPanel();
 		panelAdversaire.setLayout(new GridLayout(10,10));
+		
 		
 		// Grille de jeu de l'adversaire
 		JPanel panelCoordLettres = new JPanel();
@@ -127,10 +133,6 @@ public class Interface extends JFrame {
 		ajouterLaListeBoutonsAuPanel(panelCoordChiffres1, listeBoutonCoordsChiffres);
 		ajouterLaListeBoutonsAuPanel(panelCoordChiffres2, listeBoutonCoordsChiffres2);
 		
-
-		//panelJoueur.setSize(1000,600);
-		//panelAdversaire.setSize(600, 600);
-		
 		//Colonne des Lettres du plateau
 		Border paddingL = BorderFactory.createEmptyBorder(60, 60, 0, 0);
 		panelPrincipal.setBorder(paddingL);
@@ -180,8 +182,6 @@ public class Interface extends JFrame {
 	public static void initialiserPartie() {
 		Interface interfaceJeu = new Interface();
 		
-		ActionsBateau actions = new ActionsBateau();
-		
 		// Creation du joueur
 		joueur = new Joueur();
 		adversaire = new Joueur();
@@ -229,20 +229,51 @@ public class Interface extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						if(joueur.isEnTrainDeJouer()){
-							tirer(joueur,plateau, FactoryUtils.convertirCharToInt(getXPos(plateau, x, y)), getYPos(plateau, x, y)-1);
+							tirer(adversaire,getPlateauAdversaire(),getXPos(plateau, x, y), getYPos(plateau, x, y)-1);
+							// Changement de joueur
+							joueur.setEnTrainDeJouer(false);
+							adversaire.setEnTrainDeJouer(true);
+							// On désactive les cases du plateau pour interdire le clic sur son propre plateau
+							desactiverToutesLesCasesDuPlateau(getPlateauAdversaire());
+							// On laisse le temps au joueur de voir la case touchée pendant 3 secondes
+							long end_time = System.currentTimeMillis() + INTERVALLE;
+							do{
+								System.out.println("En attente....");
+							}while(System.currentTimeMillis() - end_time <= 0);
+								
+							panelJoueur.setVisible(true);
+							panelAdversaire.setVisible(false);
 						}else{
-							tirer(adversaire,plateau, FactoryUtils.convertirCharToInt(getXPos(plateau, x, y)), getYPos(plateau, x, y)-1);
+							tirer(joueur,getPlateauJoueur(), getXPos(plateau, x, y), getYPos(plateau, x, y)-1);
+							// Changement de joueur
+							joueur.setEnTrainDeJouer(true);
+							adversaire.setEnTrainDeJouer(false);
+							// On désactive les cases du plateau pour interdire le clic sur son propre plateau
+							desactiverToutesLesCasesDuPlateau(getPlateauJoueur());
+							// On laisse le temps au joueur de voir la case touchée pendant 3 secondes
+							long end_time = System.currentTimeMillis() + INTERVALLE;
+							do{
+								System.out.println("En attente....");
+							}while(System.currentTimeMillis() - end_time <= 0);
+							panelJoueur.setVisible(false);
+							panelAdversaire.setVisible(true);
 						}
 					}
 
-					private Integer getYPos(Plateau plateau, final int i,
-							final int j) {
+					private void desactiverToutesLesCasesDuPlateau( Plateau plateau) {
+//						for(int i = 0; i < plateau.getLePlateau().length; i++){
+//							for(int j = 0; j < plateau.getLePlateau().length; j++){
+//								plateau.getLePlateau()[i][j].getBouton().setEnabled(false);
+//							}
+//						}
+					}
+
+					private Integer getYPos(Plateau plateau, final int i, final int j) {
 						return plateau.getLePlateau()[i][j].getPoint().getyPos();
 					}
 
-					private char getXPos(Plateau plateau, final int i,
-							final int j) {
-						return plateau.getLePlateau()[i][j].getPoint().getxPos();
+					private Integer getXPos(Plateau plateau, final int i, final int j) {
+						return FactoryUtils.convertirCharToInt(plateau.getLePlateau()[i][j].getPoint().getxPos());
 					}
 				});
 				listeBouton.add(plateau.getLePlateau()[i][j].getBouton());
@@ -257,25 +288,24 @@ public class Interface extends JFrame {
 			plateau.getLePlateau()[x][y].setCaseTouche(true);
 			plateau.getLePlateau()[x][y].getBouton().setBackground(Color.RED);
 			
-			EnumTypeBateau bateauTouche = recupererLeTypeBateauTouche(plateau.getLePlateau()[x][y]);
+			EnumTypeBateau bateauTouche = recupererLeTypeBateauTouche(plateau.getLePlateau()[x][y], joueur);
 			
-			if(verifierQueToutesLesCasesBateauxSontTouchees(plateau, bateauTouche)){
+			if(verifierQueToutesLesCasesBateauxSontTouchees(joueur, plateau, bateauTouche)){
 				
 				Bateau bateauCoule = recupererBateau(joueur.getListeBateaux(),bateauTouche);
 				
 				if(bateauCoule != null){
 					coulerLeBateau(bateauCoule, plateau);
 				}
-				
 			}
 		}else{
 			plateau.getLePlateau()[x][y].getBouton().setBackground(Color.WHITE);
 		}
 	}
 
-	private boolean verifierQueToutesLesCasesBateauxSontTouchees(Plateau plateau, EnumTypeBateau bateauTouche) {
+	private boolean verifierQueToutesLesCasesBateauxSontTouchees(Joueur joueur, Plateau plateau, EnumTypeBateau bateauTouche) {
 		if(StringUtils.isNotBlank(bateauTouche.toString())){
-			for(Bateau bateau : getJoueur().getListeBateaux()){
+			for(Bateau bateau : joueur.getListeBateaux()){
 				if(bateau.getTypeBateau().equals(bateauTouche)){
 					int nombreCasesTouches = 0;
 					for(int i = 0; i < bateau.getTabPoints().length; i++){
@@ -305,8 +335,10 @@ public class Interface extends JFrame {
 		for(int i = 0; i < bateau.getTabPoints().length; i++){
 			if(plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().getBackground().equals(Color.RED)){
 				plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().setBackground(Color.GREEN);
+				plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().setEnabled(false);
 			}
 		}
+		actions.supprimerBateau(joueur, bateau);
 	}
 
 
@@ -318,9 +350,9 @@ public class Interface extends JFrame {
 		return FactoryUtils.convertirCharToInt(bateau.getTabPoints()[i].getxPos());
 	}
 	
-	private EnumTypeBateau recupererLeTypeBateauTouche(Case caseBateau) {
+	private EnumTypeBateau recupererLeTypeBateauTouche(Case caseBateau,Joueur joueur) {
 		EnumTypeBateau typeBateauTouche = null;
-		for(Bateau bateau : getJoueur().getListeBateaux()){
+		for(Bateau bateau : joueur.getListeBateaux()){
 			for(Points point : Arrays.asList(bateau.getTabPoints())){
 				if((point.getxPos()==caseBateau.getPoint().getxPos() && point.getyPos() == caseBateau.getPoint().getyPos())){
 					typeBateauTouche = bateau.getTypeBateau();
