@@ -35,6 +35,7 @@ public class Interface extends JFrame {
 	static List<JButton> listeBoutonAdversaire;
 	static List<JButton> listeBoutonCoordsLettres;
 	static List<JButton> listeBoutonCoordsChiffres;
+	static List<JButton> listeBoutonCoordsChiffres2;
 	private Plateau plateauJoueur;
 	private Plateau plateauAdversaire;
 	private static Joueur joueur;
@@ -49,8 +50,9 @@ public class Interface extends JFrame {
 		this.plateauAdversaire = new Plateau(10, 10);
 		this.listeBoutonJoueur = creerCasesGraphiques(this.plateauJoueur);
 		this.listeBoutonAdversaire = creerCasesGraphiques(this.plateauAdversaire);
-		this.listeBoutonCoordsLettres = creerBoutonsCoords();
-		this.listeBoutonCoordsChiffres = creerBoutonsCoordsC();
+		this.listeBoutonCoordsLettres = creerListeBoutons("l");
+		this.listeBoutonCoordsChiffres = creerListeBoutons("c");
+		this.listeBoutonCoordsChiffres2 = creerListeBoutons("c");
 		createWindow();
 	}
 
@@ -84,6 +86,10 @@ public class Interface extends JFrame {
 		panelCoordChiffres1.setLayout(new FlowLayout());
 		
 		// Grille de jeu de l'adversaire
+		JPanel panelMenu = new JPanel();
+		panelMenu.setLayout(new FlowLayout());
+		
+		// Grille de jeu de l'adversaire
 		JPanel panelCoordChiffres2 = new JPanel();
 		panelCoordChiffres2.setLayout(new FlowLayout());
 		
@@ -95,6 +101,7 @@ public class Interface extends JFrame {
 
         // emplacement de titre
         final JLabel fenetreJoueur = new JLabel("	Joueur - Adversaire  ", JLabel.CENTER);
+        
         frame.add(fenetreJoueur, BorderLayout.NORTH);
         fenetreJoueur.setForeground(Color.black); 
 		
@@ -117,7 +124,7 @@ public class Interface extends JFrame {
 		ajouterLaListeBoutonsAuPanel(panelAdversaire, listeBoutonAdversaire);
 		ajouterLaListeBoutonsAuPanel(panelCoordLettres, listeBoutonCoordsLettres);
 		ajouterLaListeBoutonsAuPanel(panelCoordChiffres1, listeBoutonCoordsChiffres);
-		//ajouterLaListeBoutonsAuPanel(panelCoordChiffres2, listeBoutonCoordsChiffres);
+		ajouterLaListeBoutonsAuPanel(panelCoordChiffres2, listeBoutonCoordsChiffres2);
 		
 
 		//panelJoueur.setSize(1000,600);
@@ -133,8 +140,13 @@ public class Interface extends JFrame {
 		panelCoordChiffres1.setBounds(65, 15, 600, 60);
 		panelCoordChiffres1.setSize(new Dimension(600,60));
 		
-		frame.add(panelCoordChiffres1);
+		panelCoordChiffres2.setBounds(685, 15, 600, 60);
+		panelCoordChiffres2.setSize(new Dimension(600,60));
+		
 		frame.add(panelCoordLettres);
+		frame.add(panelCoordChiffres1);
+		frame.add(panelCoordChiffres2);
+		
 		
 		frame.add(panelPrincipal);
 		frame.setSize(1300, 680);
@@ -287,42 +299,30 @@ public class Interface extends JFrame {
 		return typeBateauTouche;
 	}
 	
-	public List<JButton> creerBoutonsCoords(){
+	public List<JButton> creerListeBoutons(String type){
 		List<JButton> listeBouton = new ArrayList<JButton>();
 		for(int i = 0; i<10; i++){
-			listeBouton.add(generateBouton(i));
+			listeBouton.add(generateBouton(i, type));
 		}
 		return listeBouton;
 	}
 	
-	public List<JButton> creerBoutonsCoordsC(){
-		List<JButton> listeBouton = new ArrayList<JButton>();
-		for(int i = 0; i<10; i++){
-			listeBouton.add(generateBoutonC(i));
+	public JButton generateBouton(int i, String type){
+		JButton bouton = new JButton();
+		bouton.setBackground(Color.BLACK);
+		
+		if(type == "c"){
+			bouton.setPreferredSize(new Dimension(55, 55));
+			bouton.setText(String.valueOf(i + 1));
+		}else if(type == "l"){
+			bouton.setPreferredSize(new Dimension(50, 50));
+			bouton.setText(String.valueOf(FactoryUtils.convertirIntToChar(i + 1)));
 		}
-		return listeBouton;
-	}
-	
-	public JButton generateBouton(int i){
-		JButton bouton = new JButton();
-		bouton.setBackground(Color.BLACK);
-		bouton.setPreferredSize(new Dimension(50, 50));
-		bouton.setText(String.valueOf(FactoryUtils.convertirIntToChar(i + 1)));
 		bouton.setForeground(Color.WHITE);
 		bouton.setEnabled(false);
 		return bouton;
 	}
-	
-	public JButton generateBoutonC(int i){
-		JButton bouton = new JButton();
-		bouton.setBackground(Color.BLACK);
-		bouton.setPreferredSize(new Dimension(55, 55));
-		bouton.setText(String.valueOf(i + 1));
-		bouton.setForeground(Color.WHITE);
-		bouton.setEnabled(false);
-		return bouton;
-	}
-	
+
 	public Plateau getPlateauJoueur() {
 		return plateauJoueur;
 	}
