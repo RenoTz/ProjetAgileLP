@@ -2,16 +2,19 @@ package data.interfaceJeu;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.apache.commons.lang.StringUtils;
@@ -58,6 +61,7 @@ public class Interface extends JFrame {
 		// Panneau principal
 		JPanel panelPrincipal = new JPanel();
 		panelPrincipal.setLayout(new GridLayout(1,2));
+	
 		
 		// Grille de jeu du joueur
 		JPanel panelJoueur = new JPanel();
@@ -70,7 +74,12 @@ public class Interface extends JFrame {
 		// Ajout des paneaux au paneau principal
         panelPrincipal.add(panelJoueur);
         panelPrincipal.add(panelAdversaire);
-        
+
+        // emplacement de titre
+        final JLabel fenetreJoueur = new JLabel("	Joueur - Adversaire  ", JLabel.CENTER);
+        frame.add(fenetreJoueur, BorderLayout.NORTH);
+        fenetreJoueur.setForeground(Color.black); 
+		
 		// Bouton 'Nouvelle partie'
         final JButton nouvellePartieBouton = new JButton("Nouvelle Partie");
         frame.add(nouvellePartieBouton, BorderLayout.SOUTH);
@@ -78,19 +87,28 @@ public class Interface extends JFrame {
         nouvellePartieBouton.setForeground(Color.white);   
 		frame.setBackground(Color.GRAY);
 		
+		// Panneau de gauche avec les Lettres
+        final JButton lettresPlateau = new JButton("Test");
+        frame.add(lettresPlateau, BorderLayout.WEST);
+        lettresPlateau.setBackground(Color.black); 
+        lettresPlateau.setForeground(Color.white);   
+		frame.setBackground(Color.GRAY);
+		
 		// Create button
 		ajouterLaListeBoutonsAuPanel(panelJoueur, listeBoutonJoueur);
 		ajouterLaListeBoutonsAuPanel(panelAdversaire, listeBoutonAdversaire);
 		
-
-		panelJoueur.setSize(600,600);
-//		panelAdversaire.setSize(600, 600);
+		
+		//panelJoueur.setSize(1000,600);
+		//panelAdversaire.setSize(600, 600);
 		frame.add(panelPrincipal);
 		frame.setSize(1230, 600);
+	
 		
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+
 		
 		nouvellePartieBouton.addActionListener(new ActionListener() {
 			@Override
@@ -232,7 +250,7 @@ public class Interface extends JFrame {
 		}
 		return typeBateauTouche;
 	}
-
+	
 	public Plateau getPlateauJoueur() {
 		return plateauJoueur;
 	}
