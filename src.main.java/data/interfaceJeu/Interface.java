@@ -123,7 +123,8 @@ public class Interface extends JFrame {
 		
 		
 		// Bouton 'Nouvelle partie'
-        final JButton nouvellePartieBouton = new JButton();
+        JButton nouvellePartieBouton = new JButton();
+        nouvellePartieBouton = new JButton(new ImageIcon("reload.png"));
         nouvellePartieBouton.setText("Nouvelle Partie");
         nouvellePartieBouton.setBackground(Color.WHITE); 
         nouvellePartieBouton.setForeground(Color.BLACK);   
@@ -132,7 +133,8 @@ public class Interface extends JFrame {
         JButton boutonJoueur = new JButton();
         boutonJoueur.setBackground(Color.WHITE);
         boutonJoueur.setPreferredSize(new Dimension(145, 55));
-        boutonJoueur.setText("Joueur");
+        boutonJoueur = new JButton(new ImageIcon("user.png"));
+        boutonJoueur.setText("Joueur 1");
         boutonJoueur.setForeground(Color.BLACK);
         boutonJoueur.setEnabled(false);
         
@@ -140,6 +142,7 @@ public class Interface extends JFrame {
         JButton boutonScore = new JButton();
         boutonScore.setBackground(Color.WHITE);
         boutonScore.setPreferredSize(new Dimension(145, 55));
+        boutonScore = new JButton(new ImageIcon("award.png"));
         boutonScore.setText("Score");
         boutonScore.setForeground(Color.BLACK);
         boutonScore.setEnabled(false);
@@ -148,7 +151,8 @@ public class Interface extends JFrame {
         JButton boutonAdversaire = new JButton();
         boutonAdversaire.setBackground(Color.WHITE);
         boutonAdversaire.setPreferredSize(new Dimension(145, 55));
-        boutonAdversaire.setText("Adversaire");
+        boutonAdversaire = new JButton(new ImageIcon("user.png"));
+        boutonAdversaire.setText("Joueur 2");
         boutonAdversaire.setForeground(Color.BLACK);
         boutonAdversaire.setEnabled(false);
 

@@ -3,6 +3,7 @@ package data.composants;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class Case {
@@ -33,6 +34,7 @@ public class Case {
 	
 	private JButton creerBouton() {
 		JButton bouton = new JButton();
+		bouton = new JButton(new ImageIcon("waves.png"));
 		bouton.setBackground(Color.BLUE);
 		bouton.setPreferredSize(new Dimension(40, 40));
 		bouton.setForeground(Color.WHITE);
