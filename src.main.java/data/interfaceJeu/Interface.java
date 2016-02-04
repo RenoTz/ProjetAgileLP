@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,6 +42,7 @@ public class Interface extends JFrame {
 	static List<JButton> listeBoutonCoordsChiffres2;
 	private Plateau plateauJoueur;
 	private Plateau plateauAdversaire;
+	private static JFrame frame;
 	private static JPanel panelJoueur;
 	private static JPanel panelAdversaire;
 	private static Joueur joueur;
@@ -68,7 +71,7 @@ public class Interface extends JFrame {
 	
 	public static void createWindow() {  
 		
-		final JFrame frame = new JFrame("Bataille navale");
+		frame = new JFrame("Bataille navale");
 		frame.setTitle("Bataille Navale - Groupe 1");
 		// Panneau principal
 		JPanel panelPrincipal = new JPanel();
@@ -264,7 +267,6 @@ public class Interface extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						if(joueur.isEnTrainDeJouer()){
-							
 							tirer(adversaire,getPlateauAdversaire(),getXPos(plateau, x, y), getYPos(plateau, x, y)-1);
 							// Changement de joueur
 							joueur.setEnTrainDeJouer(false);
@@ -272,30 +274,32 @@ public class Interface extends JFrame {
 							// On désactive les cases du plateau pour interdire le clic sur son propre plateau
 							desactiverToutesLesCasesDuPlateau(getPlateauAdversaire());
 							// On laisse le temps au joueur de voir la case touchée pendant 3 secondes
-							long end_time = System.currentTimeMillis() + INTERVALLE;
-							do{
-								System.out.println("En attente....");
-							}while(System.currentTimeMillis() - end_time <= 0);
-								
+							pause();
+							// On alterne l'affichage des plateaux
 							panelJoueur.setVisible(true);
 							panelAdversaire.setVisible(false);
-							reactiverToutesLesCasesDuPlateau(getPlateauJoueur());
+							reactiverLesCasesDuPlateau(getPlateauJoueur());
 						}else{
 							tirer(joueur,getPlateauJoueur(), getXPos(plateau, x, y), getYPos(plateau, x, y)-1);
 							// Changement de joueur
 							joueur.setEnTrainDeJouer(true);
 							adversaire.setEnTrainDeJouer(false);
-							// On désactive les cases du plateau pour interdire le clic sur son propre plateau
-							desactiverToutesLesCasesDuPlateau(getPlateauJoueur());
-							// On laisse le temps au joueur de voir la case touchée pendant 3 secondes
-							long end_time = System.currentTimeMillis() + INTERVALLE;
-							do{
-								System.out.println("En attente....");
-							}while(System.currentTimeMillis() - end_time <= 0);
+							pause();
+							// On alterne l'affichage des plateaux
 							panelJoueur.setVisible(false);
 							panelAdversaire.setVisible(true);
-							reactiverToutesLesCasesDuPlateau(getPlateauAdversaire());
+							reactiverLesCasesDuPlateau(getPlateauAdversaire());
 						}
+					}
+					
+
+					private void pause() {
+						long end_time = System.currentTimeMillis() + INTERVALLE;
+						do{
+							frame.repaint();
+							frame.setVisible(true);
+							System.out.println("En attente....");
+						}while(System.currentTimeMillis() - end_time <= 0);
 					}
 
 					private void desactiverToutesLesCasesDuPlateau( Plateau plateau) {
@@ -306,10 +310,12 @@ public class Interface extends JFrame {
 						}
 					}
 					
-					private void reactiverToutesLesCasesDuPlateau( Plateau plateau) {
+					private void reactiverLesCasesDuPlateau( Plateau plateau) {
 						for(int i = 0; i < plateau.getLePlateau().length; i++){
 							for(int j = 0; j < plateau.getLePlateau().length; j++){
-								plateau.getLePlateau()[i][j].getBouton().setEnabled(true);
+								if(!plateau.getLePlateau()[i][j].isCaseTouche()){
+									plateau.getLePlateau()[i][j].getBouton().setEnabled(true);
+								}
 							}
 						}
 					}
@@ -333,6 +339,7 @@ public class Interface extends JFrame {
 		if(!plateau.getLePlateau()[x][y].isWater() || plateau.getLePlateau()[x][y].isCaseTouche()){
 			plateau.getLePlateau()[x][y].setCaseTouche(true);
 			plateau.getLePlateau()[x][y].getBouton().setBackground(Color.RED);
+			plateau.getLePlateau()[x][y].getBouton().setEnabled(false);
 			
 			EnumTypeBateau bateauTouche = recupererLeTypeBateauTouche(plateau.getLePlateau()[x][y], joueur);
 			
