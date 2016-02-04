@@ -147,7 +147,7 @@ public class Interface extends JFrame {
 		frame.setVisible(true);
 		
 		// Test pour savoir si une partie est gagné
-		JOptionPane.showMessageDialog(null, "Vous avez gagné la partie");
+		//JOptionPane.showMessageDialog(null, "Vous avez gagné la partie");
 
 		
 		
