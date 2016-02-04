@@ -40,8 +40,8 @@ public class Interface extends JFrame {
 	static List<JButton> listeBoutonCoordsLettres;
 	static List<JButton> listeBoutonCoordsChiffres;
 	static List<JButton> listeBoutonCoordsChiffres2;
-	private Plateau plateauJoueur;
-	private Plateau plateauAdversaire;
+	private static Plateau plateauJoueur;
+	private static Plateau plateauAdversaire;
 	private static JFrame frame;
 	private static JPanel panelJoueur;
 	private static JPanel panelAdversaire;
@@ -118,13 +118,13 @@ public class Interface extends JFrame {
 		JPanel panelMenu = new JPanel();
 		panelMenu.setLayout(new FlowLayout());
 		JPanel gridMenu = new JPanel();
-		gridMenu.setLayout(new GridLayout(1, 4, 240, 120));
+		gridMenu.setLayout(new GridLayout(1, 5, 130, 80));
 		gridMenu.setBackground(Color.BLACK);
 		
 		
 		// Bouton 'Nouvelle partie'
         JButton nouvellePartieBouton = new JButton();
-        nouvellePartieBouton = new JButton(new ImageIcon("reload.png"));
+        nouvellePartieBouton = new JButton(new ImageIcon("img/reload.png"));
         nouvellePartieBouton.setText("Nouvelle Partie");
         nouvellePartieBouton.setBackground(Color.WHITE); 
         nouvellePartieBouton.setForeground(Color.BLACK);   
@@ -132,8 +132,8 @@ public class Interface extends JFrame {
 		//Bouton 'Joueur'
         JButton boutonJoueur = new JButton();
         boutonJoueur.setBackground(Color.WHITE);
-        boutonJoueur.setPreferredSize(new Dimension(145, 55));
-        boutonJoueur = new JButton(new ImageIcon("user.png"));
+        boutonJoueur.setPreferredSize(new Dimension(125, 55));
+        boutonJoueur = new JButton(new ImageIcon("img/user.png"));
         boutonJoueur.setText("Joueur 1");
         boutonJoueur.setForeground(Color.BLACK);
         boutonJoueur.setEnabled(false);
@@ -141,8 +141,8 @@ public class Interface extends JFrame {
         //Bouton 'Score'
         JButton boutonScore = new JButton();
         boutonScore.setBackground(Color.WHITE);
-        boutonScore.setPreferredSize(new Dimension(145, 55));
-        boutonScore = new JButton(new ImageIcon("award.png"));
+        boutonScore.setPreferredSize(new Dimension(125, 55));
+        boutonScore = new JButton(new ImageIcon("img/award.png"));
         boutonScore.setText("Score");
         boutonScore.setForeground(Color.BLACK);
         boutonScore.setEnabled(false);
@@ -150,11 +150,17 @@ public class Interface extends JFrame {
         //Bouton 'Adversaire'
         JButton boutonAdversaire = new JButton();
         boutonAdversaire.setBackground(Color.WHITE);
-        boutonAdversaire.setPreferredSize(new Dimension(145, 55));
-        boutonAdversaire = new JButton(new ImageIcon("user.png"));
+        boutonAdversaire.setPreferredSize(new Dimension(125, 55));
+        boutonAdversaire = new JButton(new ImageIcon("img/user.png"));
         boutonAdversaire.setText("Joueur 2");
         boutonAdversaire.setForeground(Color.BLACK);
         boutonAdversaire.setEnabled(false);
+        
+        //Bouton 'Changement de joueur'
+        JButton boutonChangementJoueur = new JButton(new ImageIcon("img/Double_fleche.png"));
+        boutonChangementJoueur.setPreferredSize(new Dimension(125, 55));
+        boutonChangementJoueur.setBackground(Color.WHITE); 
+        boutonChangementJoueur.setForeground(Color.BLACK);   
 
 		// Ajout des paneaux au paneau principal
 		
@@ -166,6 +172,7 @@ public class Interface extends JFrame {
         panelMenu.add(gridMenu);
         gridMenu.add(boutonJoueur);
         gridMenu.add(nouvellePartieBouton);
+        gridMenu.add(boutonChangementJoueur);
         gridMenu.add(boutonScore);
         gridMenu.add(boutonAdversaire);		
 		
@@ -220,6 +227,39 @@ public class Interface extends JFrame {
 			}
 		});
 		
+		boutonChangementJoueur.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(joueur.isEnTrainDeJouer()){
+					// Changement de joueur
+					joueur.setEnTrainDeJouer(false);
+					adversaire.setEnTrainDeJouer(true);
+					// On alterne l'affichage des plateaux
+					panelJoueur.setVisible(true);
+					panelAdversaire.setVisible(false);
+					reactiverLesCasesDuPlateau(getPlateauJoueur());
+				}else{
+					// Changement de joueur
+					joueur.setEnTrainDeJouer(true);
+					adversaire.setEnTrainDeJouer(false);
+					// On alterne l'affichage des plateaux
+					panelJoueur.setVisible(false);
+					panelAdversaire.setVisible(true);
+					reactiverLesCasesDuPlateau(getPlateauAdversaire());
+				}
+			}
+			
+			private void reactiverLesCasesDuPlateau( Plateau plateau) {
+				for(int i = 0; i < plateau.getLePlateau().length; i++){
+					for(int j = 0; j < plateau.getLePlateau().length; j++){
+						if(!plateau.getLePlateau()[i][j].isCaseTouche()){
+							plateau.getLePlateau()[i][j].getBouton().setEnabled(true);
+						}
+					}
+				}
+			}
+		});
+		
 	}
 	
 	public static void initialiserPartie() {
@@ -250,8 +290,8 @@ public class Interface extends JFrame {
 		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.TORPILLEUR, new Points('J', 2), new Points('J', 3));
 		
 		// Placement des bateaux sur le plateau
-		actions.placerLesBateauxSurLePlateau(joueur.getListeBateaux(),interfaceJeu.getPlateauJoueur());
-		actions.placerLesBateauxSurLePlateau(adversaire.getListeBateaux(),interfaceJeu.getPlateauAdversaire());
+		actions.placerLesBateauxSurLePlateau(joueur.getListeBateaux(),getPlateauJoueur());
+		actions.placerLesBateauxSurLePlateau(adversaire.getListeBateaux(),getPlateauAdversaire());
 	}
 
 	private static void ajouterLaListeBoutonsAuPanel(JPanel panel, List<JButton> listeBouton)  {
@@ -272,40 +312,13 @@ public class Interface extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						if(joueur.isEnTrainDeJouer()){
 							tirer(adversaire,getPlateauAdversaire(),getXPos(plateau, x, y), getYPos(plateau, x, y)-1);
-							// Changement de joueur
-							joueur.setEnTrainDeJouer(false);
-							adversaire.setEnTrainDeJouer(true);
-							// On désactive les cases du plateau pour interdire le clic sur son propre plateau
 							desactiverToutesLesCasesDuPlateau(getPlateauAdversaire());
-							// On laisse le temps au joueur de voir la case touchée pendant 3 secondes
-							pause();
-							// On alterne l'affichage des plateaux
-							panelJoueur.setVisible(true);
-							panelAdversaire.setVisible(false);
-							reactiverLesCasesDuPlateau(getPlateauJoueur());
 						}else{
 							tirer(joueur,getPlateauJoueur(), getXPos(plateau, x, y), getYPos(plateau, x, y)-1);
-							// Changement de joueur
-							joueur.setEnTrainDeJouer(true);
-							adversaire.setEnTrainDeJouer(false);
-							pause();
-							// On alterne l'affichage des plateaux
-							panelJoueur.setVisible(false);
-							panelAdversaire.setVisible(true);
-							reactiverLesCasesDuPlateau(getPlateauAdversaire());
+							desactiverToutesLesCasesDuPlateau(getPlateauJoueur());
 						}
 					}
 					
-
-					private void pause() {
-						long end_time = System.currentTimeMillis() + INTERVALLE;
-						do{
-							frame.repaint();
-							frame.setVisible(true);
-							System.out.println("En attente....");
-						}while(System.currentTimeMillis() - end_time <= 0);
-					}
-
 					private void desactiverToutesLesCasesDuPlateau( Plateau plateau) {
 						for(int i = 0; i < plateau.getLePlateau().length; i++){
 							for(int j = 0; j < plateau.getLePlateau().length; j++){
@@ -314,16 +327,6 @@ public class Interface extends JFrame {
 						}
 					}
 					
-					private void reactiverLesCasesDuPlateau( Plateau plateau) {
-						for(int i = 0; i < plateau.getLePlateau().length; i++){
-							for(int j = 0; j < plateau.getLePlateau().length; j++){
-								if(!plateau.getLePlateau()[i][j].isCaseTouche()){
-									plateau.getLePlateau()[i][j].getBouton().setEnabled(true);
-								}
-							}
-						}
-					}
-
 					private Integer getYPos(Plateau plateau, final int i, final int j) {
 						return plateau.getLePlateau()[i][j].getPoint().getyPos();
 					}
@@ -443,11 +446,11 @@ public class Interface extends JFrame {
 		return bouton;
 	}
 
-	public Plateau getPlateauJoueur() {
+	public static Plateau getPlateauJoueur() {
 		return plateauJoueur;
 	}
 	
-	public Plateau getPlateauAdversaire() {
+	public static Plateau getPlateauAdversaire() {
 		return plateauAdversaire;
 	}
 
