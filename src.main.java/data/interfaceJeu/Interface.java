@@ -157,7 +157,7 @@ public class Interface extends JFrame {
         boutonAdversaire.setEnabled(false);
         
         //Bouton 'Changement de joueur'
-        JButton boutonChangementJoueur = new JButton(new ImageIcon("img/Double_fleche.png"));
+        JButton boutonChangementJoueur = new JButton(new ImageIcon("img/arrow.png"));
         boutonChangementJoueur.setPreferredSize(new Dimension(125, 55));
         boutonChangementJoueur.setBackground(Color.WHITE); 
         boutonChangementJoueur.setForeground(Color.BLACK);   
@@ -345,7 +345,7 @@ public class Interface extends JFrame {
 		
 		if(!plateau.getLePlateau()[x][y].isWater() || plateau.getLePlateau()[x][y].isCaseTouche()){
 			plateau.getLePlateau()[x][y].setCaseTouche(true);
-			plateau.getLePlateau()[x][y].getBouton().setIcon(new ImageIcon("bomb.png"));
+			plateau.getLePlateau()[x][y].getBouton().setIcon(new ImageIcon("img/bomb.png"));
 			plateau.getLePlateau()[x][y].getBouton().setBackground(Color.RED);
 			plateau.getLePlateau()[x][y].getBouton().setEnabled(false);
 			
@@ -455,24 +455,12 @@ public class Interface extends JFrame {
 		return plateauAdversaire;
 	}
 
-	public void setPlateauAdversaire(Plateau plateauAdversaire) {
-		this.plateauAdversaire = plateauAdversaire;
-	}
-
 	public Joueur getJoueur() {
 		return joueur;
 	}
 
-	public void setJoueur(Joueur joueur) {
-		Interface.joueur = joueur;
-	}
-
 	public Joueur getAdversaire() {
 		return adversaire;
-	}
-
-	public void setAdversaire(Joueur adversaire) {
-		Interface.adversaire = adversaire;
 	}
 
 }
