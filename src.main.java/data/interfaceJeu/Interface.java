@@ -76,8 +76,7 @@ public class Interface extends JFrame {
         panelPrincipal.add(panelAdversaire);
 
         // emplacement de titre
-        final JLabel fenetreJoueur = new JLabel("  Bienvenue dans le jeu de la bataille Navale                                                          "
-        		+ "              Joueur                              -                       Adversaire  ");
+        final JLabel fenetreJoueur = new JLabel("	Joueur - Adversaire  ", JLabel.CENTER);
         frame.add(fenetreJoueur, BorderLayout.NORTH);
         fenetreJoueur.setForeground(Color.black); 
 		
