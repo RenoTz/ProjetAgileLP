@@ -179,6 +179,7 @@ public class Interface extends JFrame {
 
 		// Panneau du Menu
 		panelMenu.setBounds(0, 0, 1300, 65);
+		panelMenu.setBackground(Color.black);
 		
 		//Panneau colonne lettres
 		panelCoordLettres.setBounds(0, 120, 60, 550);
