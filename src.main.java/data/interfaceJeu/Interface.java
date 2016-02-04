@@ -65,11 +65,12 @@ public class Interface extends JFrame {
 		
 		final JFrame frame = new JFrame("Bataille navale");
 		frame.setTitle("Bataille Navale - Groupe 1");
+		
+		
 		// Panneau principal
 		JPanel panelPrincipal = new JPanel();
 		panelPrincipal.setLayout(new GridLayout(1,2));
 	
-		
 		// Grille de jeu du joueur
 		JPanel panelJoueur = new JPanel();
 		panelJoueur.setLayout(new GridLayout(10,10));
@@ -78,47 +79,74 @@ public class Interface extends JFrame {
 		JPanel panelAdversaire = new JPanel();
 		panelAdversaire.setLayout(new GridLayout(10,10));
 		
-		// Grille de jeu de l'adversaire
+		// Panneau des coordonnÃ©es des lettres
 		JPanel panelCoordLettres = new JPanel();
 		panelCoordLettres.setLayout(new FlowLayout());
 		
-		// Grille de jeu de l'adversaire
+		// Panneau des coordonnÃ©es des chiffres
 		JPanel panelCoordChiffres1 = new JPanel();
 		panelCoordChiffres1.setLayout(new FlowLayout());
 		
-		// Grille de jeu de l'adversaire
+		// Panneau du Menu
 		JPanel panelMenu = new JPanel();
 		panelMenu.setLayout(new FlowLayout());
+		JPanel gridMenu = new JPanel();
+		gridMenu.setLayout(new GridLayout(1, 4, 100, 0));
 		
+	
+		// Bouton 'Nouvelle partie'
+        final JButton nouvellePartieBouton = new JButton();
+        nouvellePartieBouton.setText("Nouvelle Partie");
+        nouvellePartieBouton.setBackground(Color.black); 
+        nouvellePartieBouton.setPreferredSize(new Dimension(145, 55));
+        nouvellePartieBouton.setForeground(Color.white);   
+				
+		//Bouton 'Joueur'
+        JButton boutonJoueur = new JButton();
+        boutonJoueur.setBackground(Color.BLACK);
+        boutonJoueur.setPreferredSize(new Dimension(145, 55));
+        boutonJoueur.setText("Joueur");
+        boutonJoueur.setForeground(Color.WHITE);
+        boutonJoueur.setEnabled(false);
+        
+        //Bouton 'Score'
+        JButton boutonScore = new JButton();
+        boutonScore.setBackground(Color.BLACK);
+        boutonScore.setPreferredSize(new Dimension(145, 55));
+        boutonScore.setText("Score");
+        boutonScore.setForeground(Color.WHITE);
+        boutonScore.setEnabled(false);
+		
+        //Bouton 'Adversaire'
+        JButton boutonAdversaire = new JButton();
+        boutonAdversaire.setBackground(Color.BLACK);
+        boutonAdversaire.setPreferredSize(new Dimension(145, 55));
+        boutonAdversaire.setText("Adversaire");
+        boutonAdversaire.setForeground(Color.WHITE);
+        boutonAdversaire.setEnabled(false);
+        
 		// Grille de jeu de l'adversaire
 		JPanel panelCoordChiffres2 = new JPanel();
 		panelCoordChiffres2.setLayout(new FlowLayout());
 		
 		// Ajout des paneaux au paneau principal
 		
-        panelPrincipal.add(panelJoueur);
-        
+        panelPrincipal.add(panelJoueur);   
         panelPrincipal.add(panelAdversaire);
+        
+        //Ajout des boutons au layout
+        panelMenu.add(gridMenu);
+        gridMenu.add(boutonJoueur);
+        gridMenu.add(nouvellePartieBouton);
+        gridMenu.add(boutonScore);
+        gridMenu.add(boutonAdversaire);
+        
 
         // emplacement de titre
-        final JLabel fenetreJoueur = new JLabel("	Joueur - Adversaire  ", JLabel.CENTER);
-        
-        frame.add(fenetreJoueur, BorderLayout.NORTH);
-        fenetreJoueur.setForeground(Color.black); 
-		
-		// Bouton 'Nouvelle partie'
-        final JButton nouvellePartieBouton = new JButton("Nouvelle Partie");
-        frame.add(nouvellePartieBouton, BorderLayout.SOUTH);
-        nouvellePartieBouton.setBackground(Color.black); 
-        nouvellePartieBouton.setForeground(Color.white);   
-		frame.setBackground(Color.GRAY);
-		
-		// Panneau de gauche avec les Lettres
-        /*final JButton lettresPlateau = new JButton("Test");
-        frame.add(lettresPlateau, BorderLayout.WEST);
-        lettresPlateau.setBackground(Color.black); 
-        //lettresPlateau.setForeground(Color.white);   
-		frame.setBackground(Color.GRAY);*/
+        //final JLabel fenetreJoueur = new JLabel("	Joueur - Adversaire  ", JLabel.CENTER);
+        // frame.add(fenetreJoueur, BorderLayout.NORTH);
+        //fenetreJoueur.setForeground(Color.black); 
+
 		
 		// Create button
 		ajouterLaListeBoutonsAuPanel(panelJoueur, listeBoutonJoueur);
@@ -132,34 +160,41 @@ public class Interface extends JFrame {
 		//panelAdversaire.setSize(600, 600);
 		
 		//Colonne des Lettres du plateau
-		Border paddingL = BorderFactory.createEmptyBorder(60, 60, 0, 0);
-		panelPrincipal.setBorder(paddingL);
-		panelCoordLettres.setBounds(0, 70, 60, 550);
+		Border padding = BorderFactory.createEmptyBorder(120, 60, 15, 15);
+		panelPrincipal.setBorder(padding);
+
+		// Panneau du Menu
+		panelMenu.setBounds(125, 0, 560, 50);
+		panelMenu.setSize(new Dimension(1100, 60));
+		
+		//Panneau colonne lettres
+		panelCoordLettres.setBounds(0, 120, 60, 550);
 		panelCoordLettres.setSize(new Dimension(60,550));
 		
 		//Ligne avec les chiffres du plateau du joueur
-		panelCoordChiffres1.setBounds(65, 15, 600, 60);
+		panelCoordChiffres1.setBounds(65, 60, 600, 60);
 		panelCoordChiffres1.setSize(new Dimension(600,60));
 		
-		panelCoordChiffres2.setBounds(685, 15, 600, 60);
+		panelCoordChiffres2.setBounds(673, 60, 600, 60);
 		panelCoordChiffres2.setSize(new Dimension(600,60));
 		
+		frame.add(panelMenu);
 		frame.add(panelCoordLettres);
 		frame.add(panelCoordChiffres1);
 		frame.add(panelCoordChiffres2);
-		
+	
 		
 		frame.add(panelPrincipal);
 		frame.setSize(1300, 680);
 	
-		
+		frame.setBackground(Color.GRAY);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setVisible(true);
 		
-		// Test pour savoir si une partie est gagné
-		//JOptionPane.showMessageDialog(null, "Vous avez gagné la partie");
+		// Test pour savoir si une partie est gagnï¿½
+		//JOptionPane.showMessageDialog(null, "Vous avez gagnï¿½ la partie");
 
 		
 		
@@ -325,7 +360,7 @@ public class Interface extends JFrame {
 			bouton.setPreferredSize(new Dimension(55, 55));
 			bouton.setText(String.valueOf(i + 1));
 		}else if(type == "l"){
-			bouton.setPreferredSize(new Dimension(50, 50));
+			bouton.setPreferredSize(new Dimension(45, 46));
 			bouton.setText(String.valueOf(FactoryUtils.convertirIntToChar(i + 1)));
 		}
 		bouton.setForeground(Color.WHITE);
