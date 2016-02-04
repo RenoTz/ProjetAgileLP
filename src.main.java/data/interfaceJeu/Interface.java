@@ -264,6 +264,7 @@ public class Interface extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						if(joueur.isEnTrainDeJouer()){
+							
 							tirer(adversaire,getPlateauAdversaire(),getXPos(plateau, x, y), getYPos(plateau, x, y)-1);
 							// Changement de joueur
 							joueur.setEnTrainDeJouer(false);
@@ -278,6 +279,7 @@ public class Interface extends JFrame {
 								
 							panelJoueur.setVisible(true);
 							panelAdversaire.setVisible(false);
+							reactiverToutesLesCasesDuPlateau(getPlateauJoueur());
 						}else{
 							tirer(joueur,getPlateauJoueur(), getXPos(plateau, x, y), getYPos(plateau, x, y)-1);
 							// Changement de joueur
@@ -292,15 +294,24 @@ public class Interface extends JFrame {
 							}while(System.currentTimeMillis() - end_time <= 0);
 							panelJoueur.setVisible(false);
 							panelAdversaire.setVisible(true);
+							reactiverToutesLesCasesDuPlateau(getPlateauAdversaire());
 						}
 					}
 
 					private void desactiverToutesLesCasesDuPlateau( Plateau plateau) {
-//						for(int i = 0; i < plateau.getLePlateau().length; i++){
-//							for(int j = 0; j < plateau.getLePlateau().length; j++){
-//								plateau.getLePlateau()[i][j].getBouton().setEnabled(false);
-//							}
-//						}
+						for(int i = 0; i < plateau.getLePlateau().length; i++){
+							for(int j = 0; j < plateau.getLePlateau().length; j++){
+								plateau.getLePlateau()[i][j].getBouton().setEnabled(false);
+							}
+						}
+					}
+					
+					private void reactiverToutesLesCasesDuPlateau( Plateau plateau) {
+						for(int i = 0; i < plateau.getLePlateau().length; i++){
+							for(int j = 0; j < plateau.getLePlateau().length; j++){
+								plateau.getLePlateau()[i][j].getBouton().setEnabled(true);
+							}
+						}
 					}
 
 					private Integer getYPos(Plateau plateau, final int i, final int j) {
