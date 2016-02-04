@@ -45,13 +45,13 @@ public class Plateau {
 	}
 	
 	// TODO : temporaire, à enlever quand inutile
-	public static void log(Case[][] lePlateau) {
+	/*public static void log(Case[][] lePlateau) {
 		for( int i = 0; i < lePlateau.length; i++ ){
 			for( int j = 0; j < lePlateau.length; j++ ) {
 				  System.out.print("["+lePlateau[i][j].getPoint().getxPos()+lePlateau[i][j].getPoint().getyPos()+"]");
 			}	
 			System.out.println("\n");
 		}
-	}
+	}*/
 }
 

@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.apache.commons.lang.StringUtils;
@@ -104,7 +105,12 @@ public class Interface extends JFrame {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
+		// Test pour savoir si une partie est gagné
+		JOptionPane.showMessageDialog(null, "Vous avez gagné la partie");
 
+		
+		
 		
 		nouvellePartieBouton.addActionListener(new ActionListener() {
 			@Override
@@ -114,6 +120,9 @@ public class Interface extends JFrame {
 				initialiserPartie();				
 			}
 		});
+		
+		//panelJoueur.setVisible(false);
+		//panelAdversaire.setVisible(false);
 	}
 	
 	public static void initialiserPartie() {
@@ -131,7 +140,7 @@ public class Interface extends JFrame {
 		
 		// TODO RT : Creation d'une nouvelle partie (fixe temporairement, aleatoire A VENIR !!!)
 		// Placement des bateaux du joueur
-		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.PORTE_AVION, new Points('A', 1), new Points('A', 5));
+		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.PORTE_AVION, new Points('A', 3), new Points('A', 7));
 		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.CROISEUR, new Points('C', 1), new Points('F', 1));
 		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('E', 3), new Points('E', 5));
 		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.SOUS_MARIN, new Points('G', 5), new Points('I', 5));
@@ -225,6 +234,7 @@ public class Interface extends JFrame {
 			}
 		}
 	}
+
 
 	private Integer yCaseBateau(Bateau bateau, int i) {
 		return bateau.getTabPoints()[i].getyPos();

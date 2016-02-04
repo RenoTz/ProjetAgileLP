@@ -68,7 +68,6 @@ public class ActionsBateau {
 		}
 	}
 	
-	@SuppressWarnings("static-access")
 	public void placerLesBateauxSurLePlateau(List<Bateau> listeBateaux, Plateau plateau){
 		
 		boolean caseColoree;
@@ -95,7 +94,7 @@ public class ActionsBateau {
 			}
 		}
 		// TODO : � enlever si inutile
-		plateau.log(plateau.getLePlateau());
+		//plateau.log(plateau.getLePlateau());
 	}
 	
 	//--------------------------------
