@@ -79,8 +79,9 @@ public class ActionsBateau {
 						for( int i = 0; i < plateau.getLePlateau().length; i++ ){
 							for( int j = 0; j < plateau.getLePlateau().length; j++ ) {
 								 if(caseBateauCorrespondCasePlateau(plateau, bateau, caseBateau, i, j)){
-									 plateau.getLePlateau()[i][j].setCouleur(Color.DARK_GRAY);
+//									 plateau.getLePlateau()[i][j].setCouleur(Color.DARK_GRAY);
 									 plateau.getLePlateau()[i][j].getBouton().setBackground(Color.DARK_GRAY);
+									 plateau.getLePlateau()[i][j].setWater(false);
 									 caseColoree = true;
 									 break;
 								 }
