@@ -338,6 +338,7 @@ public class Interface extends JFrame {
 		if(!plateau.getLePlateau()[x][y].isWater() || plateau.getLePlateau()[x][y].isCaseTouche()){
 			plateau.getLePlateau()[x][y].setCaseTouche(true);
 			plateau.getLePlateau()[x][y].getBouton().setBackground(Color.RED);
+			plateau.getLePlateau()[x][y].getBouton().setIcon(null);
 			
 			EnumTypeBateau bateauTouche = recupererLeTypeBateauTouche(plateau.getLePlateau()[x][y], joueur);
 			
