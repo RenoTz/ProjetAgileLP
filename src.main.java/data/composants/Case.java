@@ -28,20 +28,22 @@ public class Case {
 		this.caseUtilisee = false;
 		this.bouton = creerBouton();
 	}
-
-	//-----------------
-	//	GETTERS/SETTERS
-	//-----------------
+	
+	//--------------------------------
+	//  METHODES SPECIFIQUES : PRIVEES
+	//--------------------------------
 	
 	private JButton creerBouton() {
 		JButton bouton = new JButton();
 		bouton.setBackground(couleur);
 		bouton.setPreferredSize(new Dimension(40, 40));
-		bouton.setText(String.valueOf(this.point.getxPos())+String.valueOf(this.point.getyPos()));
 		bouton.setForeground(Color.WHITE);
 		return bouton;
 	}
 	
+	//-----------------
+	//	GETTERS/SETTERS
+	//-----------------
 
 	public Points getPoint() {
 		return point;
