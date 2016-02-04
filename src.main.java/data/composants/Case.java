@@ -2,11 +2,7 @@ package data.composants;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Image;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class Case {
@@ -32,10 +28,10 @@ public class Case {
 		this.caseUtilisee = false;
 		this.bouton = creerBouton();
 	}
-
-	//-----------------
-	//	GETTERS/SETTERS
-	//-----------------
+	
+	//--------------------------------
+	//  METHODES SPECIFIQUES : PRIVEES
+	//--------------------------------
 	
 	private JButton creerBouton() {
 		JButton bouton = new JButton();
@@ -46,6 +42,9 @@ public class Case {
 		return bouton;
 	}
 	
+	//-----------------
+	//	GETTERS/SETTERS
+	//-----------------
 
 	public Points getPoint() {
 		return point;
