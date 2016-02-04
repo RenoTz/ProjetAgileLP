@@ -92,9 +92,6 @@ public class Interface extends JFrame {
         panelPrincipal.add(panelJoueur);
         
         panelPrincipal.add(panelAdversaire);
-        frame.add(panelCoordChiffres1);
-		frame.add(panelCoordLettres);
-		panelCoordChiffres1.setBackground(Color.BLACK);
 
         // emplacement de titre
         final JLabel fenetreJoueur = new JLabel("	Joueur - Adversaire  ", JLabel.CENTER);
@@ -122,21 +119,22 @@ public class Interface extends JFrame {
 		ajouterLaListeBoutonsAuPanel(panelCoordChiffres1, listeBoutonCoordsChiffres);
 		//ajouterLaListeBoutonsAuPanel(panelCoordChiffres2, listeBoutonCoordsChiffres);
 		
-		
+
 		//panelJoueur.setSize(1000,600);
 		//panelAdversaire.setSize(600, 600);
 		
-		//Padding pour la colonne des Lettres du plateau
+		//Colonne des Lettres du plateau
 		Border paddingL = BorderFactory.createEmptyBorder(60, 60, 0, 0);
 		panelPrincipal.setBorder(paddingL);
-		panelCoordLettres.setBounds(5, 70, 60, 550);
+		panelCoordLettres.setBounds(0, 70, 60, 550);
 		panelCoordLettres.setSize(new Dimension(60,550));
 		
-		
-		Border paddingC = BorderFactory.createEmptyBorder(65, 60, 0, 0);
-		panelCoordChiffres1.setBorder(paddingC);
+		//Ligne avec les chiffres du plateau du joueur
 		panelCoordChiffres1.setBounds(65, 15, 600, 60);
 		panelCoordChiffres1.setSize(new Dimension(600,60));
+		
+		frame.add(panelCoordChiffres1);
+		frame.add(panelCoordLettres);
 		
 		frame.add(panelPrincipal);
 		frame.setSize(1300, 680);
