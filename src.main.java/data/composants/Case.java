@@ -37,7 +37,6 @@ public class Case {
 		JButton bouton = new JButton();
 		bouton.setBackground(couleur);
 		bouton.setPreferredSize(new Dimension(40, 40));
-		bouton.setText(String.valueOf(this.point.getxPos())+String.valueOf(this.point.getyPos()));
 		bouton.setForeground(Color.WHITE);
 		return bouton;
 	}

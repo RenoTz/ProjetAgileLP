@@ -2,7 +2,6 @@ package data.bateau;
 
 import data.composants.Points;
 import enumeration.EnumTypeBateau;
-import data.composants.*;
 
 public abstract class Bateau {
 
