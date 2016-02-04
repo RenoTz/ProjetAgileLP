@@ -88,6 +88,13 @@ public class Interface extends JFrame {
         nouvellePartieBouton.setForeground(Color.white);   
 		frame.setBackground(Color.GRAY);
 		
+		// Panneau de gauche avec les Lettres
+        final JButton lettresPlateau = new JButton("Test");
+        frame.add(lettresPlateau, BorderLayout.WEST);
+        lettresPlateau.setBackground(Color.black); 
+        lettresPlateau.setForeground(Color.white);   
+		frame.setBackground(Color.GRAY);
+		
 		// Create button
 		ajouterLaListeBoutonsAuPanel(panelJoueur, listeBoutonJoueur);
 		ajouterLaListeBoutonsAuPanel(panelAdversaire, listeBoutonAdversaire);
