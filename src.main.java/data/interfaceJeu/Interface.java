@@ -275,7 +275,7 @@ public class Interface extends JFrame {
 							desactiverToutesLesCasesDuPlateau(plateauJoueur);
 						}
 						// On colore en ROUGE le bouton de changement de joueur et on le désactive
-						boutonChangementJoueur.setBackground(Color.GREEN);
+						boutonChangementJoueur.setBackground(new Color(0, 150, 0));
 						boutonChangementJoueur.setEnabled(true);
 					}
 					

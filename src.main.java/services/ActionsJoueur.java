@@ -49,9 +49,10 @@ public class ActionsJoueur {
 				
 				if(bateauCoule != null){
 					coulerLeBateau(bateauCoule, plateau, joueur);
-					score.setText("     " + joueur.getScore());
+					score.setText(" " + joueur.getScore());
 					if(joueur.isGagne()){
-						JOptionPane.showMessageDialog(null, "Vous avez gagné la partie");
+						JOptionPane.showMessageDialog(null, "Bravo ! "+ joueur.getNomJoueur() +" a gagné la partie !");
+						JOptionPane.showMessageDialog(null, "Bravo ! "+ joueur.getNomAdversaire() +" a gagné la partie !");
 					}
 				}
 			}
@@ -67,7 +68,7 @@ public class ActionsJoueur {
 	private void coulerLeBateau(Bateau bateau, Plateau plateau, Joueur joueur){
 		for(int i = 0; i < bateau.getTabPoints().length; i++){
 			if(plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().getBackground().equals(Color.RED)){
-				plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().setBackground(Color.GREEN);
+				plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().setBackground(new Color(0, 150, 0));
 				plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().setEnabled(false);
 			}
 		}
