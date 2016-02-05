@@ -3,7 +3,6 @@ package controleur;
 import javax.swing.JOptionPane;
 
 import services.ActionsBateau;
-import data.bateau.Bateau;
 import data.composants.Points;
 import data.interfaceJeu.Interface;
 import data.joueur.Joueur;
@@ -20,6 +19,8 @@ public class Partie {
 	private static Joueur adversaire;
 	private ActionsBateau actions;
 	private static boolean start;
+	private String nomJoueur;
+	private String nomAdversaire;
 	
 	//---------------
 	//	CONSTRUCTEUR
@@ -42,11 +43,11 @@ public class Partie {
 	private void initialiserLesJoueurs(){
 		// Creation du joueur 1
 		joueur = new Joueur();
-		joueur.setNom("Gérard");
+		joueur.setNomJoueur(nomJoueur);
 		joueur.setEnTrainDeJouer(true);
 		// Creation du joueur 2
 		adversaire = new Joueur();
-		adversaire.setNom("Bobby");
+		adversaire.setNomAdversaire(nomAdversaire);
 	}
 	
 	private void initialiserLaListeDesBateaux() {

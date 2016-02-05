@@ -6,5 +6,9 @@ Jeu - Bataille navale
 Pour compiler : 
 mvn clean package
 
+Pour lancer les tests :
+mvn test
+
 Pour exécuter :
 java -jar [compiled .jar file]
+

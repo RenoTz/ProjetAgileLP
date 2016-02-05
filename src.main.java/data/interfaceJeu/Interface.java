@@ -1,6 +1,5 @@
 package data.interfaceJeu;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -37,6 +36,7 @@ public class Interface extends JFrame {
 	//  ATTRIBUTS 
 	//------------
 	private boolean premierClic;
+	private static final int TAILLE_PLATEAU = 12;
 	private ActionsJoueur actionsJoueurs;
 	private ActionsBateau actionsBateau;
 	private static Joueur joueur;
@@ -54,6 +54,7 @@ public class Interface extends JFrame {
 	private static JButton boutonChangementJoueur;
 	private JButton boutonCasePlateau;
 	private static JPanel panelPoserBateau;
+	private static JButton boutonScore;
 	
 	//-------------
 	//  CONSTANTES
@@ -73,8 +74,8 @@ public class Interface extends JFrame {
 		actionsBateau = new ActionsBateau();
 		this.joueur = joueur;
 		this.adversaire = adversaire;
-		plateauJoueur = new Plateau(10,10);
-		plateauAdversaire = new Plateau(10, 10);
+		plateauJoueur = new Plateau(TAILLE_PLATEAU,TAILLE_PLATEAU);
+		plateauAdversaire = new Plateau(TAILLE_PLATEAU, TAILLE_PLATEAU);
 		this.listeBoutonJoueur = creerCasesGraphiques(plateauJoueur);
 		this.listeBoutonAdversaire = creerCasesGraphiques(plateauAdversaire);
 		this.listeBoutonCoordsLettres = creerListeBoutonsContourPlateau(TYPE_LETTRE);
@@ -100,7 +101,7 @@ public class Interface extends JFrame {
 	
 		// Grille de jeu du joueur
 		panelJoueur = new JPanel();
-		panelJoueur.setLayout(new GridLayout(10,10));
+		panelJoueur.setLayout(new GridLayout(TAILLE_PLATEAU,TAILLE_PLATEAU));
 		panelJoueur.setBackground(Color.black);
 		
 		Border margeJ = BorderFactory.createEmptyBorder(0, 15, 0, 0);
@@ -108,7 +109,7 @@ public class Interface extends JFrame {
 		
 		// Grille de jeu de l'adversaire
 		panelAdversaire = new JPanel();
-		panelAdversaire.setLayout(new GridLayout(10,10));
+		panelAdversaire.setLayout(new GridLayout(TAILLE_PLATEAU,TAILLE_PLATEAU));
 		panelAdversaire.setBackground(Color.black);
 		panelAdversaire.setVisible(false);
 		Border margeA = BorderFactory.createEmptyBorder(0, 15, 0, 0);
@@ -136,7 +137,7 @@ public class Interface extends JFrame {
 		JPanel panelMenu = new JPanel();
 		panelMenu.setLayout(new FlowLayout());
 		JPanel gridMenu = new JPanel();
-		gridMenu.setLayout(new GridLayout(1, 5, 130, 80));
+		gridMenu.setLayout(new GridLayout(1, 5, 145, 80));
 		gridMenu.setBackground(Color.BLACK);
 		
 		
@@ -158,19 +159,19 @@ public class Interface extends JFrame {
         JButton boutonJoueur = creerBoutonBandeauSuperieur();
         boutonJoueur.setPreferredSize(new Dimension(125, 55));
         boutonJoueur = new JButton(new ImageIcon("img/user.png"));
-        boutonJoueur.setText(joueur.getNom());
+        boutonJoueur.setText(joueur.getNomJoueur());
         boutonJoueur.setEnabled(false);
         
         //Bouton 'Score'
-        JButton boutonScore = creerBoutonBandeauSuperieur();
+        boutonScore = creerBoutonBandeauSuperieur();
         boutonScore = new JButton(new ImageIcon("img/award.png"));
-        boutonScore.setText("Score");
+        boutonScore.setText("     " + joueur.getScore());
         boutonScore.setEnabled(false);
 		
         //Bouton 'Adversaire'
         JButton boutonAdversaire = creerBoutonBandeauSuperieur();
         boutonAdversaire = new JButton(new ImageIcon("img/user.png"));
-        boutonAdversaire.setText(adversaire.getNom());
+        boutonAdversaire.setText(adversaire.getNomAdversaire());
         boutonAdversaire.setEnabled(false);
         
         //Bouton 'Changement de joueur'
@@ -188,6 +189,7 @@ public class Interface extends JFrame {
 				boutonChangementJoueur.setEnabled(false);
 				
 				if(joueur.isEnTrainDeJouer()){
+					boutonScore.setText("     " + joueur.getScore());
 					// Changement de joueur
 					joueur.setEnTrainDeJouer(false);
 					adversaire.setEnTrainDeJouer(true);
@@ -196,6 +198,7 @@ public class Interface extends JFrame {
 					panelAdversaire.setVisible(false);
 					reactiverLesCasesDuPlateau(plateauJoueur);
 				}else{
+					boutonScore.setText("     " + adversaire.getScore());
 					// Changement de joueur
 					joueur.setEnTrainDeJouer(true);
 					adversaire.setEnTrainDeJouer(false);
@@ -217,7 +220,7 @@ public class Interface extends JFrame {
 			}
 		});
 
-		// Ajout des paneaux au paneau principal
+		// Ajout des paneaux au panneau principal
         panelPrincipal.add(panelJoueur);
         panelPrincipal.add(panelAdversaire);
         
@@ -237,20 +240,19 @@ public class Interface extends JFrame {
 		ajouterLaListeBoutonsAuPanel(panelCoordChiffres2, listeBoutonCoordsChiffres2);
 		
 		//Colonne des Lettres du plateau
-		Border padding = BorderFactory.createEmptyBorder(120, 60, 15, 15);
+		Border padding = BorderFactory.createEmptyBorder(120, 60, 5, 5);
 		panelPrincipal.setBorder(padding);
 
 		// Panneau du Menu
-		panelMenu.setBounds(0, 0, 1300, 65);
+		panelMenu.setBounds(0, 0, 1430, 65);
 		panelMenu.setBackground(Color.black);
 		
 		//Panneau colonne lettres
-		panelCoordLettres.setBounds(0, 120, 60, 550);
+		panelCoordLettres.setBounds(0, 120, 60, 600);
 		
 		//Ligne avec les chiffres du plateau du joueur
-		panelCoordChiffres1.setBounds(70, 60, 600, 60);
-		
-		panelCoordChiffres2.setBounds(680, 60, 600, 60);
+		panelCoordChiffres1.setBounds(67, 60, 655, 60);
+		panelCoordChiffres2.setBounds(738, 60, 650, 60);
 		
 		
 		frame.add(panelMenu);
@@ -259,7 +261,7 @@ public class Interface extends JFrame {
 		frame.add(panelCoordChiffres2);		
 		frame.add(panelPrincipal);
 		
-		frame.setSize(1300, 680);	
+		frame.setSize(1400, 680);	
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
@@ -364,14 +366,14 @@ public class Interface extends JFrame {
 						}else{
 							
 							if(joueur.isEnTrainDeJouer()){
-								actionsJoueurs.tirer(adversaire,plateauAdversaire,getXPos(plateauAdversaire, x, y), getYPos(plateauAdversaire, x, y)-1);
+							actionsJoueurs.tirer(adversaire,plateauAdversaire,getXPos(plateauAdversaire, x, y), getYPos(plateauAdversaire, x, y)-1, boutonScore);
 								desactiverToutesLesCasesDuPlateau(plateauAdversaire);
 							}else{
-								actionsJoueurs.tirer(joueur,plateauJoueur, getXPos(plateauJoueur, x, y), getYPos(plateauJoueur, x, y)-1);
+							actionsJoueurs.tirer(joueur,plateauJoueur, getXPos(plateauJoueur, x, y), getYPos(plateauJoueur, x, y)-1, boutonScore);
 								desactiverToutesLesCasesDuPlateau(plateauJoueur);
 							}
 							// On colore en ROUGE le bouton de changement de joueur et on le désactive
-							boutonChangementJoueur.setBackground(Color.GREEN);
+						boutonChangementJoueur.setBackground(new Color(0, 150, 0));
 							boutonChangementJoueur.setEnabled(true);
 						}
 						
@@ -502,7 +504,7 @@ public class Interface extends JFrame {
 	
 	private List<JButton> creerListeBoutonsContourPlateau(String type){
 		List<JButton> listeBouton = Lists.newArrayList();
-		for(int i = 0; i<10; i++){
+		for(int i = 0; i<TAILLE_PLATEAU; i++){
 			listeBouton.add(genererUnBoutonContourPlateau(i, type));
 		}
 		return listeBouton;
@@ -521,10 +523,10 @@ public class Interface extends JFrame {
 		bouton.setBackground(Color.LIGHT_GRAY);
 		
 		if(type == TYPE_CHIFFRE){
-			bouton.setPreferredSize(new Dimension(55, 55));
+			bouton.setPreferredSize(new Dimension(49, 47));
 			bouton.setText(String.valueOf(i + 1));
 		}else if(type == TYPE_LETTRE){
-			bouton.setPreferredSize(new Dimension(45, 46));
+			bouton.setPreferredSize(new Dimension(50, 38));
 			bouton.setText(String.valueOf(FactoryUtils.convertirIntToChar(i + 1)));
 		}
 		bouton.setEnabled(false);

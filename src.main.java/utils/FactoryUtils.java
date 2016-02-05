@@ -37,6 +37,12 @@ public class FactoryUtils {
 		if(lettre == 'J'){
 			indice = 9;
 		}
+		if(lettre == 'K'){
+			indice = 10;
+		}
+		if(lettre == 'L'){
+			indice = 11;
+		}
 		return indice;
 	}
 	
@@ -71,6 +77,12 @@ public class FactoryUtils {
 		}
 		if(indice == 10){
 			lettre = 'J';
+		}
+		if(indice == 11){
+			lettre = 'K';
+		}
+		if(indice == 12){
+			lettre = 'L';
 		}
 		return lettre;
 	}

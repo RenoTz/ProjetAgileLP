@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -14,7 +15,6 @@ import utils.FactoryUtils;
 import data.bateau.Bateau;
 import data.composants.Case;
 import data.composants.Points;
-import data.interfaceJeu.Interface;
 import data.interfaceJeu.Plateau;
 import data.joueur.Joueur;
 import enumeration.EnumTypeBateau;
@@ -33,7 +33,7 @@ public class ActionsJoueur {
 	// METHODES DE LA CLASSE
 	//------------------------
 	
-	public void tirer(Joueur joueur, Plateau plateau, int x , int y) {
+	public void tirer(Joueur joueur, Plateau plateau, int x , int y, JButton score) {
 		
 		if(!plateau.getLePlateau()[x][y].isWater() || plateau.getLePlateau()[x][y].isCaseTouche()){
 			plateau.getLePlateau()[x][y].setCaseTouche(true);
@@ -49,8 +49,9 @@ public class ActionsJoueur {
 				
 				if(bateauCoule != null){
 					coulerLeBateau(bateauCoule, plateau, joueur);
+					score.setText(" " + joueur.getScore());
 					if(joueur.isGagne()){
-						JOptionPane.showMessageDialog(null, "Vous avez gagnÃ© la partie");
+						JOptionPane.showMessageDialog(null, "Bravo ! "+ joueur.getNomJoueur() +" a gagné la partie !");
 					}
 				}
 			}
@@ -66,7 +67,7 @@ public class ActionsJoueur {
 	private void coulerLeBateau(Bateau bateau, Plateau plateau, Joueur joueur){
 		for(int i = 0; i < bateau.getTabPoints().length; i++){
 			if(plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().getBackground().equals(Color.RED)){
-				plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().setBackground(Color.GREEN);
+				plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().setBackground(new Color(0, 150, 0));
 				plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().setEnabled(false);
 			}
 		}
