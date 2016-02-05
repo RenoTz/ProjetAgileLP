@@ -1,13 +1,9 @@
 package services;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.text.DefaultEditorKit.BeepAction;
-
 import org.apache.commons.collections.CollectionUtils;
-
 import com.google.common.base.Preconditions;
 
 import data.bateau.Bateau;
@@ -22,6 +18,10 @@ import data.joueur.Joueur;
 import enumeration.EnumTypeBateau;
 
 public class ActionsBateau {
+	
+	//------------------------
+	// METHODES DE LA CLASSE
+	//------------------------
 	
 	public List<Bateau> initialiserListeBateaux(){
 		
@@ -43,10 +43,8 @@ public class ActionsBateau {
 	
 	public void assignerCoordonneesBateaux(Joueur j, EnumTypeBateau typeBateau,Points coordonneesAvant, Points coordonneesArriere){
 		
-		// Check cohérence des coordonnées pour le placement des bateaux
 		checkCoherenceDesCoordonnesPourLePlacementDesBateaux(j, typeBateau, coordonneesAvant, coordonneesArriere);
 		
-		// TODO : check coordonn�es A FAIRE!!
 		if(CollectionUtils.isNotEmpty(j.getListeBateaux())){
 			for(Bateau bateau : j.getListeBateaux()){
 				if(bateau.getTypeBateau().equals(typeBateau)){
@@ -54,6 +52,7 @@ public class ActionsBateau {
 					bateau.getTabPoints()[0] = coordonneesAvant;
 					bateau.getTabPoints()[bateau.getTabPoints().length-1] = coordonneesArriere;
 					remplissageDesCasesIntermediaires(coordonneesAvant,	coordonneesArriere, bateau);
+					break;
 				}
 			}
 		}
@@ -81,7 +80,6 @@ public class ActionsBateau {
 						for( int i = 0; i < plateau.getLePlateau().length; i++ ){
 							for( int j = 0; j < plateau.getLePlateau().length; j++ ) {
 								 if(caseBateauCorrespondCasePlateau(plateau, bateau, caseBateau, i, j)){
-//									 plateau.getLePlateau()[i][j].getBouton().setBackground(Color.DARK_GRAY);
 									 plateau.getLePlateau()[i][j].setWater(false);
 									 caseColoree = true;
 									 break;
@@ -95,12 +93,10 @@ public class ActionsBateau {
 				}
 			}
 		}
-		// TODO : � enlever si inutile
-		//plateau.log(plateau.getLePlateau());
 	}
 	
 	//--------------------------------
-	//  METHODES SPECIFIQUES : PRIVEES
+	//  METHODES UTILITAIRES : PRIVEES
 	//--------------------------------
 	
 	private void remplissageDesCasesIntermediaires(Points coordonneesAvant,	Points coordonneesArriere, Bateau bateau) {

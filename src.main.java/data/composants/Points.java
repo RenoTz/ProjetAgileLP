@@ -19,9 +19,9 @@ public class Points {
 		this.setyPos(yPos);
 	}
 	
-	//-----------------------------
-	// Getters/Setters de la classe
-	//-----------------------------
+	//----------------
+	// Getters/Setters
+	//----------------
 
 	public char getxPos() {
 		return xPos;

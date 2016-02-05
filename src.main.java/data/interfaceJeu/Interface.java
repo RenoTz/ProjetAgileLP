@@ -8,49 +8,45 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import org.apache.commons.lang.StringUtils;
+import com.google.common.collect.Lists;
 
-import data.bateau.Bateau;
-import data.composants.Case;
-import data.composants.Points;
+import controleur.Partie;
 import data.joueur.Joueur;
-import enumeration.EnumTypeBateau;
-import services.ActionsBateau;
+import services.ActionsJoueur;
 import utils.FactoryUtils;
 
 public class Interface extends JFrame {
+	
+	private ActionsJoueur actionsJoueurs;
+	private static Joueur joueur;
+	private static Joueur adversaire;
 	
 	//-------------
 	//  CONSTANTES
 	//-------------
 	
 	private static final long serialVersionUID = 1L;
-	static List<JButton> listeBoutonJoueur;
-	static List<JButton> listeBoutonAdversaire;
-	static List<JButton> listeBoutonCoordsLettres;
-	static List<JButton> listeBoutonCoordsChiffres;
-	static List<JButton> listeBoutonCoordsChiffres2;
+	private static final String TYPE_LETTRE= "lettre";
+	private static final String TYPE_CHIFFRE= "chiffre";
+	private static List<JButton> listeBoutonJoueur;
+	private static List<JButton> listeBoutonAdversaire;
+	private static List<JButton> listeBoutonCoordsLettres;
+	private static List<JButton> listeBoutonCoordsChiffres;
+	private static List<JButton> listeBoutonCoordsChiffres2;
 	private static Plateau plateauJoueur;
 	private static Plateau plateauAdversaire;
 	private static JFrame frame;
 	private static JPanel panelJoueur;
 	private static JPanel panelAdversaire;
-	private static Joueur joueur;
-	private static Joueur adversaire;
-	private static ActionsBateau actions;
 	private static JButton boutonChangementJoueur;
 	
 	//---------------
@@ -58,23 +54,25 @@ public class Interface extends JFrame {
 	//---------------
 	
 	@SuppressWarnings("static-access")
-	public Interface(){
-		this.plateauJoueur = new Plateau(10,10);
-		this.plateauAdversaire = new Plateau(10, 10);
-		this.listeBoutonJoueur = creerCasesGraphiques(this.plateauJoueur);
-		this.listeBoutonAdversaire = creerCasesGraphiques(this.plateauAdversaire);
-		this.listeBoutonCoordsLettres = creerListeBoutons("l");
-		this.listeBoutonCoordsChiffres = creerListeBoutons("c");
-		this.listeBoutonCoordsChiffres2 = creerListeBoutons("c");
-		actions = new ActionsBateau();
-		createWindow();
+	public Interface(Joueur joueur, Joueur adversaire){
+		this.joueur = joueur;
+		this.adversaire = adversaire;
+		plateauJoueur = new Plateau(10,10);
+		plateauAdversaire = new Plateau(10, 10);
+		this.listeBoutonJoueur = creerCasesGraphiques(plateauJoueur);
+		this.listeBoutonAdversaire = creerCasesGraphiques(plateauAdversaire);
+		this.listeBoutonCoordsLettres = creerListeBoutonsContourPlateau(TYPE_LETTRE);
+		this.listeBoutonCoordsChiffres = creerListeBoutonsContourPlateau(TYPE_CHIFFRE);
+		this.listeBoutonCoordsChiffres2 = creerListeBoutonsContourPlateau(TYPE_CHIFFRE);
+		actionsJoueurs = new ActionsJoueur();
+		creerLaFenetre();
 	}
 
 	//------------------------
 	// METHODES DE LA CLASSE
 	//------------------------
 	
-	public static void createWindow() {  
+	public static void creerLaFenetre() {  
 		
 		frame = new JFrame("Bataille navale");
 		frame.setTitle("Bataille Navale - Groupe 1");
@@ -83,7 +81,6 @@ public class Interface extends JFrame {
 		panelPrincipal.setLayout(new GridLayout(1,2));
 		panelPrincipal.setBackground(Color.black);
 	
-		
 		// Grille de jeu du joueur
 		panelJoueur = new JPanel();
 		panelJoueur.setLayout(new GridLayout(10,10));
@@ -96,7 +93,6 @@ public class Interface extends JFrame {
 		panelAdversaire = new JPanel();
 		panelAdversaire.setLayout(new GridLayout(10,10));
 		panelAdversaire.setBackground(Color.black);
-		
 		
 		Border margeA = BorderFactory.createEmptyBorder(0, 15, 0, 0);
 		panelAdversaire.setBorder(margeA);
@@ -128,37 +124,35 @@ public class Interface extends JFrame {
 		
 		
 		// Bouton 'Nouvelle partie'
-        JButton nouvellePartieBouton = new JButton();
+        JButton nouvellePartieBouton = creerBoutonBandeauSuperieur();
         nouvellePartieBouton = new JButton(new ImageIcon("img/reload.png"));
         nouvellePartieBouton.setText("Nouvelle Partie");
-        nouvellePartieBouton.setBackground(Color.WHITE); 
-        nouvellePartieBouton.setForeground(Color.BLACK);   
+        nouvellePartieBouton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				frame.dispose();
+				Partie partie = new Partie();				
+			}
+		});
 				
 		//Bouton 'Joueur'
-        JButton boutonJoueur = new JButton();
-        boutonJoueur.setBackground(Color.WHITE);
+        JButton boutonJoueur = creerBoutonBandeauSuperieur();
         boutonJoueur.setPreferredSize(new Dimension(125, 55));
         boutonJoueur = new JButton(new ImageIcon("img/user.png"));
         boutonJoueur.setText(joueur.getNom());
-        boutonJoueur.setForeground(Color.BLACK);
         boutonJoueur.setEnabled(false);
         
         //Bouton 'Score'
-        JButton boutonScore = new JButton();
-        boutonScore.setBackground(Color.WHITE);
-        boutonScore.setPreferredSize(new Dimension(125, 55));
+        JButton boutonScore = creerBoutonBandeauSuperieur();
         boutonScore = new JButton(new ImageIcon("img/award.png"));
         boutonScore.setText("Score");
-        boutonScore.setForeground(Color.BLACK);
         boutonScore.setEnabled(false);
 		
         //Bouton 'Adversaire'
-        JButton boutonAdversaire = new JButton();
-        boutonAdversaire.setBackground(Color.WHITE);
-        boutonAdversaire.setPreferredSize(new Dimension(125, 55));
+        JButton boutonAdversaire = creerBoutonBandeauSuperieur();
         boutonAdversaire = new JButton(new ImageIcon("img/user.png"));
         boutonAdversaire.setText(adversaire.getNom());
-        boutonAdversaire.setForeground(Color.BLACK);
         boutonAdversaire.setEnabled(false);
         
         //Bouton 'Changement de joueur'
@@ -167,6 +161,43 @@ public class Interface extends JFrame {
         boutonChangementJoueur.setBackground(Color.WHITE); 
         boutonChangementJoueur.setForeground(Color.BLACK);   
         boutonChangementJoueur.setEnabled(false);
+        boutonChangementJoueur.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// On colore en ROUGE le bouton de changement de joueur et on le désactive
+				boutonChangementJoueur.setBackground(Color.RED);
+				boutonChangementJoueur.setEnabled(false);
+				
+				if(joueur.isEnTrainDeJouer()){
+					// Changement de joueur
+					joueur.setEnTrainDeJouer(false);
+					adversaire.setEnTrainDeJouer(true);
+					// On alterne l'affichage des plateaux
+					panelJoueur.setVisible(true);
+					panelAdversaire.setVisible(false);
+					reactiverLesCasesDuPlateau(plateauJoueur);
+				}else{
+					// Changement de joueur
+					joueur.setEnTrainDeJouer(true);
+					adversaire.setEnTrainDeJouer(false);
+					// On alterne l'affichage des plateaux
+					panelJoueur.setVisible(false);
+					panelAdversaire.setVisible(true);
+					reactiverLesCasesDuPlateau(plateauAdversaire);
+				}
+			}
+			
+			private void reactiverLesCasesDuPlateau( Plateau plateau) {
+				for(int i = 0; i < plateau.getLePlateau().length; i++){
+					for(int j = 0; j < plateau.getLePlateau().length; j++){
+						if(!plateau.getLePlateau()[i][j].isCaseTouche()){
+							plateau.getLePlateau()[i][j].getBouton().setEnabled(true);
+						}
+					}
+				}
+			}
+		});
 
 		// Ajout des paneaux au paneau principal
         panelPrincipal.add(panelJoueur);
@@ -216,103 +247,8 @@ public class Interface extends JFrame {
 		frame.setResizable(false);
 		frame.setVisible(true);
 		
-		// Test pour savoir si une partie est gagn�
-		//JOptionPane.showMessageDialog(null, "Vous avez gagn� la partie");
-
-		
-		
-		
-		nouvellePartieBouton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
-				frame.dispose();
-				initialiserPartie();				
-			}
-		});
-		
-		boutonChangementJoueur.addActionListener(new ActionListener() {
-			
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// On colore en ROUGE le bouton de changement de joueur et on le désactive
-				boutonChangementJoueur.setBackground(Color.RED);
-				boutonChangementJoueur.setEnabled(false);
-				
-				if(joueur.isEnTrainDeJouer()){
-					// Changement de joueur
-					joueur.setEnTrainDeJouer(false);
-					adversaire.setEnTrainDeJouer(true);
-					// On alterne l'affichage des plateaux
-					panelJoueur.setVisible(true);
-					panelAdversaire.setVisible(false);
-					reactiverLesCasesDuPlateau(getPlateauJoueur());
-				}else{
-					// Changement de joueur
-					joueur.setEnTrainDeJouer(true);
-					adversaire.setEnTrainDeJouer(false);
-					// On alterne l'affichage des plateaux
-					panelJoueur.setVisible(false);
-					panelAdversaire.setVisible(true);
-					reactiverLesCasesDuPlateau(getPlateauAdversaire());
-				}
-			}
-			
-			private void reactiverLesCasesDuPlateau( Plateau plateau) {
-				for(int i = 0; i < plateau.getLePlateau().length; i++){
-					for(int j = 0; j < plateau.getLePlateau().length; j++){
-						if(!plateau.getLePlateau()[i][j].isCaseTouche()){
-							plateau.getLePlateau()[i][j].getBouton().setEnabled(true);
-						}
-					}
-				}
-			}
-		});
-		
-	}
-	
-	public static void initialiserPartie() {
-		
-		
-		// Creation du joueur
-		joueur = new Joueur();
-		joueur.setNom("Gérard");
-		joueur.setEnTrainDeJouer(true);
-		adversaire = new Joueur();
-		adversaire.setNom("Bobby");
-		
-		Interface interfaceJeu = new Interface();
-		// Intialisation de la liste des bateaux des joueurs
-		joueur.setListeBateaux(actions.initialiserListeBateaux());
-		adversaire.setListeBateaux(actions.initialiserListeBateaux());
-		
-		// TODO RT : Creation d'une nouvelle partie (fixe temporairement, aleatoire A VENIR !!!)
-		// Placement des bateaux du joueur
-		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.PORTE_AVION, new Points('A', 3), new Points('A', 7));
-		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.CROISEUR, new Points('C', 1), new Points('F', 1));
-		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('E', 3), new Points('E', 5));
-		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.SOUS_MARIN, new Points('G', 5), new Points('I', 5));
-		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.TORPILLEUR, new Points('J', 8), new Points('J', 9));
-		
-		// Placement des bateaux de l'adversaire	
-		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.PORTE_AVION, new Points('B', 4), new Points('B', 8));
-		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CROISEUR, new Points('E', 1), new Points('H', 1));
-		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('F', 3), new Points('F', 5));
-		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.SOUS_MARIN, new Points('D', 5), new Points('F', 5));
-		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.TORPILLEUR, new Points('J', 2), new Points('J', 3));
-		
-		// Placement des bateaux sur le plateau
-		actions.placerLesBateauxSurLePlateau(joueur.getListeBateaux(),getPlateauJoueur());
-		actions.placerLesBateauxSurLePlateau(adversaire.getListeBateaux(),getPlateauAdversaire());
 	}
 
-	private static void ajouterLaListeBoutonsAuPanel(JPanel panel, List<JButton> listeBouton)  {
-		for (JButton bouton : listeBouton) {
-			panel.add(bouton);
-		}
-	}
-	
 	public List<JButton> creerCasesGraphiques(final Plateau plateau) {  
 		List<JButton> listeBouton = new ArrayList<JButton>();
 		for( int i = 0; i < plateau.getLePlateau().length; i++ ){
@@ -323,17 +259,17 @@ public class Interface extends JFrame {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						
+						if(joueur.isEnTrainDeJouer()){
+							actionsJoueurs.tirer(adversaire,plateauAdversaire,getXPos(plateauAdversaire, x, y), getYPos(plateauAdversaire, x, y)-1);
+							desactiverToutesLesCasesDuPlateau(plateauAdversaire);
+						}else{
+							actionsJoueurs.tirer(joueur,plateauJoueur, getXPos(plateauJoueur, x, y), getYPos(plateauJoueur, x, y)-1);
+							desactiverToutesLesCasesDuPlateau(plateauJoueur);
+						}
 						// On colore en ROUGE le bouton de changement de joueur et on le désactive
 						boutonChangementJoueur.setBackground(Color.GREEN);
 						boutonChangementJoueur.setEnabled(true);
-						
-						if(joueur.isEnTrainDeJouer()){
-							tirer(adversaire,getPlateauAdversaire(),getXPos(plateau, x, y), getYPos(plateau, x, y)-1);
-							desactiverToutesLesCasesDuPlateau(getPlateauAdversaire());
-						}else{
-							tirer(joueur,getPlateauJoueur(), getXPos(plateau, x, y), getYPos(plateau, x, y)-1);
-							desactiverToutesLesCasesDuPlateau(getPlateauJoueur());
-						}
 					}
 					
 					private void desactiverToutesLesCasesDuPlateau( Plateau plateau) {
@@ -358,126 +294,57 @@ public class Interface extends JFrame {
 		return listeBouton;
 	}
 	
-	public void tirer(Joueur joueur, Plateau plateau, int x , int y) {
-		
-		if(!plateau.getLePlateau()[x][y].isWater() || plateau.getLePlateau()[x][y].isCaseTouche()){
-			plateau.getLePlateau()[x][y].setCaseTouche(true);
-			plateau.getLePlateau()[x][y].getBouton().setIcon(new ImageIcon("img/bomb.png"));
-			plateau.getLePlateau()[x][y].getBouton().setBackground(Color.RED);
-			plateau.getLePlateau()[x][y].getBouton().setEnabled(false);
-			
-			EnumTypeBateau bateauTouche = recupererLeTypeBateauTouche(plateau.getLePlateau()[x][y], joueur);
-			
-			if(verifierQueToutesLesCasesBateauxSontTouchees(joueur, plateau, bateauTouche)){
-				
-				Bateau bateauCoule = recupererBateau(joueur.getListeBateaux(),bateauTouche);
-				
-				if(bateauCoule != null){
-					coulerLeBateau(bateauCoule, plateau, joueur);
-				}
-			}
-		}else{
-			plateau.getLePlateau()[x][y].getBouton().setBackground(Color.WHITE);
+	//--------------------------------
+	//  METHODES UTILITAIRES : PRIVEES
+	//--------------------------------
+	
+	private static void ajouterLaListeBoutonsAuPanel(JPanel panel, List<JButton> listeBouton)  {
+		for (JButton bouton : listeBouton) {
+			panel.add(bouton);
 		}
-	}
-
-	private boolean verifierQueToutesLesCasesBateauxSontTouchees(Joueur joueur, Plateau plateau, EnumTypeBateau bateauTouche) {
-		if(StringUtils.isNotBlank(bateauTouche.toString())){
-			for(Bateau bateau : joueur.getListeBateaux()){
-				if(bateau.getTypeBateau().equals(bateauTouche)){
-					int nombreCasesTouches = 0;
-					for(int i = 0; i < bateau.getTabPoints().length; i++){
-						if(plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().getBackground().equals(Color.RED)){
-							nombreCasesTouches++;
-							if(nombreCasesTouches == bateau.getTabPoints().length){
-								return true;
-							}
-						}
-					}
-				}
-			}
-		}
-		return false;
 	}
 	
-	private Bateau recupererBateau(List<Bateau> listeBateaux, EnumTypeBateau bateauTouche) {
-		for(Bateau bateau : listeBateaux){
-			if(bateau.getTypeBateau().equals(bateauTouche)){
-				return bateau;
-			}
-		}
-		return null;
-	}
-	
-	private void coulerLeBateau(Bateau bateau, Plateau plateau, Joueur joueur){
-		for(int i = 0; i < bateau.getTabPoints().length; i++){
-			if(plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().getBackground().equals(Color.RED)){
-				plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().setBackground(Color.GREEN);
-				plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().setEnabled(false);
-			}
-		}
-		actions.supprimerBateau(joueur, bateau);
-	}
-
-
-	private Integer yCaseBateau(Bateau bateau, int i) {
-		return bateau.getTabPoints()[i].getyPos();
-	}
-
-	private int xCaseBateau(Bateau bateau, int i) {
-		return FactoryUtils.convertirCharToInt(bateau.getTabPoints()[i].getxPos());
-	}
-	
-	private EnumTypeBateau recupererLeTypeBateauTouche(Case caseBateau,Joueur joueur) {
-		EnumTypeBateau typeBateauTouche = null;
-		for(Bateau bateau : joueur.getListeBateaux()){
-			for(Points point : Arrays.asList(bateau.getTabPoints())){
-				if((point.getxPos()==caseBateau.getPoint().getxPos() && point.getyPos() == caseBateau.getPoint().getyPos())){
-					typeBateauTouche = bateau.getTypeBateau();
-					break;
-				}
-			}
-		}
-		return typeBateauTouche;
-	}
-	
-	public List<JButton> creerListeBoutons(String type){
-		List<JButton> listeBouton = new ArrayList<JButton>();
+	private List<JButton> creerListeBoutonsContourPlateau(String type){
+		List<JButton> listeBouton = Lists.newArrayList();
 		for(int i = 0; i<10; i++){
-			listeBouton.add(generateBouton(i, type));
+			listeBouton.add(genererUnBoutonContourPlateau(i, type));
 		}
 		return listeBouton;
 	}
 	
-	public JButton generateBouton(int i, String type){
+	private static JButton creerBoutonBandeauSuperieur() {
+		JButton nouvellePartieBouton = new JButton();
+        nouvellePartieBouton.setBackground(Color.WHITE); 
+        nouvellePartieBouton.setForeground(Color.BLACK);  
+        nouvellePartieBouton.setPreferredSize(new Dimension(125, 55));
+		return nouvellePartieBouton;
+	}
+	
+	private JButton genererUnBoutonContourPlateau(int i, String type){
 		JButton bouton = new JButton();
 		bouton.setBackground(Color.LIGHT_GRAY);
 		
-		if(type == "c"){
+		if(type == TYPE_CHIFFRE){
 			bouton.setPreferredSize(new Dimension(55, 55));
 			bouton.setText(String.valueOf(i + 1));
-		}else if(type == "l"){
+		}else if(type == TYPE_LETTRE){
 			bouton.setPreferredSize(new Dimension(45, 46));
 			bouton.setText(String.valueOf(FactoryUtils.convertirIntToChar(i + 1)));
 		}
 		bouton.setEnabled(false);
 		return bouton;
 	}
-
-	public static Plateau getPlateauJoueur() {
+	
+	//-----------------
+	//	GETTERS/SETTERS
+	//-----------------
+	
+	public Plateau getPlateauJoueur() {
 		return plateauJoueur;
 	}
 	
-	public static Plateau getPlateauAdversaire() {
+	public Plateau getPlateauAdversaire() {
 		return plateauAdversaire;
-	}
-
-	public Joueur getJoueur() {
-		return joueur;
-	}
-
-	public Joueur getAdversaire() {
-		return adversaire;
 	}
 
 }

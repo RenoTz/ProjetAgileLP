@@ -1,6 +1,11 @@
 package data.joueur;
 
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+
+import com.google.common.collect.Lists;
+
 import data.bateau.Bateau;
 
 public class Joueur {
@@ -12,7 +17,14 @@ public class Joueur {
 	private String nom;
 	private List<Bateau> listeBateaux;
 	private boolean enTrainDeJouer;
-	private boolean gagne;
+	
+	//---------------
+	//	CONSTRUCTEUR
+	//---------------
+	
+	public Joueur(){
+		this.listeBateaux = Lists.newArrayList();
+	}
 	
 	//------------------------------
 	// Getters / Setters sp�cifiques
@@ -35,11 +47,7 @@ public class Joueur {
 	}
 
 	public boolean isGagne() {
-		return gagne;
-	}
-
-	public void setaGagne(boolean gagne) {
-		this.gagne = gagne;
+		return CollectionUtils.isEmpty(listeBateaux);
 	}
 
 	public List<Bateau> getListeBateaux() {

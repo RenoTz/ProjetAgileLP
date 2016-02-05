@@ -1,13 +1,11 @@
 package controleur;
 
-import data.interfaceJeu.Interface;
-
 public class Main {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		
-		// Creation de l'interface graphique
-		Interface.initialiserPartie();
+		Partie partie = new Partie();
 	
 	}
 
