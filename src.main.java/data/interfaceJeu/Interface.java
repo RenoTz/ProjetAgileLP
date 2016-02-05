@@ -32,9 +32,12 @@ import services.ActionsBateau;
 import utils.FactoryUtils;
 
 public class Interface extends JFrame {
-
+	
+	//-------------
+	//  CONSTANTES
+	//-------------
+	
 	private static final long serialVersionUID = 1L;
-	private static final long INTERVALLE = 300;
 	static List<JButton> listeBoutonJoueur;
 	static List<JButton> listeBoutonAdversaire;
 	static List<JButton> listeBoutonCoordsLettres;
@@ -48,6 +51,8 @@ public class Interface extends JFrame {
 	private static Joueur joueur;
 	private static Joueur adversaire;
 	private static ActionsBateau actions;
+	private static JButton boutonChangementJoueur;
+	
 	//---------------
 	//	CONSTRUCTEUR
 	//---------------
@@ -134,7 +139,7 @@ public class Interface extends JFrame {
         boutonJoueur.setBackground(Color.WHITE);
         boutonJoueur.setPreferredSize(new Dimension(125, 55));
         boutonJoueur = new JButton(new ImageIcon("img/user.png"));
-        boutonJoueur.setText("Joueur 1");
+        boutonJoueur.setText(joueur.getNom());
         boutonJoueur.setForeground(Color.BLACK);
         boutonJoueur.setEnabled(false);
         
@@ -152,20 +157,19 @@ public class Interface extends JFrame {
         boutonAdversaire.setBackground(Color.WHITE);
         boutonAdversaire.setPreferredSize(new Dimension(125, 55));
         boutonAdversaire = new JButton(new ImageIcon("img/user.png"));
-        boutonAdversaire.setText("Joueur 2");
+        boutonAdversaire.setText(adversaire.getNom());
         boutonAdversaire.setForeground(Color.BLACK);
         boutonAdversaire.setEnabled(false);
         
         //Bouton 'Changement de joueur'
-        JButton boutonChangementJoueur = new JButton(new ImageIcon("img/arrow.png"));
+        boutonChangementJoueur = new JButton(new ImageIcon("img/arrow.png"));
         boutonChangementJoueur.setPreferredSize(new Dimension(125, 55));
         boutonChangementJoueur.setBackground(Color.WHITE); 
         boutonChangementJoueur.setForeground(Color.BLACK);   
+        boutonChangementJoueur.setEnabled(false);
 
 		// Ajout des paneaux au paneau principal
-		
         panelPrincipal.add(panelJoueur);
-        
         panelPrincipal.add(panelAdversaire);
 
         //Ajout des boutons au layout
@@ -228,8 +232,14 @@ public class Interface extends JFrame {
 		});
 		
 		boutonChangementJoueur.addActionListener(new ActionListener() {
+			
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// On colore en ROUGE le bouton de changement de joueur et on le désactive
+				boutonChangementJoueur.setBackground(Color.RED);
+				boutonChangementJoueur.setEnabled(false);
+				
 				if(joueur.isEnTrainDeJouer()){
 					// Changement de joueur
 					joueur.setEnTrainDeJouer(false);
@@ -263,13 +273,16 @@ public class Interface extends JFrame {
 	}
 	
 	public static void initialiserPartie() {
-		Interface interfaceJeu = new Interface();
+		
 		
 		// Creation du joueur
 		joueur = new Joueur();
-		adversaire = new Joueur();
+		joueur.setNom("Gérard");
 		joueur.setEnTrainDeJouer(true);
+		adversaire = new Joueur();
+		adversaire.setNom("Bobby");
 		
+		Interface interfaceJeu = new Interface();
 		// Intialisation de la liste des bateaux des joueurs
 		joueur.setListeBateaux(actions.initialiserListeBateaux());
 		adversaire.setListeBateaux(actions.initialiserListeBateaux());
@@ -310,6 +323,10 @@ public class Interface extends JFrame {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						// On colore en ROUGE le bouton de changement de joueur et on le désactive
+						boutonChangementJoueur.setBackground(Color.GREEN);
+						boutonChangementJoueur.setEnabled(true);
+						
 						if(joueur.isEnTrainDeJouer()){
 							tirer(adversaire,getPlateauAdversaire(),getXPos(plateau, x, y), getYPos(plateau, x, y)-1);
 							desactiverToutesLesCasesDuPlateau(getPlateauAdversaire());
@@ -356,7 +373,7 @@ public class Interface extends JFrame {
 				Bateau bateauCoule = recupererBateau(joueur.getListeBateaux(),bateauTouche);
 				
 				if(bateauCoule != null){
-					coulerLeBateau(bateauCoule, plateau);
+					coulerLeBateau(bateauCoule, plateau, joueur);
 				}
 			}
 		}else{
@@ -392,7 +409,7 @@ public class Interface extends JFrame {
 		return null;
 	}
 	
-	private void coulerLeBateau(Bateau bateau, Plateau plateau){
+	private void coulerLeBateau(Bateau bateau, Plateau plateau, Joueur joueur){
 		for(int i = 0; i < bateau.getTabPoints().length; i++){
 			if(plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().getBackground().equals(Color.RED)){
 				plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().setBackground(Color.GREEN);
