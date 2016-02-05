@@ -197,6 +197,7 @@ public class Interface extends JFrame {
 				boutonChangementJoueur.setEnabled(false);
 				
 				if(joueur.isEnTrainDeJouer()){
+					labelConsole.setText("Au tour de " + joueur.getNom());
 					boutonScore.setText("     " + joueur.getScore());
 					// Changement de joueur
 					joueur.setEnTrainDeJouer(false);
@@ -206,6 +207,7 @@ public class Interface extends JFrame {
 					panelAdversaire.setVisible(false);
 					reactiverLesCasesDuPlateau(plateauJoueur);
 				}else{
+					labelConsole.setText("Au tour de " + adversaire.getNom());
 					boutonScore.setText("     " + adversaire.getScore());
 					// Changement de joueur
 					joueur.setEnTrainDeJouer(true);
@@ -377,12 +379,10 @@ public class Interface extends JFrame {
 						}else{
 							
 							if(joueur.isEnTrainDeJouer()){
-								labelConsole.setText("Au tour de " + joueur.getNom());
-							actionsJoueurs.tirer(adversaire,plateauAdversaire,getXPos(plateauAdversaire, x, y), getYPos(plateauAdversaire, x, y)-1, boutonScore);
+								actionsJoueurs.tirer(adversaire,plateauAdversaire,getXPos(plateauAdversaire, x, y), getYPos(plateauAdversaire, x, y)-1, boutonScore);
 								desactiverToutesLesCasesDuPlateau(plateauAdversaire);
 							}else{
-								labelConsole.setText("Au tour de " + adversaire.getNom());
-							actionsJoueurs.tirer(joueur,plateauJoueur, getXPos(plateauJoueur, x, y), getYPos(plateauJoueur, x, y)-1, boutonScore);
+								actionsJoueurs.tirer(joueur,plateauJoueur, getXPos(plateauJoueur, x, y), getYPos(plateauJoueur, x, y)-1, boutonScore);
 								desactiverToutesLesCasesDuPlateau(plateauJoueur);
 							}
 							if(!joueur.isGagne() && !adversaire.isGagne()){
