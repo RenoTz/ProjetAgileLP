@@ -63,21 +63,6 @@ public class ActionsBateauTest {
 		Joueur j = new Joueur();
 		Plateau plateau = new Plateau(10, 10);
 		j.setListeBateaux(this.action.initialiserListeBateaux());
-//		this.action.assignerCoordonneesBateaux(j, EnumTypeBateau.PORTE_AVION, new Points('A', 1), new Points('A', 5));
-//		this.action.assignerCoordonneesBateaux(j, EnumTypeBateau.CROISEUR, new Points('E', 1), new Points('B', 1));
-//		this.action.assignerCoordonneesBateaux(j, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('E', 5), new Points('E', 3));
-//		this.action.assignerCoordonneesBateaux(j, EnumTypeBateau.SOUS_MARIN, new Points('G', 5), new Points('I', 5));
-//		this.action.assignerCoordonneesBateaux(j, EnumTypeBateau.TORPILLEUR, new Points('J', 8), new Points('J', 9));
-		
-		// Act
-//		this.action.placerLesBateauxSurLePlateau(j.getListeBateaux(), plateau);
-		
-		// Assert
-//		assertTrue(verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.PORTE_AVION,plateau, 'A', 5));
-//		assertTrue(verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.CROISEUR,plateau, 'E', 1));
-//		assertTrue(verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.CONTRE_TORPILLEUR,plateau, 'E', 3));
-//		assertTrue(verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.SOUS_MARIN,plateau, 'G', 5));
-//		assertTrue(verifierCasePlateauModifie(j.getListeBateaux(), EnumTypeBateau.TORPILLEUR,plateau, 'J', 8));
 	}
 	
 	@Test

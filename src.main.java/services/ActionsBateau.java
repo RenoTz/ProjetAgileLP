@@ -1,17 +1,11 @@
 package services;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import org.apache.commons.collections.CollectionUtils;
-
 import utils.FactoryUtils;
-
 import com.google.common.base.Preconditions;
 
 import data.bateau.Bateau;
@@ -76,28 +70,6 @@ public class ActionsBateau {
 			}
 		}
 		
-//		for(Bateau bateau : joueur.getListeBateaux()){
-//			JOptionPane.showMessageDialog(null, "Veuillez placer votre " + bateau.getTypeBateau().toString());
-//			while(!bateau.isPlace()){
-//				
-//				
-//				
-//				bateau.setPlace(true);
-//			}
-//		}
-		// On assigne les coordonnées des bateaux du joueur
-//		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.PORTE_AVION, new Points('A', 3), new Points('A', 7));
-//		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.CROISEUR, new Points('C', 1), new Points('F', 1));
-//		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('E', 3), new Points('E', 5));
-//		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.SOUS_MARIN, new Points('G', 5), new Points('I', 5));
-//		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.TORPILLEUR, new Points('J', 8), new Points('J', 9));
-		// On assigne les coordonnées des bateaux de l'adversaire	
-//		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.PORTE_AVION, new Points('B', 4), new Points('B', 8));
-//		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CROISEUR, new Points('E', 1), new Points('H', 1));
-//		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('F', 2), new Points('F', 4));
-//		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.SOUS_MARIN, new Points('D', 5), new Points('F', 5));
-//		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.TORPILLEUR, new Points('J', 2), new Points('J', 3));
-
 	private int positionHorizontaleDroite(int yPos, Bateau bateau) {
 		return yPos + bateau.getTabPoints().length-1;
 	}

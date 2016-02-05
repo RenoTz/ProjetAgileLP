@@ -31,9 +31,8 @@ public class Partie {
 		this.initialiserLesJoueurs();
 		this.initialiserLaListeDesBateaux();
 		this.interfaceJeu = new Interface(joueur,adversaire);
+		setStart(false);
 		JOptionPane.showMessageDialog(null, "Veuillez placer votre " + joueur.getListeBateaux().get(0).getTypeBateau().toString());
-//		this.actions.saisieDesCoordonneesDesBateaux(joueur,interfaceJeu.getPlateauJoueur(),);
-//		this.placerLesBateauxSurLesPlateaux();
 	}
 	
 	//------------------------------
@@ -55,11 +54,6 @@ public class Partie {
 		adversaire.setListeBateaux(actions.initialiserListeBateaux());
 	}
 	
-	private void placerLesBateauxSurLesPlateaux() {
-//		actions.placerLesBateauxSurLePlateau(joueur.getListeBateaux(),interfaceJeu.getPlateauJoueur());
-//		actions.placerLesBateauxSurLePlateau(adversaire.getListeBateaux(),interfaceJeu.getPlateauAdversaire());
-	}
-
 	public static boolean isStart() {
 		return start;
 	}

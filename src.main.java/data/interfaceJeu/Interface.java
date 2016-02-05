@@ -6,8 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +13,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -53,7 +50,6 @@ public class Interface extends JFrame {
 	private static JPanel panelAdversaire;
 	private static JButton boutonChangementJoueur;
 	private JButton boutonCasePlateau;
-	private static JPanel panelPoserBateau;
 	private static JButton boutonScore;
 	
 	//-------------
@@ -417,79 +413,10 @@ public class Interface extends JFrame {
 					}
 				});
 							
-//				plateau.getLePlateau()[FactoryUtils.getXPos(plateauJoueur, x, y)][FactoryUtils.getYPos(plateauJoueur, x, y)-1].getBouton().removeActionListener(al);
-//				plateau.getLePlateau()[FactoryUtils.getXPos(plateauJoueur, x, y)][FactoryUtils.getYPos(plateauJoueur, x, y)-1].getBouton().removeActionListener(al);
-//				
-//				plateau.getLePlateau()[FactoryUtils.getXPos(plateauJoueur, x, y)][FactoryUtils.getYPos(plateauJoueur, x, y)-1].getBouton().addActionListener(new ActionListener() {
-//					
-//					@Override
-//					public void actionPerformed(ActionEvent e) {
-//						// TODO Auto-generated method stub
-//						System.out.println("nouvelle action");
-//						placerLesBateauxSurLePlateau(bateau,plateau);
-//					}
-//
-//					private void placerLesBateauxSurLePlateau(Bateau bateauPlace, Plateau plateau) {
-//						for(Bateau bateau : joueur.getListeBateaux()){
-//							if(bateau.getTypeBateau().equals(bateauPlace.getTypeBateau())){
-//								// Placement des coordonn�es pour la premiere et la derniere case
-//								Points posAvant = new Points(FactoryUtils.convertirIntToChar(xPos), yPos);
-//								Points posArriere = new Points(FactoryUtils.convertirIntToChar(positionVerticale(xPos, bateau)), yPos);
-//								bateau.getTabPoints()[0] = posAvant;
-//								bateau.getTabPoints()[bateau.getTabPoints().length-1] = posArriere;
-//								actionsBateau.remplissageDesCasesIntermediaires(posAvant,	posArriere, bateau);
-//								break;
-//							}
-//						}
-//						
-//					}
-//				});
-				
-//				plateau.getLePlateau()[FactoryUtils.getXPos(plateauJoueur, x, y)][FactoryUtils.getYPos(plateauJoueur, x, y)-1].getBouton().addActionListener(new ActionListener() {
-//					
-//					@Override
-//					public void actionPerformed(ActionEvent e) {
-//						System.out.println("nouvelle action");
-//						placerLesBateauxSurLePlateau(bateau,plateau);
-//					}
-
-//					private void placerLesBateauxSurLePlateau(Bateau bateauPlace, Plateau plateau) {
-//						for(Bateau bateau : joueur.getListeBateaux()){
-//							if(bateau.getTypeBateau().equals(bateauPlace.getTypeBateau())){
-//								// Placement des coordonn�es pour la premiere et la derniere case
-//								Points posAvant = new Points(FactoryUtils.convertirIntToChar(xPos), yPos);
-//								Points posArriere = new Points(FactoryUtils.convertirIntToChar(positionHorizontale(xPos, bateau)), yPos);
-//								bateau.getTabPoints()[0] = posAvant;
-//								bateau.getTabPoints()[bateau.getTabPoints().length-1] = posArriere;
-//								remplissageDesCasesIntermediaires(posAvant,	posArriere, bateau);
-//								break;
-//							}
-//						}
-//						
-//					}
-//				});
-				
-				
 				listeBouton.add(boutonCasePlateau);
 			}
 		}
 		return listeBouton;
-	}
-	
-	private int getYPosCaseBouton() {
-		return boutonCasePlateau.getVerticalAlignment();
-	}
-
-	private int getXposCaseBouton() {
-		return boutonCasePlateau.getHorizontalAlignment();
-	}
-	
-	private void desactiverToutesLesCasesDuPlateau(Plateau plateau) {
-		for(int i = 0; i < plateau.getLePlateau().length; i++){
-			for(int j = 0; j < plateau.getLePlateau().length; j++){
-				plateau.getLePlateau()[i][j].getBouton().setEnabled(false);
-			}
-		}
 	}
 	
 	//--------------------------------
