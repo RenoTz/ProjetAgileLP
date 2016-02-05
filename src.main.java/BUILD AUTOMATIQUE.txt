@@ -14,7 +14,7 @@ Pré-requis :
 On passe à la suite :
 
 Pour compiler un fichier .jar du projet, lancer un terminal, et se rendre à la racine du dossier du projet.
-Exécuter la commande "mvn compile jar:jar"
+Exécuter la commande "mvn clean package"
 
 S'il est affiché "BUILD SUCCESSFUL", tout est OK !
 L'archive .jar se trouve dans le dossier /target/ du projet.
