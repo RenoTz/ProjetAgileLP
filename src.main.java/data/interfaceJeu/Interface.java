@@ -29,6 +29,7 @@ public class Interface extends JFrame {
 	//  ATTRIBUTS 
 	//------------
 	
+	private static final int TAILLE_PLATEAU = 12;
 	private ActionsJoueur actionsJoueurs;
 	private static Joueur joueur;
 	private static Joueur adversaire;
@@ -61,8 +62,8 @@ public class Interface extends JFrame {
 	public Interface(Joueur joueur, Joueur adversaire){
 		this.joueur = joueur;
 		this.adversaire = adversaire;
-		plateauJoueur = new Plateau(12,12);
-		plateauAdversaire = new Plateau(12, 12);
+		plateauJoueur = new Plateau(TAILLE_PLATEAU,TAILLE_PLATEAU);
+		plateauAdversaire = new Plateau(TAILLE_PLATEAU, TAILLE_PLATEAU);
 		this.listeBoutonJoueur = creerCasesGraphiques(plateauJoueur);
 		this.listeBoutonAdversaire = creerCasesGraphiques(plateauAdversaire);
 		this.listeBoutonCoordsLettres = creerListeBoutonsContourPlateau(TYPE_LETTRE);
@@ -87,7 +88,7 @@ public class Interface extends JFrame {
 	
 		// Grille de jeu du joueur
 		panelJoueur = new JPanel();
-		panelJoueur.setLayout(new GridLayout(12,12));
+		panelJoueur.setLayout(new GridLayout(TAILLE_PLATEAU,TAILLE_PLATEAU));
 		panelJoueur.setBackground(Color.black);
 		
 		Border margeJ = BorderFactory.createEmptyBorder(0, 15, 0, 0);
@@ -95,7 +96,7 @@ public class Interface extends JFrame {
 		panelJoueur.setVisible(false);
 		// Grille de jeu de l'adversaire
 		panelAdversaire = new JPanel();
-		panelAdversaire.setLayout(new GridLayout(12,12));
+		panelAdversaire.setLayout(new GridLayout(TAILLE_PLATEAU,TAILLE_PLATEAU));
 		panelAdversaire.setBackground(Color.black);
 		
 		Border margeA = BorderFactory.createEmptyBorder(0, 15, 0, 0);
@@ -312,7 +313,7 @@ public class Interface extends JFrame {
 	
 	private List<JButton> creerListeBoutonsContourPlateau(String type){
 		List<JButton> listeBouton = Lists.newArrayList();
-		for(int i = 0; i<12; i++){
+		for(int i = 0; i<TAILLE_PLATEAU; i++){
 			listeBouton.add(genererUnBoutonContourPlateau(i, type));
 		}
 		return listeBouton;

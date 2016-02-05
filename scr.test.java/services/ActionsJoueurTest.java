@@ -53,7 +53,7 @@ public class ActionsJoueurTest {
 		actionsBateau.placerLesBateauxSurLePlateau(Lists.newArrayList(sousMarin), plateau);
 		
 		//Act
-		actionsJoueur.tirer(j,  plateau, xTir, yTir);
+		actionsJoueur.tirer(j,  plateau, xTir, yTir, null);
 		boolean retour = plateau.getLePlateau()[xTir][yTir].isCaseTouche();
 		
 		// Assert
