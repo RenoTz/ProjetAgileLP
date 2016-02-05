@@ -145,7 +145,7 @@ public class Interface extends JFrame {
         JButton boutonJoueur = creerBoutonBandeauSuperieur();
         boutonJoueur.setPreferredSize(new Dimension(125, 55));
         boutonJoueur = new JButton(new ImageIcon("img/user.png"));
-        boutonJoueur.setText(joueur.getNom());
+        boutonJoueur.setText(joueur.getNomJoueur());
         boutonJoueur.setEnabled(false);
         
         //Bouton 'Score'
@@ -157,7 +157,7 @@ public class Interface extends JFrame {
         //Bouton 'Adversaire'
         JButton boutonAdversaire = creerBoutonBandeauSuperieur();
         boutonAdversaire = new JButton(new ImageIcon("img/user.png"));
-        boutonAdversaire.setText(adversaire.getNom());
+        boutonAdversaire.setText(adversaire.getNomAdversaire());
         boutonAdversaire.setEnabled(false);
         
         //Bouton 'Changement de joueur'
