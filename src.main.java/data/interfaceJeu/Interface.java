@@ -35,7 +35,6 @@ public class Interface extends JFrame {
 	//  ATTRIBUTS 
 	//------------
 	private boolean premierClic;
-	private static final int TAILLE_PLATEAU = 12;
 	private ActionsJoueur actionsJoueurs;
 	private ActionsBateau actionsBateau;
 	private static Joueur joueur;
@@ -53,6 +52,7 @@ public class Interface extends JFrame {
 	private static JButton boutonChangementJoueur;
 	private JButton boutonCasePlateau;
 	private static JButton boutonScore;
+	private static JButton labelConsole;
 	
 	//-------------
 	//  CONSTANTES
@@ -61,6 +61,7 @@ public class Interface extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private static final String TYPE_LETTRE= "lettre";
 	private static final String TYPE_CHIFFRE= "chiffre";
+	private static final int TAILLE_PLATEAU = 12;
 
 	//---------------
 	//	CONSTRUCTEUR
@@ -140,7 +141,7 @@ public class Interface extends JFrame {
 		
 		//Panneau "console"
 		JPanel panelConsole = new JPanel();
-		JButton labelConsole = new JButton();
+		labelConsole = new JButton();
 		panelConsole.setLayout(new BorderLayout());
 		labelConsole.setText("Bienvenue dans la Bataille Navale 3.0");
 		labelConsole.setForeground(Color.WHITE);
@@ -356,10 +357,12 @@ public class Interface extends JFrame {
 										reactiverLesCasesDuPlateau(plateauAdversaire,true);
 									}
 								}
-								afficherPopUpProchainBateauAPlacer(joueur.getListeBateaux());
+								
 								if(joueur.isEnTrainDeJouer()){
+									afficherLabelProchainBateauAPlacer(joueur.getListeBateaux());
 									reactiverLesCasesDuPlateau(plateauJoueur,true);
 								}else{
+									afficherLabelProchainBateauAPlacer(adversaire.getListeBateaux());
 									reactiverLesCasesDuPlateau(plateauAdversaire,true);
 								}
 								
@@ -369,7 +372,7 @@ public class Interface extends JFrame {
 								Partie.setStart(true);
 								reactiverLesCasesDuPlateau(plateauJoueur,false);
 								reactiverLesCasesDuPlateau(plateauAdversaire,true);
-								JOptionPane.showMessageDialog(null, "La partie commence !!! FIGHT !");
+								labelConsole.setText("La partie commence !!! FIGHT !");
 							}
 						}else{
 							
@@ -397,10 +400,10 @@ public class Interface extends JFrame {
 						return FactoryUtils.convertirCharToInt(plateau.getLePlateau()[i][j].getPoint().getxPos());
 					}
 					
-					private void afficherPopUpProchainBateauAPlacer(List<Bateau> listeBateaux) {
+					private void afficherLabelProchainBateauAPlacer(List<Bateau> listeBateaux) {
 						for(Bateau bateau : listeBateaux){
 							if(!bateau.isPlace()){
-								JOptionPane.showMessageDialog(null, "Veuillez placer votre " + bateau.getTypeBateau().toString());
+								labelConsole.setText("VEUILLEZ PLACER VOTRE " + bateau.getTypeBateau().toString());
 								break;
 							}
 						}
@@ -484,6 +487,10 @@ public class Interface extends JFrame {
 	
 	public Plateau getPlateauAdversaire() {
 		return plateauAdversaire;
+	}
+	
+	public static JButton getLabelConsole() {
+		return labelConsole;
 	}
 
 }

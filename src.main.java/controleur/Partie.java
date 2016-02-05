@@ -3,10 +3,8 @@ package controleur;
 import javax.swing.JOptionPane;
 
 import services.ActionsBateau;
-import data.composants.Points;
 import data.interfaceJeu.Interface;
 import data.joueur.Joueur;
-import enumeration.EnumTypeBateau;
 
 public class Partie {
 	
@@ -19,8 +17,6 @@ public class Partie {
 	private static Joueur adversaire;
 	private ActionsBateau actions;
 	private static boolean start;
-	private String nomJoueur;
-	private String nomAdversaire;
 	
 	//---------------
 	//	CONSTRUCTEUR
@@ -32,7 +28,7 @@ public class Partie {
 		this.initialiserLaListeDesBateaux();
 		this.interfaceJeu = new Interface(joueur,adversaire);
 		setStart(false);
-		JOptionPane.showMessageDialog(null, "Veuillez placer votre " + joueur.getListeBateaux().get(0).getTypeBateau().toString());
+		interfaceJeu.getLabelConsole().setText("VEUILLEZ PLACER VOTRE " + joueur.getListeBateaux().get(0).getTypeBateau().toString());
 	}
 	
 	//------------------------------
