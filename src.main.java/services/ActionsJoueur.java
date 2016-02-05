@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import utils.FactoryUtils;
@@ -58,7 +59,11 @@ public class ActionsJoueur {
 		}
 	}
 
-	public void coulerLeBateau(Bateau bateau, Plateau plateau, Joueur joueur){
+	//--------------------------------
+	//  METHODES UTILITAIRES : PRIVEES
+	//--------------------------------
+	
+	private void coulerLeBateau(Bateau bateau, Plateau plateau, Joueur joueur){
 		for(int i = 0; i < bateau.getTabPoints().length; i++){
 			if(plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().getBackground().equals(Color.RED)){
 				plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().setBackground(Color.GREEN);
@@ -67,10 +72,6 @@ public class ActionsJoueur {
 		}
 		actionsBateau.supprimerBateau(joueur, bateau);
 	}
-	
-	//--------------------------------
-	//  METHODES UTILITAIRES : PRIVEES
-	//--------------------------------
 	
 	private boolean verifierQueToutesLesCasesBateauxSontTouchees(Joueur joueur, Plateau plateau, EnumTypeBateau bateauTouche) {
 		if(StringUtils.isNotBlank(bateauTouche.toString())){
@@ -93,9 +94,11 @@ public class ActionsJoueur {
 	}
 	
 	private Bateau recupererBateau(List<Bateau> listeBateaux, EnumTypeBateau bateauTouche) {
-		for(Bateau bateau : listeBateaux){
-			if(bateau.getTypeBateau().equals(bateauTouche)){
-				return bateau;
+		if(CollectionUtils.isNotEmpty(listeBateaux)){
+			for(Bateau bateau : listeBateaux){
+				if(bateau.getTypeBateau().equals(bateauTouche)){
+					return bateau;
+				}
 			}
 		}
 		return null;
