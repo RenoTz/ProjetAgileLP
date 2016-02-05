@@ -61,8 +61,8 @@ public class Interface extends JFrame {
 	public Interface(Joueur joueur, Joueur adversaire){
 		this.joueur = joueur;
 		this.adversaire = adversaire;
-		plateauJoueur = new Plateau(10,10);
-		plateauAdversaire = new Plateau(10, 10);
+		plateauJoueur = new Plateau(12,12);
+		plateauAdversaire = new Plateau(12, 12);
 		this.listeBoutonJoueur = creerCasesGraphiques(plateauJoueur);
 		this.listeBoutonAdversaire = creerCasesGraphiques(plateauAdversaire);
 		this.listeBoutonCoordsLettres = creerListeBoutonsContourPlateau(TYPE_LETTRE);
@@ -87,7 +87,7 @@ public class Interface extends JFrame {
 	
 		// Grille de jeu du joueur
 		panelJoueur = new JPanel();
-		panelJoueur.setLayout(new GridLayout(10,10));
+		panelJoueur.setLayout(new GridLayout(12,12));
 		panelJoueur.setBackground(Color.black);
 		
 		Border margeJ = BorderFactory.createEmptyBorder(0, 15, 0, 0);
@@ -95,7 +95,7 @@ public class Interface extends JFrame {
 		panelJoueur.setVisible(false);
 		// Grille de jeu de l'adversaire
 		panelAdversaire = new JPanel();
-		panelAdversaire.setLayout(new GridLayout(10,10));
+		panelAdversaire.setLayout(new GridLayout(12,12));
 		panelAdversaire.setBackground(Color.black);
 		
 		Border margeA = BorderFactory.createEmptyBorder(0, 15, 0, 0);
@@ -123,7 +123,7 @@ public class Interface extends JFrame {
 		JPanel panelMenu = new JPanel();
 		panelMenu.setLayout(new FlowLayout());
 		JPanel gridMenu = new JPanel();
-		gridMenu.setLayout(new GridLayout(1, 5, 130, 80));
+		gridMenu.setLayout(new GridLayout(1, 5, 145, 80));
 		gridMenu.setBackground(Color.BLACK);
 		
 		
@@ -226,20 +226,19 @@ public class Interface extends JFrame {
 		ajouterLaListeBoutonsAuPanel(panelCoordChiffres2, listeBoutonCoordsChiffres2);
 		
 		//Colonne des Lettres du plateau
-		Border padding = BorderFactory.createEmptyBorder(120, 60, 15, 15);
+		Border padding = BorderFactory.createEmptyBorder(120, 60, 5, 5);
 		panelPrincipal.setBorder(padding);
 
 		// Panneau du Menu
-		panelMenu.setBounds(0, 0, 1300, 65);
+		panelMenu.setBounds(0, 0, 1430, 65);
 		panelMenu.setBackground(Color.black);
 		
 		//Panneau colonne lettres
-		panelCoordLettres.setBounds(0, 120, 60, 550);
+		panelCoordLettres.setBounds(0, 120, 60, 600);
 		
 		//Ligne avec les chiffres du plateau du joueur
-		panelCoordChiffres1.setBounds(70, 60, 600, 60);
-		
-		panelCoordChiffres2.setBounds(680, 60, 600, 60);
+		panelCoordChiffres1.setBounds(67, 60, 655, 60);
+		panelCoordChiffres2.setBounds(738, 60, 650, 60);
 		
 		frame.add(panelMenu);
 		frame.add(panelCoordLettres);
@@ -247,7 +246,7 @@ public class Interface extends JFrame {
 		frame.add(panelCoordChiffres2);		
 		
 		frame.add(panelPrincipal);
-		frame.setSize(1300, 680);	
+		frame.setSize(1400, 680);	
 		
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -313,7 +312,7 @@ public class Interface extends JFrame {
 	
 	private List<JButton> creerListeBoutonsContourPlateau(String type){
 		List<JButton> listeBouton = Lists.newArrayList();
-		for(int i = 0; i<10; i++){
+		for(int i = 0; i<12; i++){
 			listeBouton.add(genererUnBoutonContourPlateau(i, type));
 		}
 		return listeBouton;
@@ -332,10 +331,10 @@ public class Interface extends JFrame {
 		bouton.setBackground(Color.LIGHT_GRAY);
 		
 		if(type == TYPE_CHIFFRE){
-			bouton.setPreferredSize(new Dimension(55, 55));
+			bouton.setPreferredSize(new Dimension(49, 47));
 			bouton.setText(String.valueOf(i + 1));
 		}else if(type == TYPE_LETTRE){
-			bouton.setPreferredSize(new Dimension(45, 46));
+			bouton.setPreferredSize(new Dimension(50, 38));
 			bouton.setText(String.valueOf(FactoryUtils.convertirIntToChar(i + 1)));
 		}
 		bouton.setEnabled(false);
