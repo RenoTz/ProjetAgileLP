@@ -1,6 +1,7 @@
 package controleur;
 
 import services.ActionsBateau;
+import data.bateau.Bateau;
 import data.composants.Points;
 import data.interfaceJeu.Interface;
 import data.joueur.Joueur;
@@ -50,6 +51,11 @@ public class Partie {
 	}
 	
 	private void assignerLesCoordonneesAuxBateaux() {
+//		for(Bateau bateau : joueur.getListeBateaux()){
+//			while(!bateau.isPlace()){
+//				
+//			}
+//		}
 		// On assigne les coordonnées des bateaux du joueur
 		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.PORTE_AVION, new Points('A', 3), new Points('A', 7));
 		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.CROISEUR, new Points('C', 1), new Points('F', 1));
@@ -59,7 +65,7 @@ public class Partie {
 		// On assigne les coordonnées des bateaux de l'adversaire	
 		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.PORTE_AVION, new Points('B', 4), new Points('B', 8));
 		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CROISEUR, new Points('E', 1), new Points('H', 1));
-		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('F', 3), new Points('F', 5));
+		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('F', 2), new Points('F', 4));
 		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.SOUS_MARIN, new Points('D', 5), new Points('F', 5));
 		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.TORPILLEUR, new Points('J', 2), new Points('J', 3));
 	}
