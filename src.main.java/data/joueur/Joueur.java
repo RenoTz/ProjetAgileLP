@@ -57,4 +57,14 @@ public class Joueur {
 	public void setListeBateaux(List<Bateau> listeBateaux) {
 		this.listeBateaux = listeBateaux;
 	}
+
+	public boolean isTousLesBateauxPlaces() {
+		for(Bateau bateau : listeBateaux){
+			if(!bateau.isPlace()){
+				return false;
+			}
+		}
+		return true;
+	}
+
 }
