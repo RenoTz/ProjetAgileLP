@@ -26,17 +26,13 @@ import utils.FactoryUtils;
 
 public class Interface extends JFrame {
 	
+	//------------
+	//  ATTRIBUTS 
+	//------------
+	
 	private ActionsJoueur actionsJoueurs;
 	private static Joueur joueur;
 	private static Joueur adversaire;
-	
-	//-------------
-	//  CONSTANTES
-	//-------------
-	
-	private static final long serialVersionUID = 1L;
-	private static final String TYPE_LETTRE= "lettre";
-	private static final String TYPE_CHIFFRE= "chiffre";
 	private static List<JButton> listeBoutonJoueur;
 	private static List<JButton> listeBoutonAdversaire;
 	private static List<JButton> listeBoutonCoordsLettres;
@@ -49,6 +45,14 @@ public class Interface extends JFrame {
 	private static JPanel panelAdversaire;
 	private static JButton boutonChangementJoueur;
 	
+	//-------------
+	//  CONSTANTES
+	//-------------
+	
+	private static final long serialVersionUID = 1L;
+	private static final String TYPE_LETTRE= "lettre";
+	private static final String TYPE_CHIFFRE= "chiffre";
+
 	//---------------
 	//	CONSTRUCTEUR
 	//---------------
@@ -128,6 +132,7 @@ public class Interface extends JFrame {
         nouvellePartieBouton = new JButton(new ImageIcon("img/reload.png"));
         nouvellePartieBouton.setText("Nouvelle Partie");
         nouvellePartieBouton.addActionListener(new ActionListener() {
+			@SuppressWarnings("unused")
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
