@@ -2,6 +2,8 @@ package data.joueur;
 
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.apache.commons.collections.CollectionUtils;
 
 import com.google.common.collect.Lists;
@@ -17,6 +19,8 @@ public class Joueur {
 	private String nom;
 	private List<Bateau> listeBateaux;
 	private boolean enTrainDeJouer;
+	private String nomJoueur;
+	private String nomAdversaire;
 	
 	//---------------
 	//	CONSTRUCTEUR
@@ -32,6 +36,24 @@ public class Joueur {
 	
 	public String getNom() {
 		return nom;
+	}
+	
+	public String getNomJoueur() {
+		return this.nomJoueur;
+	}
+	
+	public void setNomJoueur(String nomJoueur) {
+		nomJoueur = JOptionPane.showInputDialog("Veuillez entrer le nom du joueur 1 :");
+		this.nomJoueur = nomJoueur;		
+	}
+	
+	public String getNomAdversaire() {
+		return this.nomAdversaire;
+	}
+	
+	public void setNomAdversaire(String nomAdversaire) {
+		nomAdversaire = JOptionPane.showInputDialog("Veuillez entrer le nom du joueur 2 :");
+		this.nomAdversaire = nomAdversaire;		
 	}
 
 	public void setNom(String nom) {
