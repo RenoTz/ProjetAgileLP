@@ -377,9 +377,11 @@ public class Interface extends JFrame {
 						}else{
 							
 							if(joueur.isEnTrainDeJouer()){
+								labelConsole.setText("Au tour de " + joueur.getNom());
 							actionsJoueurs.tirer(adversaire,plateauAdversaire,getXPos(plateauAdversaire, x, y), getYPos(plateauAdversaire, x, y)-1, boutonScore);
 								desactiverToutesLesCasesDuPlateau(plateauAdversaire);
 							}else{
+								labelConsole.setText("Au tour de " + adversaire.getNom());
 							actionsJoueurs.tirer(joueur,plateauJoueur, getXPos(plateauJoueur, x, y), getYPos(plateauJoueur, x, y)-1, boutonScore);
 								desactiverToutesLesCasesDuPlateau(plateauJoueur);
 							}
