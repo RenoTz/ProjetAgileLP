@@ -17,7 +17,6 @@ public class Joueur {
 	//-----------------------
 
 	private String nom;
-	private int score;
 	private List<Bateau> listeBateaux;
 	private boolean enTrainDeJouer;
 	private String nomJoueur;
@@ -29,7 +28,6 @@ public class Joueur {
 	
 	public Joueur(){
 		this.listeBateaux = Lists.newArrayList();
-		this.score = 0;
 	}
 	
 	//------------------------------
@@ -38,24 +36,6 @@ public class Joueur {
 	
 	public String getNom() {
 		return nom;
-	}
-	
-	public String getNomJoueur() {
-		return this.nomJoueur;
-	}
-	
-	public void setNomJoueur(String nomJoueur) {
-		nomJoueur = JOptionPane.showInputDialog("Veuillez entrer le nom du joueur 1 :");
-		this.nomJoueur = nomJoueur;		
-	}
-	
-	public String getNomAdversaire() {
-		return this.nomAdversaire;
-	}
-	
-	public void setNomAdversaire(String nomAdversaire) {
-		nomAdversaire = JOptionPane.showInputDialog("Veuillez entrer le nom du joueur 2 :");
-		this.nomAdversaire = nomAdversaire;		
 	}
 
 	public void setNom(String nom) {
@@ -81,12 +61,17 @@ public class Joueur {
 	public void setListeBateaux(List<Bateau> listeBateaux) {
 		this.listeBateaux = listeBateaux;
 	}
+
+	public boolean isTousLesBateauxPlaces() {
+		for(Bateau bateau : listeBateaux){
+			if(!bateau.isPlace()){
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	public int getScore() {
 		return 5 - listeBateaux.size() ;
-	}
-	
-	public void setScore(int score){
-		this.score = score;
 	}
 }

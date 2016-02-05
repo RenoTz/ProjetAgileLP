@@ -1,8 +1,8 @@
 package controleur;
 
+import javax.swing.JOptionPane;
+
 import services.ActionsBateau;
-
-
 import data.composants.Points;
 import data.interfaceJeu.Interface;
 import data.joueur.Joueur;
@@ -18,6 +18,7 @@ public class Partie {
 	private static Joueur joueur;
 	private static Joueur adversaire;
 	private ActionsBateau actions;
+	private static boolean start;
 	private String nomJoueur;
 	private String nomAdversaire;
 	
@@ -30,8 +31,8 @@ public class Partie {
 		this.initialiserLesJoueurs();
 		this.initialiserLaListeDesBateaux();
 		this.interfaceJeu = new Interface(joueur,adversaire);
-		this.assignerLesCoordonneesAuxBateaux();
-		this.placerLesBateauxSurLesPlateaux();
+		setStart(false);
+		JOptionPane.showMessageDialog(null, "Veuillez placer votre " + joueur.getListeBateaux().get(0).getTypeBateau().toString());
 	}
 	
 	//------------------------------
@@ -41,11 +42,11 @@ public class Partie {
 	private void initialiserLesJoueurs(){
 		// Creation du joueur 1
 		joueur = new Joueur();
-		joueur.setNomJoueur(nomJoueur);
+		joueur.setNom(JOptionPane.showInputDialog("Veuillez entrer le nom du joueur 1 :"));
 		joueur.setEnTrainDeJouer(true);
-		// Creation du joueur 2 
+		// Creation du joueur 2
 		adversaire = new Joueur();
-		adversaire.setNomAdversaire(nomAdversaire);
+		adversaire.setNom(JOptionPane.showInputDialog("Veuillez entrer le nom du joueur 2 :"));
 	}
 	
 	private void initialiserLaListeDesBateaux() {
@@ -53,29 +54,12 @@ public class Partie {
 		adversaire.setListeBateaux(actions.initialiserListeBateaux());
 	}
 	
-	private void assignerLesCoordonneesAuxBateaux() {
-//		for(Bateau bateau : joueur.getListeBateaux()){
-//			while(!bateau.isPlace()){
-//				
-//			}
-//		}
-		// On assigne les coordonnées des bateaux du joueur
-		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.PORTE_AVION, new Points('A', 3), new Points('A', 7));
-		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.CROISEUR, new Points('C', 1), new Points('F', 1));
-		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('E', 3), new Points('E', 5));
-		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.SOUS_MARIN, new Points('G', 5), new Points('I', 5));
-		actions.assignerCoordonneesBateaux(joueur, EnumTypeBateau.TORPILLEUR, new Points('J', 8), new Points('J', 9));
-		// On assigne les coordonnées des bateaux de l'adversaire	
-		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.PORTE_AVION, new Points('B', 4), new Points('B', 8));
-		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CROISEUR, new Points('E', 1), new Points('H', 1));
-		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.CONTRE_TORPILLEUR, new Points('F', 2), new Points('F', 4));
-		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.SOUS_MARIN, new Points('D', 5), new Points('F', 5));
-		actions.assignerCoordonneesBateaux(adversaire, EnumTypeBateau.TORPILLEUR, new Points('J', 2), new Points('J', 3));
+	public static boolean isStart() {
+		return start;
 	}
-	
-	private void placerLesBateauxSurLesPlateaux() {
-		actions.placerLesBateauxSurLePlateau(joueur.getListeBateaux(),interfaceJeu.getPlateauJoueur());
-		actions.placerLesBateauxSurLePlateau(adversaire.getListeBateaux(),interfaceJeu.getPlateauAdversaire());
+
+	public static void setStart(boolean start) {
+		Partie.start = start;
 	}
 
 }

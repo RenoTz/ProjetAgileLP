@@ -1,5 +1,8 @@
 package data.interfaceJeu;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import data.composants.Case;
 import data.composants.Points;
 

@@ -15,13 +15,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import com.google.common.collect.Lists;
 
 import controleur.Partie;
+import data.bateau.Bateau;
+import data.composants.Points;
 import data.joueur.Joueur;
+import services.ActionsBateau;
 import services.ActionsJoueur;
 import utils.FactoryUtils;
 
@@ -30,9 +34,10 @@ public class Interface extends JFrame {
 	//------------
 	//  ATTRIBUTS 
 	//------------
-	
+	private boolean premierClic;
 	private static final int TAILLE_PLATEAU = 12;
 	private ActionsJoueur actionsJoueurs;
+	private ActionsBateau actionsBateau;
 	private static Joueur joueur;
 	private static Joueur adversaire;
 	private static List<JButton> listeBoutonJoueur;
@@ -46,6 +51,7 @@ public class Interface extends JFrame {
 	private static JPanel panelJoueur;
 	private static JPanel panelAdversaire;
 	private static JButton boutonChangementJoueur;
+	private JButton boutonCasePlateau;
 	private static JButton boutonScore;
 	
 	//-------------
@@ -62,6 +68,8 @@ public class Interface extends JFrame {
 	
 	@SuppressWarnings("static-access")
 	public Interface(Joueur joueur, Joueur adversaire){
+		actionsJoueurs = new ActionsJoueur();
+		actionsBateau = new ActionsBateau();
 		this.joueur = joueur;
 		this.adversaire = adversaire;
 		plateauJoueur = new Plateau(TAILLE_PLATEAU,TAILLE_PLATEAU);
@@ -71,8 +79,9 @@ public class Interface extends JFrame {
 		this.listeBoutonCoordsLettres = creerListeBoutonsContourPlateau(TYPE_LETTRE);
 		this.listeBoutonCoordsChiffres = creerListeBoutonsContourPlateau(TYPE_CHIFFRE);
 		this.listeBoutonCoordsChiffres2 = creerListeBoutonsContourPlateau(TYPE_CHIFFRE);
-		actionsJoueurs = new ActionsJoueur();
+		this.premierClic = true;
 		creerLaFenetre();
+		
 	}
 
 	//------------------------
@@ -95,12 +104,12 @@ public class Interface extends JFrame {
 		
 		Border margeJ = BorderFactory.createEmptyBorder(0, 15, 0, 0);
 		panelJoueur.setBorder(margeJ);
-		panelJoueur.setVisible(false);
+		
 		// Grille de jeu de l'adversaire
 		panelAdversaire = new JPanel();
 		panelAdversaire.setLayout(new GridLayout(TAILLE_PLATEAU,TAILLE_PLATEAU));
 		panelAdversaire.setBackground(Color.black);
-		
+		panelAdversaire.setVisible(false);
 		Border margeA = BorderFactory.createEmptyBorder(0, 15, 0, 0);
 		panelAdversaire.setBorder(margeA);
 		
@@ -157,7 +166,7 @@ public class Interface extends JFrame {
         JButton boutonJoueur = creerBoutonBandeauSuperieur();
         boutonJoueur.setPreferredSize(new Dimension(125, 55));
         boutonJoueur = new JButton(new ImageIcon("img/user.png"));
-        boutonJoueur.setText(joueur.getNomJoueur());
+        boutonJoueur.setText(joueur.getNom());
         boutonJoueur.setEnabled(false);
         
         //Bouton 'Score'
@@ -169,7 +178,7 @@ public class Interface extends JFrame {
         //Bouton 'Adversaire'
         JButton boutonAdversaire = creerBoutonBandeauSuperieur();
         boutonAdversaire = new JButton(new ImageIcon("img/user.png"));
-        boutonAdversaire.setText(adversaire.getNomAdversaire());
+        boutonAdversaire.setText(adversaire.getNom());
         boutonAdversaire.setEnabled(false);
         
         //Bouton 'Changement de joueur'
@@ -221,7 +230,7 @@ public class Interface extends JFrame {
 		// Ajout des paneaux au panneau principal
         panelPrincipal.add(panelJoueur);
         panelPrincipal.add(panelAdversaire);
-
+        
         //Ajout des boutons au layout
         panelMenu.add(gridMenu);
         gridMenu.add(boutonJoueur);
@@ -257,11 +266,9 @@ public class Interface extends JFrame {
 		frame.add(panelCoordLettres);
 		frame.add(panelCoordChiffres1);
 		frame.add(panelCoordChiffres2);	
-		
-		
 		frame.add(panelPrincipal);
-		frame.setSize(1400, 700);	
 		
+		frame.setSize(1400, 700);	
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
@@ -275,29 +282,111 @@ public class Interface extends JFrame {
 			for( int j = 0; j < plateau.getLePlateau().length; j++ ) {
 				final int x = i;
 				final int y = j;
-				plateau.getLePlateau()[i][j].getBouton().addActionListener(new ActionListener() {
+				boutonCasePlateau = plateau.getLePlateau()[i][j].getBouton();
+				boutonCasePlateau.addActionListener( new ActionListener() {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						
-						if(joueur.isEnTrainDeJouer()){
-							actionsJoueurs.tirer(adversaire,plateauAdversaire,getXPos(plateauAdversaire, x, y), getYPos(plateauAdversaire, x, y)-1, boutonScore);
-							desactiverToutesLesCasesDuPlateau(plateauAdversaire);
+						if(!Partie.isStart()){
+							if(premierClic){
+								if(joueur.isEnTrainDeJouer()){
+									panelAdversaire.setVisible(false);
+									panelJoueur.setVisible(true);
+									desactiverToutesLesCasesDuPlateau(plateauJoueur);
+									actionsBateau.saisieDesCoordonneesDesBateaux(joueur,plateauJoueur,FactoryUtils.getXPos(plateauJoueur, x, y), 
+											FactoryUtils.getYPos(plateauJoueur, x, y)-1);
+								}else{
+									panelJoueur.setVisible(false);
+									panelAdversaire.setVisible(true);
+									desactiverToutesLesCasesDuPlateau(plateauAdversaire);
+									actionsBateau.saisieDesCoordonneesDesBateaux(adversaire,plateauAdversaire,FactoryUtils.getXPos(plateauAdversaire, x, y), 
+											FactoryUtils.getYPos(plateauAdversaire, x, y)-1);
+								}
+								premierClic = false;
+							}else{
+								if(joueur.isEnTrainDeJouer()){
+									for(Bateau bateau : joueur.getListeBateaux()){
+										if(!bateau.isPlace()){
+											if(FactoryUtils.convertirCharToInt(plateauJoueur.getLePlateau()[x][y].getPoint().getxPos()) 
+													> FactoryUtils.convertirCharToInt(bateau.getTabPoints()[0].getxPos()) 
+													|| plateauJoueur.getLePlateau()[x][y].getPoint().getyPos() > bateau.getTabPoints()[0].getyPos()){
+												actionsBateau.assignerCoordonneesBateaux(joueur, bateau.getTypeBateau(), new Points(plateau.getLePlateau()[x][y].getPoint().getxPos(), 
+														plateau.getLePlateau()[x][y].getPoint().getyPos()));
+												actionsBateau.placerLesBateauxSurLePlateau(bateau, plateauJoueur);
+												break;
+											}else{
+												Points coordonneesArriere = bateau.getTabPoints()[0];
+												bateau.getTabPoints()[0] = plateau.getLePlateau()[x][y].getPoint();
+												actionsBateau.assignerCoordonneesBateaux(joueur, bateau.getTypeBateau(), coordonneesArriere);
+												actionsBateau.placerLesBateauxSurLePlateau(bateau, plateauJoueur);
+												break;
+											}
+										}
+									}
+									if(joueur.isTousLesBateauxPlaces()){
+										panelJoueur.setVisible(false);
+										panelAdversaire.setVisible(true);
+										joueur.setEnTrainDeJouer(false);
+										adversaire.setEnTrainDeJouer(true);
+									}
+								}else{
+									for(Bateau bateau : adversaire.getListeBateaux()){
+										if(!bateau.isPlace()){
+											if(FactoryUtils.convertirCharToInt(plateauAdversaire.getLePlateau()[x][y].getPoint().getxPos()) 
+													> FactoryUtils.convertirCharToInt(bateau.getTabPoints()[0].getxPos()) 
+													|| plateauAdversaire.getLePlateau()[x][y].getPoint().getyPos() > bateau.getTabPoints()[0].getyPos()){
+												actionsBateau.assignerCoordonneesBateaux(adversaire, bateau.getTypeBateau(), new Points(plateau.getLePlateau()[x][y].getPoint().getxPos(), 
+														plateau.getLePlateau()[x][y].getPoint().getyPos()));
+												actionsBateau.placerLesBateauxSurLePlateau(bateau, plateauAdversaire);
+												break;
+											}else{
+												Points coordonneesArriere = bateau.getTabPoints()[0];
+												bateau.getTabPoints()[0] = plateau.getLePlateau()[x][y].getPoint();
+												actionsBateau.assignerCoordonneesBateaux(adversaire, bateau.getTypeBateau(), coordonneesArriere);
+												actionsBateau.placerLesBateauxSurLePlateau(bateau, plateauAdversaire);
+												break;
+											}
+										}
+										
+									}
+									if(adversaire.isTousLesBateauxPlaces()){
+										joueur.setEnTrainDeJouer(true);
+										adversaire.setEnTrainDeJouer(false);
+										reactiverLesCasesDuPlateau(plateauAdversaire,true);
+									}
+								}
+								afficherPopUpProchainBateauAPlacer(joueur.getListeBateaux());
+								if(joueur.isEnTrainDeJouer()){
+									reactiverLesCasesDuPlateau(plateauJoueur,true);
+								}else{
+									reactiverLesCasesDuPlateau(plateauAdversaire,true);
+								}
+								
+								premierClic = true;
+							}
+							if(joueur.isTousLesBateauxPlaces() && adversaire.isTousLesBateauxPlaces()){
+								Partie.setStart(true);
+								reactiverLesCasesDuPlateau(plateauJoueur,false);
+								reactiverLesCasesDuPlateau(plateauAdversaire,true);
+								JOptionPane.showMessageDialog(null, "La partie commence !!! FIGHT !");
+							}
 						}else{
+							
+							if(joueur.isEnTrainDeJouer()){
+							actionsJoueurs.tirer(adversaire,plateauAdversaire,getXPos(plateauAdversaire, x, y), getYPos(plateauAdversaire, x, y)-1, boutonScore);
+								desactiverToutesLesCasesDuPlateau(plateauAdversaire);
+							}else{
 							actionsJoueurs.tirer(joueur,plateauJoueur, getXPos(plateauJoueur, x, y), getYPos(plateauJoueur, x, y)-1, boutonScore);
-							desactiverToutesLesCasesDuPlateau(plateauJoueur);
-						}
-						// On colore en ROUGE le bouton de changement de joueur et on le désactive
-						boutonChangementJoueur.setBackground(new Color(0, 150, 0));
-						boutonChangementJoueur.setEnabled(true);
-					}
-					
-					private void desactiverToutesLesCasesDuPlateau( Plateau plateau) {
-						for(int i = 0; i < plateau.getLePlateau().length; i++){
-							for(int j = 0; j < plateau.getLePlateau().length; j++){
-								plateau.getLePlateau()[i][j].getBouton().setEnabled(false);
+								desactiverToutesLesCasesDuPlateau(plateauJoueur);
+							}
+							if(!joueur.isGagne() && !adversaire.isGagne()){
+								// On colore en ROUGE le bouton de changement de joueur et on le désactive
+								boutonChangementJoueur.setBackground(new Color(0, 150, 0));
+								boutonChangementJoueur.setEnabled(true);
 							}
 						}
+						
 					}
 					
 					private Integer getYPos(Plateau plateau, final int i, final int j) {
@@ -307,8 +396,38 @@ public class Interface extends JFrame {
 					private Integer getXPos(Plateau plateau, final int i, final int j) {
 						return FactoryUtils.convertirCharToInt(plateau.getLePlateau()[i][j].getPoint().getxPos());
 					}
+					
+					private void afficherPopUpProchainBateauAPlacer(List<Bateau> listeBateaux) {
+						for(Bateau bateau : listeBateaux){
+							if(!bateau.isPlace()){
+								JOptionPane.showMessageDialog(null, "Veuillez placer votre " + bateau.getTypeBateau().toString());
+								break;
+							}
+						}
+						
+					}
+
+					private void reactiverLesCasesDuPlateau( Plateau plateau, boolean actif) {
+						for(int i = 0; i < plateau.getLePlateau().length; i++){
+							for(int j = 0; j < plateau.getLePlateau().length; j++){
+								if(plateau.getLePlateau()[i][j].isWater() || Partie.isStart()){
+									plateau.getLePlateau()[i][j].getBouton().setEnabled(actif);
+									plateau.getLePlateau()[i][j].getBouton().setBackground(Color.BLUE);
+								}
+							}
+						}
+					}
+					
+					private void desactiverToutesLesCasesDuPlateau(Plateau plateau) {
+						for(int i = 0; i < plateau.getLePlateau().length; i++){
+							for(int j = 0; j < plateau.getLePlateau().length; j++){
+								plateau.getLePlateau()[i][j].getBouton().setEnabled(false);
+							}
+						}
+					}
 				});
-				listeBouton.add(plateau.getLePlateau()[i][j].getBouton());
+							
+				listeBouton.add(boutonCasePlateau);
 			}
 		}
 		return listeBouton;

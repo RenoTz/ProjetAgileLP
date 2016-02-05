@@ -1,5 +1,8 @@
 package utils;
 
+import data.bateau.Bateau;
+import data.interfaceJeu.Plateau;
+
 public class FactoryUtils {
 	
 	public static int convertirCharToInt(char lettre){
@@ -83,5 +86,20 @@ public class FactoryUtils {
 		}
 		return lettre;
 	}
+	
+	public static Integer getYPos(Plateau plateau, final int i, final int j) {
+		return plateau.getLePlateau()[i][j].getPoint().getyPos();
+	}
 
+	public static Integer getXPos(Plateau plateau, final int i, final int j) {
+		return FactoryUtils.convertirCharToInt(plateau.getLePlateau()[i][j].getPoint().getxPos());
+	}
+
+	public static int positionHorizontale(int yPos, Bateau bateau) {
+		return yPos + bateau.getTabPoints().length-1;
+	}
+
+	public static int positionVerticale(int xPos, Bateau bateau) {
+		return xPos + bateau.getTabPoints().length-1;
+	}
 }

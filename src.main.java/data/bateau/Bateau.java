@@ -10,6 +10,7 @@ public abstract class Bateau {
 	//-----------------------
 	
 	private boolean coule;
+	private boolean place;
 	
 	//--------------------------
 	// Constructeur de la classe
@@ -17,6 +18,14 @@ public abstract class Bateau {
 	
 	public Bateau() {
 	}
+	
+	//------------------------
+	// METHODES DE LA CLASSE
+	//------------------------
+	
+	public abstract Points[] getTabPoints();
+	
+	public abstract EnumTypeBateau getTypeBateau();
 	
 	//-----------------------------
 	// Getters/Setters de la classe
@@ -30,8 +39,12 @@ public abstract class Bateau {
 		this.coule = coule;
 	}
 	
-	public abstract Points[] getTabPoints();
-	
-	public abstract EnumTypeBateau getTypeBateau();
+	public boolean isPlace() {
+		return place;
+	}
+
+	public void setPlace(boolean place) {
+		this.place = place;
+	}
 
 }
