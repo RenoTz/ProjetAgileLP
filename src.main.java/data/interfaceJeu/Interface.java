@@ -197,7 +197,7 @@ public class Interface extends JFrame {
 				boutonChangementJoueur.setEnabled(false);
 				
 				if(joueur.isEnTrainDeJouer()){
-					labelConsole.setText("Au tour de " + joueur.getNom());
+					labelConsole.setText("Au tour de " + adversaire.getNom());
 					boutonScore.setText("     " + joueur.getScore());
 					// Changement de joueur
 					joueur.setEnTrainDeJouer(false);
@@ -207,7 +207,7 @@ public class Interface extends JFrame {
 					panelAdversaire.setVisible(false);
 					reactiverLesCasesDuPlateau(plateauJoueur);
 				}else{
-					labelConsole.setText("Au tour de " + adversaire.getNom());
+					labelConsole.setText("Au tour de " + joueur.getNom());
 					boutonScore.setText("     " + adversaire.getScore());
 					// Changement de joueur
 					joueur.setEnTrainDeJouer(true);
