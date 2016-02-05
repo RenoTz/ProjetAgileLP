@@ -51,7 +51,7 @@ public class ActionsJoueur {
 					coulerLeBateau(bateauCoule, plateau, joueur);
 					score.setText(" " + joueur.getScore());
 					if(joueur.isGagne()){
-						JOptionPane.showMessageDialog(null, "Bravo ! "+ joueur.getNomJoueur() +" a gagné la partie !");
+						JOptionPane.showMessageDialog(null, "Bravo ! "+ joueur.getNom() +" a gagnÃ© la partie !");
 					}
 				}
 			}

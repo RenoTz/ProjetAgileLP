@@ -155,7 +155,7 @@ public class Interface extends JFrame {
         JButton boutonJoueur = creerBoutonBandeauSuperieur();
         boutonJoueur.setPreferredSize(new Dimension(125, 55));
         boutonJoueur = new JButton(new ImageIcon("img/user.png"));
-        boutonJoueur.setText(joueur.getNomJoueur());
+        boutonJoueur.setText(joueur.getNom());
         boutonJoueur.setEnabled(false);
         
         //Bouton 'Score'
@@ -167,7 +167,7 @@ public class Interface extends JFrame {
         //Bouton 'Adversaire'
         JButton boutonAdversaire = creerBoutonBandeauSuperieur();
         boutonAdversaire = new JButton(new ImageIcon("img/user.png"));
-        boutonAdversaire.setText(adversaire.getNomAdversaire());
+        boutonAdversaire.setText(adversaire.getNom());
         boutonAdversaire.setEnabled(false);
         
         //Bouton 'Changement de joueur'
@@ -358,6 +358,7 @@ public class Interface extends JFrame {
 								Partie.setStart(true);
 								reactiverLesCasesDuPlateau(plateauJoueur,false);
 								reactiverLesCasesDuPlateau(plateauAdversaire,true);
+								JOptionPane.showMessageDialog(null, "La partie commence !!! FIGHT !");
 							}
 						}else{
 							
@@ -368,9 +369,11 @@ public class Interface extends JFrame {
 							actionsJoueurs.tirer(joueur,plateauJoueur, getXPos(plateauJoueur, x, y), getYPos(plateauJoueur, x, y)-1, boutonScore);
 								desactiverToutesLesCasesDuPlateau(plateauJoueur);
 							}
-							// On colore en ROUGE le bouton de changement de joueur et on le désactive
-						boutonChangementJoueur.setBackground(new Color(0, 150, 0));
-							boutonChangementJoueur.setEnabled(true);
+							if(!joueur.isGagne() && !adversaire.isGagne()){
+								// On colore en ROUGE le bouton de changement de joueur et on le désactive
+								boutonChangementJoueur.setBackground(new Color(0, 150, 0));
+								boutonChangementJoueur.setEnabled(true);
+							}
 						}
 						
 					}

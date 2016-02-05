@@ -38,24 +38,6 @@ public class Joueur {
 		return nom;
 	}
 
-	public String getNomJoueur() {
-		return this.nomJoueur;
-	}
-	
-	public void setNomJoueur(String nomJoueur) {
-		nomJoueur = JOptionPane.showInputDialog("Veuillez entrer le nom du joueur 1 :");
-		this.nomJoueur = nomJoueur;		
-	}
-	
-	public String getNomAdversaire() {
-		return this.nomAdversaire;
-	}
-	
-	public void setNomAdversaire(String nomAdversaire) {
-		nomAdversaire = JOptionPane.showInputDialog("Veuillez entrer le nom du joueur 2 :");
-		this.nomAdversaire = nomAdversaire;		
-	}
-
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
