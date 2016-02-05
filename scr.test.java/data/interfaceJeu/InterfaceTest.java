@@ -1,15 +1,10 @@
 package data.interfaceJeu;
 
-import java.util.List;
 import javax.swing.JButton;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import static org.junit.Assert.*;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -19,7 +14,6 @@ public class InterfaceTest {
 	// Classe à tester (@InjectMocks)
 	//-------------------------------
 
-	private Interface interfaceJeu;
 	
 	//-------------------------
 	// METHODES de test (@Test)

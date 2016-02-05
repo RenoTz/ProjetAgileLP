@@ -29,6 +29,7 @@ public class Joueur {
 	
 	public Joueur(){
 		this.listeBateaux = Lists.newArrayList();
+		this.score = 0;
 	}
 	
 	//------------------------------

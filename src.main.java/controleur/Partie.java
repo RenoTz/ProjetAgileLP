@@ -2,7 +2,6 @@ package controleur;
 
 import services.ActionsBateau;
 
-import javax.swing.JOptionPane;
 
 import data.composants.Points;
 import data.interfaceJeu.Interface;
