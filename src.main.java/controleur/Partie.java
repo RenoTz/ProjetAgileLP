@@ -8,11 +8,19 @@ import enumeration.EnumTypeBateau;
 
 public class Partie {
 	
+	//------------
+	//  ATTRIBUTS 
+	//------------
+
 	private Interface interfaceJeu;
 	private static Joueur joueur;
 	private static Joueur adversaire;
 	private ActionsBateau actions;
 	
+	//---------------
+	//	CONSTRUCTEUR
+	//---------------
+
 	public Partie(){
 		this.actions = new ActionsBateau();
 		this.initialiserLesJoueurs();
@@ -22,7 +30,11 @@ public class Partie {
 		this.placerLesBateauxSurLesPlateaux();
 	}
 	
-	public void initialiserLesJoueurs(){
+	//------------------------------
+	// METHODES SPECIFIQUES PRIVEES
+	//------------------------------
+	
+	private void initialiserLesJoueurs(){
 		// Creation du joueur 1
 		joueur = new Joueur();
 		joueur.setNom("Gérard");
