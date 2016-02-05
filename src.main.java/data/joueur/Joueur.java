@@ -15,6 +15,7 @@ public class Joueur {
 	//-----------------------
 
 	private String nom;
+	private int score;
 	private List<Bateau> listeBateaux;
 	private boolean enTrainDeJouer;
 	
@@ -27,7 +28,7 @@ public class Joueur {
 	}
 	
 	//------------------------------
-	// Getters / Setters sp�cifiques
+	// Getters / Setters specifiques
 	//------------------------------
 	
 	public String getNom() {
@@ -56,5 +57,13 @@ public class Joueur {
 
 	public void setListeBateaux(List<Bateau> listeBateaux) {
 		this.listeBateaux = listeBateaux;
+	}
+	
+	public int getScore() {
+		return 5 - listeBateaux.size() ;
+	}
+	
+	public void setScore(int score){
+		this.score = score;
 	}
 }

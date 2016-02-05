@@ -1,7 +1,6 @@
 package controleur;
 
 import services.ActionsBateau;
-import data.bateau.Bateau;
 import data.composants.Points;
 import data.interfaceJeu.Interface;
 import data.joueur.Joueur;
@@ -25,8 +24,8 @@ public class Partie {
 	public Partie(){
 		this.actions = new ActionsBateau();
 		this.initialiserLesJoueurs();
-		this.interfaceJeu = new Interface(joueur,adversaire);
 		this.initialiserLaListeDesBateaux();
+		this.interfaceJeu = new Interface(joueur,adversaire);
 		this.assignerLesCoordonneesAuxBateaux();
 		this.placerLesBateauxSurLesPlateaux();
 	}

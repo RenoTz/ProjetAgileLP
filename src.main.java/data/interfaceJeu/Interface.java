@@ -1,6 +1,5 @@
 package data.interfaceJeu;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -44,6 +43,7 @@ public class Interface extends JFrame {
 	private static JPanel panelJoueur;
 	private static JPanel panelAdversaire;
 	private static JButton boutonChangementJoueur;
+	private static JButton boutonScore;
 	
 	//-------------
 	//  CONSTANTES
@@ -149,9 +149,9 @@ public class Interface extends JFrame {
         boutonJoueur.setEnabled(false);
         
         //Bouton 'Score'
-        JButton boutonScore = creerBoutonBandeauSuperieur();
+        boutonScore = creerBoutonBandeauSuperieur();
         boutonScore = new JButton(new ImageIcon("img/award.png"));
-        boutonScore.setText("Score");
+        boutonScore.setText("     " + joueur.getScore());
         boutonScore.setEnabled(false);
 		
         //Bouton 'Adversaire'
@@ -175,6 +175,7 @@ public class Interface extends JFrame {
 				boutonChangementJoueur.setEnabled(false);
 				
 				if(joueur.isEnTrainDeJouer()){
+					boutonScore.setText("     " + joueur.getScore());
 					// Changement de joueur
 					joueur.setEnTrainDeJouer(false);
 					adversaire.setEnTrainDeJouer(true);
@@ -183,6 +184,7 @@ public class Interface extends JFrame {
 					panelAdversaire.setVisible(false);
 					reactiverLesCasesDuPlateau(plateauJoueur);
 				}else{
+					boutonScore.setText("     " + adversaire.getScore());
 					// Changement de joueur
 					joueur.setEnTrainDeJouer(true);
 					adversaire.setEnTrainDeJouer(false);
@@ -204,7 +206,7 @@ public class Interface extends JFrame {
 			}
 		});
 
-		// Ajout des paneaux au paneau principal
+		// Ajout des paneaux au panneau principal
         panelPrincipal.add(panelJoueur);
         panelPrincipal.add(panelAdversaire);
 
@@ -266,10 +268,10 @@ public class Interface extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						
 						if(joueur.isEnTrainDeJouer()){
-							actionsJoueurs.tirer(adversaire,plateauAdversaire,getXPos(plateauAdversaire, x, y), getYPos(plateauAdversaire, x, y)-1);
+							actionsJoueurs.tirer(adversaire,plateauAdversaire,getXPos(plateauAdversaire, x, y), getYPos(plateauAdversaire, x, y)-1, boutonScore);
 							desactiverToutesLesCasesDuPlateau(plateauAdversaire);
 						}else{
-							actionsJoueurs.tirer(joueur,plateauJoueur, getXPos(plateauJoueur, x, y), getYPos(plateauJoueur, x, y)-1);
+							actionsJoueurs.tirer(joueur,plateauJoueur, getXPos(plateauJoueur, x, y), getYPos(plateauJoueur, x, y)-1, boutonScore);
 							desactiverToutesLesCasesDuPlateau(plateauJoueur);
 						}
 						// On colore en ROUGE le bouton de changement de joueur et on le désactive
