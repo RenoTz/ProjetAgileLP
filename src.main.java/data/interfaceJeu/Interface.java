@@ -1,5 +1,6 @@
 package data.interfaceJeu;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -13,6 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
@@ -127,6 +129,15 @@ public class Interface extends JFrame {
 		gridMenu.setLayout(new GridLayout(1, 5, 145, 80));
 		gridMenu.setBackground(Color.BLACK);
 		
+		//Panneau "console"
+		JPanel panelConsole = new JPanel();
+		JButton labelConsole = new JButton();
+		panelConsole.setLayout(new BorderLayout());
+		labelConsole.setText("Bienvenue dans la Bataille Navale 3.0");
+		labelConsole.setForeground(Color.WHITE);
+		labelConsole.setBackground(Color.BLACK);
+		labelConsole.setEnabled(false);
+		panelConsole.add(labelConsole, BorderLayout.SOUTH);
 		
 		// Bouton 'Nouvelle partie'
         JButton nouvellePartieBouton = creerBoutonBandeauSuperieur();
@@ -241,13 +252,15 @@ public class Interface extends JFrame {
 		panelCoordChiffres1.setBounds(67, 60, 655, 60);
 		panelCoordChiffres2.setBounds(738, 60, 650, 60);
 		
+		frame.add(panelConsole, BorderLayout.SOUTH);
 		frame.add(panelMenu);
 		frame.add(panelCoordLettres);
 		frame.add(panelCoordChiffres1);
-		frame.add(panelCoordChiffres2);		
+		frame.add(panelCoordChiffres2);	
+		
 		
 		frame.add(panelPrincipal);
-		frame.setSize(1400, 680);	
+		frame.setSize(1400, 700);	
 		
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
