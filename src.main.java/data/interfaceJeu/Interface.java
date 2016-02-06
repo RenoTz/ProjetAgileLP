@@ -291,74 +291,13 @@ public class Interface extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						
+						// La partie n'est pas démarrée tant que tous les bateaux ne sont pas placés
 						if(!Partie.isStart()){
 							if(premierClic){
-								if(joueur.isEnTrainDeJouer()){
-									panelAdversaire.setVisible(false);
-									panelJoueur.setVisible(true);
-									desactiverToutesLesCasesDuPlateau(plateauJoueur);
-									actionsBateau.saisieDesCoordonneesDesBateaux(joueur,plateauJoueur,FactoryUtils.getXPos(plateauJoueur, x, y), 
-											FactoryUtils.getYPos(plateauJoueur, x, y)-1);
-								}else{
-									panelJoueur.setVisible(false);
-									panelAdversaire.setVisible(true);
-									desactiverToutesLesCasesDuPlateau(plateauAdversaire);
-									actionsBateau.saisieDesCoordonneesDesBateaux(adversaire,plateauAdversaire,FactoryUtils.getXPos(plateauAdversaire, x, y), 
-											FactoryUtils.getYPos(plateauAdversaire, x, y)-1);
-								}
+								actionPremierClicPlacementBateau(x, y);
 								premierClic = false;
 							}else{
-								if(joueur.isEnTrainDeJouer()){
-									for(Bateau bateau : joueur.getListeBateaux()){
-										if(!bateau.isPlace()){
-											if(FactoryUtils.convertirCharToInt(plateauJoueur.getLePlateau()[x][y].getPoint().getxPos()) 
-													> FactoryUtils.convertirCharToInt(bateau.getTabPoints()[0].getxPos()) 
-													|| plateauJoueur.getLePlateau()[x][y].getPoint().getyPos() > bateau.getTabPoints()[0].getyPos()){
-												actionsBateau.assignerCoordonneesBateaux(joueur, bateau.getTypeBateau(), new Points(plateau.getLePlateau()[x][y].getPoint().getxPos(), 
-														plateau.getLePlateau()[x][y].getPoint().getyPos()));
-												actionsBateau.placerLesBateauxSurLePlateau(bateau, plateauJoueur);
-												break;
-											}else{
-												Points coordonneesArriere = bateau.getTabPoints()[0];
-												bateau.getTabPoints()[0] = plateau.getLePlateau()[x][y].getPoint();
-												actionsBateau.assignerCoordonneesBateaux(joueur, bateau.getTypeBateau(), coordonneesArriere);
-												actionsBateau.placerLesBateauxSurLePlateau(bateau, plateauJoueur);
-												break;
-											}
-										}
-									}
-									if(joueur.isTousLesBateauxPlaces()){
-										panelJoueur.setVisible(false);
-										panelAdversaire.setVisible(true);
-										joueur.setEnTrainDeJouer(false);
-										adversaire.setEnTrainDeJouer(true);
-									}
-								}else{
-									for(Bateau bateau : adversaire.getListeBateaux()){
-										if(!bateau.isPlace()){
-											if(FactoryUtils.convertirCharToInt(plateauAdversaire.getLePlateau()[x][y].getPoint().getxPos()) 
-													> FactoryUtils.convertirCharToInt(bateau.getTabPoints()[0].getxPos()) 
-													|| plateauAdversaire.getLePlateau()[x][y].getPoint().getyPos() > bateau.getTabPoints()[0].getyPos()){
-												actionsBateau.assignerCoordonneesBateaux(adversaire, bateau.getTypeBateau(), new Points(plateau.getLePlateau()[x][y].getPoint().getxPos(), 
-														plateau.getLePlateau()[x][y].getPoint().getyPos()));
-												actionsBateau.placerLesBateauxSurLePlateau(bateau, plateauAdversaire);
-												break;
-											}else{
-												Points coordonneesArriere = bateau.getTabPoints()[0];
-												bateau.getTabPoints()[0] = plateau.getLePlateau()[x][y].getPoint();
-												actionsBateau.assignerCoordonneesBateaux(adversaire, bateau.getTypeBateau(), coordonneesArriere);
-												actionsBateau.placerLesBateauxSurLePlateau(bateau, plateauAdversaire);
-												break;
-											}
-										}
-										
-									}
-									if(adversaire.isTousLesBateauxPlaces()){
-										joueur.setEnTrainDeJouer(true);
-										adversaire.setEnTrainDeJouer(false);
-										reactiverLesCasesDuPlateau(plateauAdversaire,true);
-									}
-								}
+								actionSecondClicPlacementBateau(plateau, x, y);
 								
 								if(joueur.isEnTrainDeJouer()){
 									afficherLabelProchainBateauAPlacer(joueur.getListeBateaux());
@@ -367,7 +306,6 @@ public class Interface extends JFrame {
 									afficherLabelProchainBateauAPlacer(adversaire.getListeBateaux());
 									reactiverLesCasesDuPlateau(plateauAdversaire,true);
 								}
-								
 								premierClic = true;
 							}
 							if(joueur.isTousLesBateauxPlaces() && adversaire.isTousLesBateauxPlaces()){
@@ -391,9 +329,79 @@ public class Interface extends JFrame {
 								boutonChangementJoueur.setEnabled(true);
 							}
 						}
-						
+					}
+
+					private void actionPremierClicPlacementBateau(final int x,final int y) {
+						if(joueur.isEnTrainDeJouer()){
+							panelAdversaire.setVisible(false);
+							panelJoueur.setVisible(true);
+							desactiverToutesLesCasesDuPlateau(plateauJoueur);
+							actionsBateau.saisieDesCoordonneesDesBateaux(joueur,plateauJoueur,FactoryUtils.getXPos(plateauJoueur, x, y), 
+									FactoryUtils.getYPos(plateauJoueur, x, y)-1);
+						}else{
+							panelJoueur.setVisible(false);
+							panelAdversaire.setVisible(true);
+							desactiverToutesLesCasesDuPlateau(plateauAdversaire);
+							actionsBateau.saisieDesCoordonneesDesBateaux(adversaire,plateauAdversaire,FactoryUtils.getXPos(plateauAdversaire, x, y), 
+									FactoryUtils.getYPos(plateauAdversaire, x, y)-1);
+						}
 					}
 					
+					private void actionSecondClicPlacementBateau(
+							final Plateau plateau, final int x, final int y) {
+						if(joueur.isEnTrainDeJouer()){
+							for(Bateau bateau : joueur.getListeBateaux()){
+								if(!bateau.isPlace()){
+									if(FactoryUtils.convertirCharToInt(plateauJoueur.getLePlateau()[x][y].getPoint().getxPos()) 
+											> FactoryUtils.convertirCharToInt(bateau.getTabPoints()[0].getxPos()) 
+											|| plateauJoueur.getLePlateau()[x][y].getPoint().getyPos() > bateau.getTabPoints()[0].getyPos()){
+										actionsBateau.assignerCoordonneesBateaux(joueur, bateau.getTypeBateau(), new Points(plateau.getLePlateau()[x][y].getPoint().getxPos(), 
+												plateau.getLePlateau()[x][y].getPoint().getyPos()));
+										actionsBateau.placerLesBateauxSurLePlateau(bateau, plateauJoueur);
+										break;
+									}else{
+										Points coordonneesArriere = bateau.getTabPoints()[0];
+										bateau.getTabPoints()[0] = plateau.getLePlateau()[x][y].getPoint();
+										actionsBateau.assignerCoordonneesBateaux(joueur, bateau.getTypeBateau(), coordonneesArriere);
+										actionsBateau.placerLesBateauxSurLePlateau(bateau, plateauJoueur);
+										break;
+									}
+								}
+							}
+							if(joueur.isTousLesBateauxPlaces()){
+								panelJoueur.setVisible(false);
+								panelAdversaire.setVisible(true);
+								joueur.setEnTrainDeJouer(false);
+								adversaire.setEnTrainDeJouer(true);
+							}
+						}else{
+							for(Bateau bateau : adversaire.getListeBateaux()){
+								if(!bateau.isPlace()){
+									if(FactoryUtils.convertirCharToInt(plateauAdversaire.getLePlateau()[x][y].getPoint().getxPos()) 
+											> FactoryUtils.convertirCharToInt(bateau.getTabPoints()[0].getxPos()) 
+											|| plateauAdversaire.getLePlateau()[x][y].getPoint().getyPos() > bateau.getTabPoints()[0].getyPos()){
+										actionsBateau.assignerCoordonneesBateaux(adversaire, bateau.getTypeBateau(), new Points(plateau.getLePlateau()[x][y].getPoint().getxPos(), 
+												plateau.getLePlateau()[x][y].getPoint().getyPos()));
+										actionsBateau.placerLesBateauxSurLePlateau(bateau, plateauAdversaire);
+										break;
+									}else{
+										Points coordonneesArriere = bateau.getTabPoints()[0];
+										bateau.getTabPoints()[0] = plateau.getLePlateau()[x][y].getPoint();
+										actionsBateau.assignerCoordonneesBateaux(adversaire, bateau.getTypeBateau(), coordonneesArriere);
+										actionsBateau.placerLesBateauxSurLePlateau(bateau, plateauAdversaire);
+										break;
+									}
+								}
+								
+							}
+							if(adversaire.isTousLesBateauxPlaces()){
+								joueur.setEnTrainDeJouer(true);
+								adversaire.setEnTrainDeJouer(false);
+								reactiverLesCasesDuPlateau(plateauAdversaire,true);
+							}
+						}
+					}
+
 					private Integer getYPos(Plateau plateau, final int i, final int j) {
 						return plateau.getLePlateau()[i][j].getPoint().getyPos();
 					}
@@ -409,7 +417,6 @@ public class Interface extends JFrame {
 								break;
 							}
 						}
-						
 					}
 
 					private void reactiverLesCasesDuPlateau( Plateau plateau, boolean actif) {
@@ -491,7 +498,7 @@ public class Interface extends JFrame {
 		return plateauAdversaire;
 	}
 	
-	public static JButton getLabelConsole() {
+	public JButton getLabelConsole() {
 		return labelConsole;
 	}
 

@@ -88,8 +88,6 @@ public class ActionsBateau {
 	
 	public void assignerCoordonneesBateaux(Joueur j, EnumTypeBateau typeBateau, Points coordonneesArriere){
 		
-//		checkCoherenceDesCoordonnesPourLePlacementDesBateaux(j, typeBateau, coordonneesAvant, coordonneesArriere);
-		
 		if(CollectionUtils.isNotEmpty(j.getListeBateaux())){
 			for(Bateau bateau : j.getListeBateaux()){
 				if(bateau.getTypeBateau().equals(typeBateau)){
@@ -124,7 +122,7 @@ public class ActionsBateau {
 					for( int j = 0; j < plateau.getLePlateau().length; j++ ) {
 						 if(caseBateauCorrespondCasePlateau(plateau, bateau, caseBateau, i, j)){
 							 plateau.getLePlateau()[i][j].setWater(false);
-							 plateau.getLePlateau()[i][j].getBouton().setBackground(Color.DARK_GRAY); // TODO : ne pas oublier de supprimer
+							 plateau.getLePlateau()[i][j].getBouton().setBackground(Color.DARK_GRAY);
 							 caseColoree = true;
 							 break;
 						 }
