@@ -38,11 +38,11 @@ public class Partie {
 	private void initialiserLesJoueurs(){
 		// Creation du joueur 1
 		joueur = new Joueur();
-		joueur.setNom(JOptionPane.showInputDialog("Veuillez entrer le nom du joueur 1 :"));
+		joueur.setNom(JOptionPane.showInputDialog("Veuillez entrer le nom du joueur 1 :", "Joueur 1"));
 		joueur.setEnTrainDeJouer(true);
 		// Creation du joueur 2
 		adversaire = new Joueur();
-		adversaire.setNom(JOptionPane.showInputDialog("Veuillez entrer le nom du joueur 2 :"));
+		adversaire.setNom(JOptionPane.showInputDialog("Veuillez entrer le nom du joueur 2 :", "Joueur 2"));
 	}
 	
 	private void initialiserLaListeDesBateaux() {
