@@ -362,9 +362,11 @@ public class Interface extends JFrame {
 								
 								if(joueur.isEnTrainDeJouer()){
 									afficherLabelProchainBateauAPlacer(joueur.getListeBateaux());
+									plateauJoueur.getLePlateau()[x][y].getBouton().setEnabled(false);
 									reactiverLesCasesDuPlateau(plateauJoueur,true);
 								}else{
 									afficherLabelProchainBateauAPlacer(adversaire.getListeBateaux());
+									plateauAdversaire.getLePlateau()[x][y].getBouton().setEnabled(false);
 									reactiverLesCasesDuPlateau(plateauAdversaire,true);
 								}
 								

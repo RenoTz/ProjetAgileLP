@@ -48,19 +48,19 @@ public class ActionsBateau {
 		for(final Bateau bateau : joueur.getListeBateaux()){
 			if(!bateau.isPlace()){
 				plateau.getLePlateau()[xPos][yPos].getBouton().setBackground(Color.CYAN);
-				if(positionVerticaleBas(xPos, bateau) < plateau.getLePlateau().length && plateau.getLePlateau()[positionVerticaleBas(xPos, bateau)][yPos].isWater()){
+				if(positionVerticaleBas(xPos, bateau) < plateau.getLePlateau().length && isWaterVersLeBas(plateau, xPos, yPos, bateau)){
 					plateau.getLePlateau()[positionVerticaleBas(xPos, bateau)][yPos].getBouton().setBackground(Color.ORANGE);
 					plateau.getLePlateau()[positionVerticaleBas(xPos, bateau)][yPos].getBouton().setEnabled(true); 
 				}
-				if(positionVerticaleHaut(xPos, bateau) >= 0 && plateau.getLePlateau()[positionVerticaleHaut(xPos, bateau)][yPos].isWater()){
+				if(positionVerticaleHaut(xPos, bateau) >= 0 && isWaterVersLeHaut(plateau, xPos, yPos, bateau)){
 					plateau.getLePlateau()[positionVerticaleHaut(xPos, bateau)][yPos].getBouton().setBackground(Color.ORANGE);
 					plateau.getLePlateau()[positionVerticaleHaut(xPos, bateau)][yPos].getBouton().setEnabled(true); 
 				}
-				if(positionHorizontaleDroite(yPos, bateau) < plateau.getLePlateau().length && plateau.getLePlateau()[xPos][positionHorizontaleDroite(yPos, bateau)].isWater()){
+				if(positionHorizontaleDroite(yPos, bateau) < plateau.getLePlateau().length && isWaterVersLaDroite(plateau, xPos, yPos, bateau)){
 					plateau.getLePlateau()[xPos][positionHorizontaleDroite(yPos, bateau)].getBouton().setBackground(Color.ORANGE);
 					plateau.getLePlateau()[xPos][positionHorizontaleDroite(yPos, bateau)].getBouton().setEnabled(true);
 				}
-				if(positionHorizontaleGauche(yPos, bateau) >= 0 && plateau.getLePlateau()[xPos][positionHorizontaleGauche(yPos, bateau)].isWater()){
+				if(positionHorizontaleGauche(yPos, bateau) >= 0 && isWaterVersLaGauche(plateau, xPos, yPos, bateau)){
 					plateau.getLePlateau()[xPos][positionHorizontaleGauche(yPos, bateau)].getBouton().setBackground(Color.ORANGE);
 					plateau.getLePlateau()[xPos][positionHorizontaleGauche(yPos, bateau)].getBouton().setEnabled(true);
 				}
@@ -69,27 +69,8 @@ public class ActionsBateau {
 				}
 			}
 		}
-		
-	private int positionHorizontaleDroite(int yPos, Bateau bateau) {
-		return yPos + bateau.getTabPoints().length-1;
-	}
-
-	private int positionVerticaleBas(int xPos, Bateau bateau) {
-		return xPos + bateau.getTabPoints().length-1;
-	}
-	
-	private int positionHorizontaleGauche(int yPos, Bateau bateau) {
-		return yPos - (bateau.getTabPoints().length-1);
-	}
-
-	private int positionVerticaleHaut(int xPos, Bateau bateau) {
-		return xPos - (bateau.getTabPoints().length-1);
-	}
 	
 	public void assignerCoordonneesBateaux(Joueur j, EnumTypeBateau typeBateau, Points coordonneesArriere){
-		
-//		checkCoherenceDesCoordonnesPourLePlacementDesBateaux(j, typeBateau, coordonneesAvant, coordonneesArriere);
-		
 		if(CollectionUtils.isNotEmpty(j.getListeBateaux())){
 			for(Bateau bateau : j.getListeBateaux()){
 				if(bateau.getTypeBateau().equals(typeBateau)){
@@ -116,25 +97,15 @@ public class ActionsBateau {
 	
 	public void placerLesBateauxSurLePlateau(Bateau bateau, Plateau plateau){
 		
-		boolean caseColoree;
+		int x = 0, y = 0;
 		if(bateau.getTabPoints()[0] != null){
 			for(int caseBateau = 0; caseBateau < bateau.getTabPoints().length; caseBateau++){
-				caseColoree = false;
-				for( int i = 0; i < plateau.getLePlateau().length; i++ ){
-					for( int j = 0; j < plateau.getLePlateau().length; j++ ) {
-						 if(caseBateauCorrespondCasePlateau(plateau, bateau, caseBateau, i, j)){
-							 plateau.getLePlateau()[i][j].setWater(false);
-							 plateau.getLePlateau()[i][j].getBouton().setBackground(Color.DARK_GRAY); // TODO : ne pas oublier de supprimer
-							 caseColoree = true;
-							 break;
-						 }
-						 bateau.setPlace(true);
-					}					
-					if(caseColoree){
-						break;
-					}
-				}
+				x = FactoryUtils.convertirCharToInt(bateau.getTabPoints()[caseBateau].getxPos());
+				y = bateau.getTabPoints()[caseBateau].getyPos()- 1;
+				plateau.getLePlateau()[x][y].setWater(false);
+				plateau.getLePlateau()[x][y].getBouton().setBackground(Color.DARK_GRAY);
 			}
+			bateau.setPlace(true);
 		}
 	}
 	
@@ -142,7 +113,59 @@ public class ActionsBateau {
 	//  METHODES UTILITAIRES : PRIVEES
 	//--------------------------------
 	
-	public void remplissageDesCasesIntermediaires(Points coordonneesAvant,	Points coordonneesArriere, Bateau bateau) {
+	private boolean isWaterVersLeBas(final Plateau plateau, final int xPos, final int yPos, final Bateau bateau) {
+		for(int x = xPos; x <= positionVerticaleBas(xPos, bateau); x++){
+			if(!plateau.getLePlateau()[x][yPos].isWater()){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private boolean isWaterVersLeHaut(final Plateau plateau, final int xPos, final int yPos, final Bateau bateau) {
+		for(int x = positionVerticaleHaut(xPos, bateau); x <= xPos ; x++){
+			if(!plateau.getLePlateau()[x][yPos].isWater()){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private boolean isWaterVersLaDroite(final Plateau plateau, final int xPos, final int yPos, final Bateau bateau) {
+		for(int y = yPos; y <= positionHorizontaleDroite(yPos, bateau); y++){
+			if(!plateau.getLePlateau()[xPos][y].isWater()){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private boolean isWaterVersLaGauche(final Plateau plateau, final int xPos, final int yPos, final Bateau bateau) {
+		for(int y = positionHorizontaleGauche(yPos, bateau); y <= yPos; y++){
+			if(!plateau.getLePlateau()[xPos][y].isWater()){
+				return false;
+			}
+		}
+		return true;
+	}
+		
+	private int positionHorizontaleDroite(int yPos, Bateau bateau) {
+		return yPos + (bateau.getTabPoints().length-1);
+	}
+
+	private int positionVerticaleBas(int xPos, Bateau bateau) {
+		return xPos + bateau.getTabPoints().length-1;
+	}
+	
+	private int positionHorizontaleGauche(int yPos, Bateau bateau) {
+		return yPos - (bateau.getTabPoints().length-1);
+	}
+
+	private int positionVerticaleHaut(int xPos, Bateau bateau) {
+		return xPos - (bateau.getTabPoints().length-1);
+	}
+	
+	private void remplissageDesCasesIntermediaires(Points coordonneesAvant,	Points coordonneesArriere, Bateau bateau) {
 		// On remplie les cases interm�diaires
 		int indice = 1;
 		while(indice < bateau.getTabPoints().length-1){
