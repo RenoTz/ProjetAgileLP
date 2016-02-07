@@ -154,7 +154,7 @@ public class ActionsBateau {
 	}
 
 	private int positionVerticaleBas(int xPos, Bateau bateau) {
-		return xPos + bateau.getTabPoints().length-1;
+		return xPos + (bateau.getTabPoints().length-1);
 	}
 	
 	private int positionHorizontaleGauche(int yPos, Bateau bateau) {
