@@ -57,7 +57,7 @@ public class ActionsJoueurTest {
 		boolean retour = plateau.getLePlateau()[xTir][yTir].isCaseTouche();
 		
 		// Assert
-//		assertTrue(retour);
+		assertTrue(retour);
 		
 	}
 	
