@@ -3,6 +3,7 @@ package services;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -39,6 +40,7 @@ public class ActionsJoueurTest {
 		actionsBateau = new ActionsBateau();
 	}
 	
+	@Ignore
 	@Test
 	public void testBateauTouche() {
 		
