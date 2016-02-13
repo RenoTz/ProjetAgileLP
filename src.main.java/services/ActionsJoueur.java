@@ -33,7 +33,7 @@ public class ActionsJoueur {
 	// METHODES DE LA CLASSE
 	//------------------------
 	
-	public void tirer(Joueur joueur, Plateau plateau, int x , int y, JButton score) {
+	public void tirer(Joueur joueurEnCours, Joueur adversaire, Plateau plateau, int x , int y, JButton boutonScore) {
 		
 		if(!plateau.getLePlateau()[x][y].isWater() || plateau.getLePlateau()[x][y].isCaseTouche()){
 			plateau.getLePlateau()[x][y].setCaseTouche(true);
@@ -41,18 +41,14 @@ public class ActionsJoueur {
 			plateau.getLePlateau()[x][y].getBouton().setBackground(Color.RED);
 			plateau.getLePlateau()[x][y].getBouton().setEnabled(false);
 			
-			bateauTouche = recupererLeTypeBateauTouche(plateau.getLePlateau()[x][y], joueur);
+			bateauTouche = recupererLeTypeBateauTouche(plateau.getLePlateau()[x][y], adversaire);
 			
-			if(verifierQueToutesLesCasesBateauxSontTouchees(joueur, plateau, bateauTouche)){
+			if(verifierQueToutesLesCasesBateauxSontTouchees(adversaire, plateau, bateauTouche)){
 				
-				bateauCoule = recupererBateau(joueur.getListeBateaux(),bateauTouche);
+				bateauCoule = recupererBateau(adversaire.getListeBateaux(),bateauTouche);
 				
 				if(bateauCoule != null){
-					coulerLeBateau(bateauCoule, plateau, joueur);
-					score.setText(" " + joueur.getScore());
-					if(joueur.isGagne()){
-						JOptionPane.showMessageDialog(null, "Bravo ! "+ joueur.getNom() +" a gagné la partie !");
-					}
+					coulerLeBateau(bateauCoule, plateau, adversaire, joueurEnCours,boutonScore );
 				}
 			}
 		}else{
@@ -64,14 +60,18 @@ public class ActionsJoueur {
 	//  METHODES UTILITAIRES : PRIVEES
 	//--------------------------------
 	
-	private void coulerLeBateau(Bateau bateau, Plateau plateau, Joueur joueur){
+	private void coulerLeBateau(Bateau bateau, Plateau plateau, Joueur adversaire, Joueur joueurEnCours, JButton boutonScore){
+		// On colore le bateau coulé et on désactive les cases
 		for(int i = 0; i < bateau.getTabPoints().length; i++){
 			if(plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().getBackground().equals(Color.RED)){
 				plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().setBackground(new Color(0, 150, 0));
 				plateau.getLePlateau()[xCaseBateau(bateau, i)][yCaseBateau(bateau, i) - 1].getBouton().setEnabled(false);
 			}
 		}
-		actionsBateau.supprimerBateau(joueur, bateau);
+		actionsBateau.supprimerBateau(adversaire, bateau);
+		// MAJ du score et du label
+		joueurEnCours.setScore(joueurEnCours.getScore());
+		boutonScore.setText(" " + joueurEnCours.getScore());
 	}
 	
 	private boolean verifierQueToutesLesCasesBateauxSontTouchees(Joueur joueur, Plateau plateau, EnumTypeBateau bateauTouche) {
