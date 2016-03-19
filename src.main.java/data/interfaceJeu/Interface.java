@@ -314,7 +314,7 @@ public class Interface extends JFrame {
 								Partie.setStart(true);
 								reactiverLesCasesDuPlateau(plateauJoueur,false);
 								reactiverLesCasesDuPlateau(plateauAdversaire,true);
-								labelConsole.setText("La partie commence !!! FIGHT !");
+								labelConsole.setText("La partie démarre !!!");
 							}
 						}else{
 							

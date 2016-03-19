@@ -51,6 +51,9 @@ public class Joueur {
 	}
 
 	public boolean isGagne() {
+		if(CollectionUtils.isEmpty(listeBateaux)){
+			JOptionPane.showMessageDialog(null, "Bravo ! "+ this.getNom() +" a gagné la partie !");
+		}
 		return CollectionUtils.isEmpty(listeBateaux);
 	}
 
