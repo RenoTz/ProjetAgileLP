@@ -12,8 +12,6 @@ import data.bateau.Bateau;
 
 public class Joueur {
 	
-	private static final int NOMBRE_INITIAL_BATEAUX = 5;
-	
 	//-----------------------
 	// Attributs de la classe
 	//-----------------------
@@ -21,6 +19,7 @@ public class Joueur {
 	private String nom;
 	private List<Bateau> listeBateaux;
 	private boolean enTrainDeJouer;
+	private int score;
 	
 	//---------------
 	//	CONSTRUCTEUR
@@ -28,6 +27,7 @@ public class Joueur {
 	
 	public Joueur(){
 		this.listeBateaux = Lists.newArrayList();
+		this.score = 0;
 	}
 	
 	//------------------------------
@@ -75,6 +75,10 @@ public class Joueur {
 	}
 	
 	public int getScore() {
-		return NOMBRE_INITIAL_BATEAUX - listeBateaux.size() ;
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score + 1;
 	}
 }

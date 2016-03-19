@@ -197,26 +197,22 @@ public class Interface extends JFrame {
 				boutonChangementJoueur.setEnabled(false);
 				
 				if(joueur.isEnTrainDeJouer()){
-					labelConsole.setText("Au tour de " + adversaire.getNom());
-					boutonScore.setText("     " + joueur.getScore());
-					// Changement de joueur
-					joueur.setEnTrainDeJouer(false);
-					adversaire.setEnTrainDeJouer(true);
-					// On alterne l'affichage des plateaux
-					panelJoueur.setVisible(true);
-					panelAdversaire.setVisible(false);
-					reactiverLesCasesDuPlateau(plateauJoueur);
+					eventChangementDeJoueur(adversaire, plateauJoueur, false, true,true, false);
 				}else{
-					labelConsole.setText("Au tour de " + joueur.getNom());
-					boutonScore.setText("     " + adversaire.getScore());
-					// Changement de joueur
-					joueur.setEnTrainDeJouer(true);
-					adversaire.setEnTrainDeJouer(false);
-					// On alterne l'affichage des plateaux
-					panelJoueur.setVisible(false);
-					panelAdversaire.setVisible(true);
-					reactiverLesCasesDuPlateau(plateauAdversaire);
+					eventChangementDeJoueur(joueur, plateauAdversaire, true, false, false, true);
 				}
+			}
+
+			private void eventChangementDeJoueur(Joueur joueurProchain, Plateau plateau, boolean joueurJoue,boolean adversaireJoue,boolean plateauJoueurVisible,boolean plateauAdversaireVisible ) {
+				labelConsole.setText("Au tour de " + joueurProchain.getNom());
+				boutonScore.setText("     " + joueurProchain.getScore());
+					// Changement de joueur
+				joueur.setEnTrainDeJouer(joueurJoue);
+				adversaire.setEnTrainDeJouer(adversaireJoue);
+					// On alterne l'affichage des plateaux
+				panelJoueur.setVisible(plateauJoueurVisible);
+				panelAdversaire.setVisible(plateauAdversaireVisible);
+				reactiverLesCasesDuPlateau(plateau);
 			}
 			
 			private void reactiverLesCasesDuPlateau( Plateau plateau) {
@@ -300,13 +296,9 @@ public class Interface extends JFrame {
 								actionSecondClicPlacementBateau(plateau, x, y);
 								
 								if(joueur.isEnTrainDeJouer()){
-									afficherLabelProchainBateauAPlacer(joueur.getListeBateaux());
-									plateauJoueur.getLePlateau()[x][y].getBouton().setEnabled(false);
-									reactiverLesCasesDuPlateau(plateauJoueur,true);
+									rafraichirLaZoneDeJeu(joueur.getListeBateaux(), plateauJoueur,x, y);
 								}else{
-									afficherLabelProchainBateauAPlacer(adversaire.getListeBateaux());
-									plateauAdversaire.getLePlateau()[x][y].getBouton().setEnabled(false);
-									reactiverLesCasesDuPlateau(plateauAdversaire,true);
+									rafraichirLaZoneDeJeu(adversaire.getListeBateaux(), plateauAdversaire,x, y);
 								}
 								premierClic = true;
 							}
@@ -319,18 +311,38 @@ public class Interface extends JFrame {
 						}else{
 							
 							if(joueur.isEnTrainDeJouer()){
-								actionsJoueurs.tirer(adversaire,plateauAdversaire,getXPos(plateauAdversaire, x, y), getYPos(plateauAdversaire, x, y)-1, boutonScore);
+								actionsJoueurs.tirer(joueur, adversaire,plateauAdversaire,getXPos(plateauAdversaire, x, y), getYPos(plateauAdversaire, x, y)-1, boutonScore);
 								desactiverToutesLesCasesDuPlateau(plateauAdversaire);
 							}else{
-								actionsJoueurs.tirer(joueur,plateauJoueur, getXPos(plateauJoueur, x, y), getYPos(plateauJoueur, x, y)-1, boutonScore);
+								actionsJoueurs.tirer(adversaire, joueur,plateauJoueur, getXPos(plateauJoueur, x, y), getYPos(plateauJoueur, x, y)-1, boutonScore);
 								desactiverToutesLesCasesDuPlateau(plateauJoueur);
 							}
-							if(!joueur.isGagne() && !adversaire.isGagne()){
+							if(aucunJoueurAGagne()){
 								// On colore en ROUGE le bouton de changement de joueur et on le désactive
 								boutonChangementJoueur.setBackground(new Color(0, 150, 0));
 								boutonChangementJoueur.setEnabled(true);
+							}else{
+								verifierFinDePartie();
 							}
 						}
+					}
+
+					private boolean aucunJoueurAGagne() {
+						return !joueur.isGagne(adversaire) && !adversaire.isGagne(joueur);
+					}
+
+					private void verifierFinDePartie() {
+						if(joueur.isGagne(adversaire)){
+							JOptionPane.showMessageDialog(null, "Bravo ! "+ joueur.getNom() +" a gagné la partie !");
+						}else{
+							JOptionPane.showMessageDialog(null, "Bravo ! "+ adversaire.getNom() +" a gagné la partie !");
+						}
+					}
+
+					private void rafraichirLaZoneDeJeu(List<Bateau> listeBateau, Plateau plateau, final int x, final int y) {
+						afficherLabelProchainBateauAPlacer(listeBateau);
+						plateau.getLePlateau()[x][y].getBouton().setEnabled(false);
+						reactiverLesCasesDuPlateau(plateau,true);
 					}
 
 					private void actionPremierClicPlacementBateau(final int x,final int y) {
