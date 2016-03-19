@@ -328,11 +328,11 @@ public class Interface extends JFrame {
 					}
 
 					private boolean aucunJoueurAGagne() {
-						return !joueur.isGagne(adversaire) && !adversaire.isGagne(joueur);
+						return !joueur.isGagne() && !adversaire.isGagne();
 					}
 
 					private void verifierFinDePartie() {
-						if(joueur.isGagne(adversaire)){
+						if(joueur.isGagne()){
 							JOptionPane.showMessageDialog(null, "Bravo ! "+ joueur.getNom() +" a gagné la partie !");
 						}else{
 							JOptionPane.showMessageDialog(null, "Bravo ! "+ adversaire.getNom() +" a gagné la partie !");
