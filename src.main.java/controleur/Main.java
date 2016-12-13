@@ -7,6 +7,5 @@ public class Main {
         
         Partie partie = new Partie();
         
-        // testzezezesdsds
     }
 }
