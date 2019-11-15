@@ -27,7 +27,7 @@ public class ActionsBateau {
     // METHODES DE LA CLASSE
     // ------------------------
     
-    public List<Bateau> initialiserListeBateaux() {
+    public List<Bateau> initialiserBateaux() {
         
         List<Bateau> listeBateaux = new ArrayList<Bateau>();
         
@@ -51,20 +51,20 @@ public class ActionsBateau {
             if (!bateau.isPlace()) {
                 plateau.getLePlateau()[xPos][yPos].getBouton().setBackground(Color.CYAN);
                 if ((this.positionVerticaleBas(xPos, bateau) < plateau.getLePlateau().length)
-                                && this.isWaterVersLeBas(plateau, xPos, yPos, bateau)) {
+                                && this.isWaterOnTheBottom(plateau, xPos, yPos, bateau)) {
                     plateau.getLePlateau()[this.positionVerticaleBas(xPos, bateau)][yPos].getBouton().setBackground(Color.ORANGE);
                     plateau.getLePlateau()[this.positionVerticaleBas(xPos, bateau)][yPos].getBouton().setEnabled(true);
                 }
-                if ((this.positionVerticaleHaut(xPos, bateau) >= 0) && this.isWaterVersLeHaut(plateau, xPos, yPos, bateau)) {
+                if ((this.positionVerticaleHaut(xPos, bateau) >= 0) && this.isWaterOnTheTop(plateau, xPos, yPos, bateau)) {
                     plateau.getLePlateau()[this.positionVerticaleHaut(xPos, bateau)][yPos].getBouton().setBackground(Color.ORANGE);
                     plateau.getLePlateau()[this.positionVerticaleHaut(xPos, bateau)][yPos].getBouton().setEnabled(true);
                 }
                 if ((this.positionHorizontaleDroite(yPos, bateau) < plateau.getLePlateau().length)
-                                && this.isWaterVersLaDroite(plateau, xPos, yPos, bateau)) {
+                                && this.isWaterOnTheRight(plateau, xPos, yPos, bateau)) {
                     plateau.getLePlateau()[xPos][this.positionHorizontaleDroite(yPos, bateau)].getBouton().setBackground(Color.ORANGE);
                     plateau.getLePlateau()[xPos][this.positionHorizontaleDroite(yPos, bateau)].getBouton().setEnabled(true);
                 }
-                if ((this.positionHorizontaleGauche(yPos, bateau) >= 0) && this.isWaterVersLaGauche(plateau, xPos, yPos, bateau)) {
+                if ((this.positionHorizontaleGauche(yPos, bateau) >= 0) && this.isWaterOnTheLeft(plateau, xPos, yPos, bateau)) {
                     plateau.getLePlateau()[xPos][this.positionHorizontaleGauche(yPos, bateau)].getBouton().setBackground(Color.ORANGE);
                     plateau.getLePlateau()[xPos][this.positionHorizontaleGauche(yPos, bateau)].getBouton().setEnabled(true);
                 }
@@ -117,7 +117,7 @@ public class ActionsBateau {
     // METHODES UTILITAIRES : PRIVEES
     // --------------------------------
     
-    private boolean isWaterVersLeBas(final Plateau plateau, final int xPos, final int yPos, final Bateau bateau) {
+    private boolean isWaterOnTheBottom(final Plateau plateau, final int xPos, final int yPos, final Bateau bateau) {
         for (int x = xPos; x <= this.positionVerticaleBas(xPos, bateau); x++) {
             if (!plateau.getLePlateau()[x][yPos].isWater()) {
                 return false;
@@ -126,7 +126,7 @@ public class ActionsBateau {
         return true;
     }
     
-    private boolean isWaterVersLeHaut(final Plateau plateau, final int xPos, final int yPos, final Bateau bateau) {
+    private boolean isWaterOnTheTop(final Plateau plateau, final int xPos, final int yPos, final Bateau bateau) {
         for (int x = this.positionVerticaleHaut(xPos, bateau); x <= xPos; x++) {
             if (!plateau.getLePlateau()[x][yPos].isWater()) {
                 return false;
@@ -135,7 +135,7 @@ public class ActionsBateau {
         return true;
     }
     
-    private boolean isWaterVersLaDroite(final Plateau plateau, final int xPos, final int yPos, final Bateau bateau) {
+    private boolean isWaterOnTheRight(final Plateau plateau, final int xPos, final int yPos, final Bateau bateau) {
         for (int y = yPos; y <= this.positionHorizontaleDroite(yPos, bateau); y++) {
             if (!plateau.getLePlateau()[xPos][y].isWater()) {
                 return false;
@@ -144,7 +144,7 @@ public class ActionsBateau {
         return true;
     }
     
-    private boolean isWaterVersLaGauche(final Plateau plateau, final int xPos, final int yPos, final Bateau bateau) {
+    private boolean isWaterOnTheLeft(final Plateau plateau, final int xPos, final int yPos, final Bateau bateau) {
         for (int y = this.positionHorizontaleGauche(yPos, bateau); y <= yPos; y++) {
             if (!plateau.getLePlateau()[xPos][y].isWater()) {
                 return false;

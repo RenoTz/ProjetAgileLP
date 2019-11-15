@@ -46,7 +46,7 @@ public class ActionsBateauTest {
 		//Arrange
 		
 		//Act
-		List<Bateau> listeRetour = this.action.initialiserListeBateaux();
+		List<Bateau> listeRetour = this.action.initialiserBateaux();
 		
 		//Assert
 		assertNotNull(listeRetour);
@@ -63,7 +63,7 @@ public class ActionsBateauTest {
 		// Arrange
 		Joueur j = new Joueur();
 		Plateau plateau = new Plateau(10, 10);
-		j.setListeBateaux(this.action.initialiserListeBateaux());
+		j.setListeBateaux(this.action.initialiserBateaux());
 	}
 	
 	@Ignore
@@ -87,7 +87,7 @@ public class ActionsBateauTest {
 	public void testSupprimerBateau(){
 		// Arrange
 		Joueur j = new Joueur();
-		j.setListeBateaux(this.action.initialiserListeBateaux());
+		j.setListeBateaux(this.action.initialiserBateaux());
 		bateau = new Croiseur();
 		// Act 
 		this.action.supprimerBateau(j, bateau);
