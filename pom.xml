@@ -65,23 +65,23 @@
      
      
     <build>
-    <sourceDirectory>src.main.java</sourceDirectory>
-    <testSourceDirectory>src.test.java</testSourceDirectory>
-    <resources>
-        <resource>
-            <directory>${basedir}/src.main.java</directory>
-            <includes>
-                <include>**/*.xml</include>
-                <include>**/*.properties</include>
-            </includes>
-        </resource>
-    </resources>
-    
-    <testResources>
-      <testResource>
-        <directory>${basedir}/scr.test.java</directory>
-      </testResource>
-    </testResources>
+	    <sourceDirectory>src.main.java</sourceDirectory>
+	    <testSourceDirectory>src.test.java</testSourceDirectory>
+	    <resources>
+	        <resource>
+	            <directory>${basedir}/src/main/java</directory>
+	            <includes>
+	                <include>**/*.xml</include>
+	                <include>**/*.properties</include>
+	            </includes>
+	        </resource>
+	    </resources>
+	    
+	    <testResources>
+	      <testResource>
+	        <directory>${basedir}/scr/test/java</directory>
+	      </testResource>
+	    </testResources>
     
       
     
