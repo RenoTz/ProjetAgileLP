@@ -1,11 +1,13 @@
 package controleur;
 
-public class Main {
-    
-    @SuppressWarnings("unused")
-    public static void main(String[] args) {
-        
-        Partie partie = new Partie();
-        
+public class Main
+{
+
+    public static void main(final String[] args)
+    {
+
+        final Partie partie = new Partie();
+        partie.run();
+
     }
 }

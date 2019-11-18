@@ -1,6 +1,6 @@
 package data.bateau;
 
-import data.composants.Points;
+import data.plateau.Position;
 import enumeration.EnumTypeBateau;
 
 public class ContreTorpilleur extends Bateau{
@@ -9,7 +9,7 @@ public class ContreTorpilleur extends Bateau{
 	//  ATTRIBUTS DE LA CLASSE
 	//------------------------
 	
-	private Points[] tabPoints;
+	private Position[] tabPoints;
 	private boolean touche;
 	private EnumTypeBateau typeBateau;
 
@@ -18,7 +18,7 @@ public class ContreTorpilleur extends Bateau{
 	//---------------
 	
 	public ContreTorpilleur() {
-		this.tabPoints = new Points[3];
+		this.tabPoints = new Position[3];
 		this.typeBateau = EnumTypeBateau.CONTRE_TORPILLEUR;
 	}
 	
@@ -26,7 +26,7 @@ public class ContreTorpilleur extends Bateau{
 	//	GETTERS/SETTERS
 	//-----------------
 
-	public Points[] getTabPoints() {
+	public Position[] getTabPoints() {
 		return tabPoints;
 	}
 

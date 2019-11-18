@@ -1,72 +1,72 @@
 package services;
 
+import static java.util.Objects.nonNull;
+
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
-
-import utils.FactoryUtils;
 import data.bateau.Bateau;
-import data.composants.Case;
-import data.composants.Points;
-import data.interfaceJeu.Plateau;
+import data.ihm.Plateau;
 import data.joueur.Joueur;
+import data.plateau.Case;
+import data.plateau.Position;
 import enumeration.EnumTypeBateau;
+import utils.FactoryUtils;
 
-public class ActionsJoueur {
-    
-    // ------------------------
-    // ATTRIBUTS DE LA CLASSE
-    // ------------------------
-    
-    private ActionsBateau actionsBateau = new ActionsBateau();
-    private EnumTypeBateau bateauTouche;
-    private Bateau bateauCoule;
-    
-    // ------------------------
-    // METHODES DE LA CLASSE
-    // ------------------------
-    
-    public void tirer(Joueur joueurEnCours, Joueur adversaire, Plateau plateau, int x, int y, JButton boutonScore) {
-        
-        if (!plateau.getLePlateau()[x][y].isWater() || plateau.getLePlateau()[x][y].isCaseTouche()) {
-            plateau.getLePlateau()[x][y].setCaseTouche(true);
-            plateau.getLePlateau()[x][y].getBouton().setIcon(new ImageIcon("img/bomb.png"));
-            plateau.getLePlateau()[x][y].getBouton().setBackground(Color.RED);
-            plateau.getLePlateau()[x][y].getBouton().setEnabled(false);
-            
-            this.bateauTouche = this.recupererLeTypeBateauTouche(plateau.getLePlateau()[x][y], adversaire);
-            
-            if (this.verifierQueToutesLesCasesBateauxSontTouchees(adversaire, plateau, this.bateauTouche)) {
-                
-                this.bateauCoule = this.recupererBateau(adversaire.getListeBateaux(), this.bateauTouche);
-                
-                if (this.bateauCoule != null) {
-                    this.coulerLeBateau(this.bateauCoule, plateau, adversaire, joueurEnCours, boutonScore);
+public class ActionsJoueur implements Serializable
+{
+
+    private static final long serialVersionUID = -7821067315687213267L;
+
+    private final ActionsBateau actionsBateau;
+
+    public ActionsJoueur()
+    {
+        this.actionsBateau = new ActionsBateau();
+    }
+
+    public void tirer(final Joueur joueurEnCours, final Joueur adversaire, final Plateau plateau, final int x,
+        final int y, final JButton boutonScore)
+    {
+
+        if (!plateau.getCases()[x][y].isWater() || plateau.getCases()[x][y].isTouche()) {
+            plateau.getCases()[x][y].setTouche(true);
+            plateau.getCases()[x][y].getBouton().setIcon(new ImageIcon("img/bomb.png"));
+            plateau.getCases()[x][y].getBouton().setBackground(Color.RED);
+            plateau.getCases()[x][y].getBouton().setEnabled(false);
+
+            final EnumTypeBateau bateauTouche = this.recupererLeTypeBateauTouche(plateau.getCases()[x][y], adversaire);
+
+            if (nonNull(bateauTouche)
+                && this.verifierQueToutesLesCasesBateauxSontTouchees(adversaire, plateau, bateauTouche)) {
+
+                final Bateau bateauCoule = this.recupererBateau(adversaire.getBateaux(), bateauTouche);
+
+                if (nonNull(bateauCoule)) {
+                    this.coulerLeBateau(bateauCoule, plateau, adversaire, joueurEnCours, boutonScore);
                 }
             }
         } else {
-            plateau.getLePlateau()[x][y].getBouton().setBackground(Color.WHITE);
+            plateau.getCases()[x][y].getBouton().setBackground(Color.WHITE);
         }
     }
-    
-    // --------------------------------
-    // METHODES UTILITAIRES : PRIVEES
-    // --------------------------------
-    
-    private void coulerLeBateau(Bateau bateau, Plateau plateau, Joueur adversaire, Joueur joueurEnCours, JButton boutonScore) {
+
+    private void coulerLeBateau(final Bateau bateau, final Plateau plateau, final Joueur adversaire,
+        final Joueur joueurEnCours, final JButton boutonScore)
+    {
         // On colore le bateau coulé et on désactive les cases
         for (int i = 0; i < bateau.getTabPoints().length; i++) {
-            if (plateau.getLePlateau()[this.xCaseBateau(bateau, i)][this.yCaseBateau(bateau, i) - 1].getBouton().getBackground()
-                            .equals(Color.RED)) {
-                plateau.getLePlateau()[this.xCaseBateau(bateau, i)][this.yCaseBateau(bateau, i) - 1].getBouton().setBackground(
-                                new Color(0, 150, 0));
-                plateau.getLePlateau()[this.xCaseBateau(bateau, i)][this.yCaseBateau(bateau, i) - 1].getBouton().setEnabled(false);
+            if (plateau.getCases()[this.xCaseBateau(bateau, i)][this.yCaseBateau(bateau, i) - 1].getBouton()
+                .getBackground().equals(Color.RED)) {
+                plateau.getCases()[this.xCaseBateau(bateau, i)][this.yCaseBateau(bateau, i) - 1].getBouton()
+                    .setBackground(new Color(0, 150, 0));
+                plateau.getCases()[this.xCaseBateau(bateau, i)][this.yCaseBateau(bateau, i) - 1].getBouton()
+                    .setEnabled(false);
             }
         }
         this.actionsBateau.supprimerBateau(adversaire, bateau);
@@ -74,44 +74,40 @@ public class ActionsJoueur {
         joueurEnCours.setScore(joueurEnCours.getScore());
         boutonScore.setText(" " + joueurEnCours.getScore());
     }
-    
-    private boolean verifierQueToutesLesCasesBateauxSontTouchees(Joueur joueur, Plateau plateau, EnumTypeBateau bateauTouche) {
-        if (StringUtils.isNotBlank(bateauTouche.toString())) {
-            for (Bateau bateau : joueur.getListeBateaux()) {
-                if (bateau.getTypeBateau().equals(bateauTouche)) {
-                    int nombreCasesTouches = 0;
-                    for (int i = 0; i < bateau.getTabPoints().length; i++) {
-                        if (plateau.getLePlateau()[this.xCaseBateau(bateau, i)][this.yCaseBateau(bateau, i) - 1].getBouton().getBackground()
-                                        .equals(Color.RED)) {
-                            nombreCasesTouches++;
-                            if (nombreCasesTouches == bateau.getTabPoints().length) {
-                                return true;
-                            }
+
+    private boolean verifierQueToutesLesCasesBateauxSontTouchees(final Joueur joueur, final Plateau plateau,
+        final EnumTypeBateau bateauTouche)
+    {
+        for (final Bateau bateau : joueur.getBateaux()) {
+            if (bateau.getTypeBateau().equals(bateauTouche)) {
+                int nombreCasesTouches = 0;
+                for (int i = 0; i < bateau.getTabPoints().length; i++) {
+                    if (plateau.getCases()[this.xCaseBateau(bateau, i)][this.yCaseBateau(bateau, i) - 1].getBouton()
+                        .getBackground().equals(Color.RED)) {
+                        nombreCasesTouches++;
+                        if (nombreCasesTouches == bateau.getTabPoints().length) {
+                            return true;
                         }
                     }
-                    break;
                 }
+                break;
             }
         }
         return false;
     }
-    
-    private Bateau recupererBateau(List<Bateau> listeBateaux, EnumTypeBateau bateauTouche) {
-        if (CollectionUtils.isNotEmpty(listeBateaux)) {
-            for (Bateau bateau : listeBateaux) {
-                if (bateau.getTypeBateau().equals(bateauTouche)) {
-                    return bateau;
-                }
-            }
-        }
-        return null;
+
+    private Bateau recupererBateau(final List<Bateau> listeBateaux, final EnumTypeBateau bateauTouche)
+    {
+        return listeBateaux.stream().filter(b -> b.getTypeBateau() == bateauTouche).findFirst().orElse(null);
     }
-    
-    private EnumTypeBateau recupererLeTypeBateauTouche(Case caseBateau, Joueur joueur) {
+
+    private EnumTypeBateau recupererLeTypeBateauTouche(final Case caseBateau, final Joueur joueur)
+    {
         EnumTypeBateau typeBateauTouche = null;
-        for (Bateau bateau : joueur.getListeBateaux()) {
-            for (Points point : Arrays.asList(bateau.getTabPoints())) {
-                if (((point.getxPos() == caseBateau.getPoint().getxPos()) && (point.getyPos() == caseBateau.getPoint().getyPos()))) {
+        for (final Bateau bateau : joueur.getBateaux()) {
+            for (final Position point : Arrays.asList(bateau.getTabPoints())) {
+                if (((point.getX() == caseBateau.getPosition().getX())
+                    && (point.getY().equals(caseBateau.getPosition().getY())))) {
                     typeBateauTouche = bateau.getTypeBateau();
                     break;
                 }
@@ -119,12 +115,14 @@ public class ActionsJoueur {
         }
         return typeBateauTouche;
     }
-    
-    private Integer yCaseBateau(Bateau bateau, int i) {
-        return bateau.getTabPoints()[i].getyPos();
+
+    private Integer yCaseBateau(final Bateau bateau, final int i)
+    {
+        return bateau.getTabPoints()[i].getY();
     }
-    
-    private int xCaseBateau(Bateau bateau, int i) {
-        return FactoryUtils.convertirCharToInt(bateau.getTabPoints()[i].getxPos());
+
+    private int xCaseBateau(final Bateau bateau, final int i)
+    {
+        return FactoryUtils.convertirCharToInt(bateau.getTabPoints()[i].getX());
     }
 }
