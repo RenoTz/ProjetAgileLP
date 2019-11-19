@@ -1,6 +1,6 @@
 package data.bateau;
 
-import data.plateau.Position;
+import data.composants.Points;
 import enumeration.EnumTypeBateau;
 
 public abstract class Bateau {
@@ -23,7 +23,7 @@ public abstract class Bateau {
 	// METHODES DE LA CLASSE
 	//------------------------
 	
-	public abstract Position[] getTabPoints();
+	public abstract Points[] getTabPoints();
 	
 	public abstract EnumTypeBateau getTypeBateau();
 	
